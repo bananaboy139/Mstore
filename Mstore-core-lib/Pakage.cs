@@ -9,7 +9,7 @@ namespace Pakages
     class Pakage
     {
         public string Name;
-        public string URL;
+        public string DownloadURL;
         public string Description;
         public string EXEPath;
         private string Path;
