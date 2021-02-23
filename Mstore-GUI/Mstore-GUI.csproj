@@ -7,4 +7,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mstore-core-lib\Mstore-core-lib.csproj" />
+  </ItemGroup>
+
 </Project>

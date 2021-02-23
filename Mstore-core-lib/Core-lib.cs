@@ -37,7 +37,7 @@ namespace Mstore_Core_lib
             {
                 ImportList(d);
             }
-            Logger.Write("Did not find any json files");
+            write("Did not find any json files");
             return null;
         }
 
@@ -52,6 +52,12 @@ namespace Mstore_Core_lib
             }
             
         }
+
+        public async void write (string text)
+        {
+            await Logger.Write(text);
+        }
+
 
         public void Export(Pakage Pakage)
         {
