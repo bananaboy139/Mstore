@@ -8,7 +8,7 @@ using System.ComponentModel;
 namespace Pakages
 {
 
-    class Pakage
+    public class Pakage
     {
         public string Name;
         public string DownloadURL;
@@ -16,6 +16,7 @@ namespace Pakages
         public string Folder;
         public string EXEPath;
         private string Path = "./Mstore/";
+        public string JName;
 
         public async void Download()
         {

@@ -1,20 +1,35 @@
 ﻿using Newtonsoft.Json;
 using Pakages;
 using System.IO;
+using System.Collections.Generic;
+using Mstore_Log_lib;
 
 
 namespace Mstore_Core_lib
 {
-    class Corelib
+    public class Corelib
     {
-        private string path = "./Mstore/";
-        public void ImportList(string sDir)
+        public string path = @"./Mstore/";
+
+        public void start ()
         {
+            Directory.CreateDirectory(path);
+            
+        }
+
+        public dynamic ImportList(string sDir)
+        {
+            List<Pakage> pakages = new List<Pakage>();
             foreach (string f in Directory.GetFiles(sDir))
             {
                 if (Path.GetExtension(f) == ".json")
                 {
-                    JsonConvert.DeserializeObject(f);
+                    using (StreamReader file = File.OpenText(@f))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+                    }
+                    return pakages;
                 }
             }
 
@@ -22,6 +37,8 @@ namespace Mstore_Core_lib
             {
                 ImportList(d);
             }
+            Logger.Write("Did not find any json files");
+            return null;
         }
 
         public void ExportList(Pakage[] Pakages)
@@ -29,13 +46,14 @@ namespace Mstore_Core_lib
             foreach (Pakage pakage in Pakages)
             {
                 string pakageinfo = JsonConvert.SerializeObject(pakage);
-                string FileName = path + pakage.Name + ".json";
-                File.WriteAllText(FileName, pakageinfo);
+                string FileName = path + pakage.JName + ".json";
+                
+                File.WriteAllText(@FileName, pakageinfo);
             }
             
         }
 
-        public void spelunky()
+        void spelunky()
         {
             Pakage Spelunky_Classic = new Pakage
             {
@@ -49,7 +67,7 @@ namespace Mstore_Core_lib
                 EXEPath = "Spelunky.EXE"
             };
         }
-        public void xonotic() 
+        void xonotic() 
         {
             Pakage Xonotic = new Pakage
             {
