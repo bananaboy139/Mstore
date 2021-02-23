@@ -4,7 +4,6 @@ using System.Threading;
 using System.ComponentModel;
 using Mstore_Log_lib;
 
-
 namespace Mstore_download_lib
 {
     class Downloadlib
@@ -53,9 +52,7 @@ namespace Mstore_download_lib
 
     public class DownloadManager
     {
-        public static string URL;
-        public static string DownloadLocation;
-        public static void Download()
+        public static void Download(string URL, string DownloadLocation)
         {
 
             Downloadlib DGF = new Downloadlib();

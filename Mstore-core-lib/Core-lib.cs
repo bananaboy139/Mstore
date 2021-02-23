@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Pakages;
 using System.IO;
 
+
 namespace Mstore_Core_lib
 {
     class Corelib
@@ -44,6 +45,7 @@ namespace Mstore_Core_lib
                 " where the goal is to grab as much treasure from the cave as possible. Every time you play the cave's layout will be different. " +
                 "Use your wits, your reflexes, and the items available to you to survive and go ever deeper! " +
                 "Perhaps at the end you may find what you're looking for...";
+            Spelunky_Classic.Folder = "Spelunky/"
             Spelunky_Classic.EXEPath = "Spelunky.EXE";
         }
         public void xonotic() 
@@ -54,6 +56,7 @@ namespace Mstore_Core_lib
             Xonotic.Description = "Xonotic is an addictive, arena-style first person shooter with crisp movement and a wide array of weapons. " +
                 "It combines intuitive mechanics with in-your-face action to elevate your heart rate." + 
                 "Xonotic is and will always be free-to-play. It is available under the copyleft-style GPLv3+ license.";
+            Xonotic.Folder = "Xonotic/";
             Xonotic.EXEPath = "xonotic.exe";
         }
 
