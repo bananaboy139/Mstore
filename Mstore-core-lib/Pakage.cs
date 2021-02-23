@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Diagnostics;
 using Mstore_download_lib;
 using Mstore_Log_lib;
+using System.ComponentModel;
 
 namespace Pakages
 {
@@ -17,16 +17,16 @@ namespace Pakages
         public string EXEPath;
         private string Path = "./Mstore/";
 
-        public void Download()
+        public async void Download()
         {
-            DownloadManager.Download(URL, path + Name);
+            DownloadManager.Download(DownloadURL, Path + Name);
             //TODO: catch errors + extract the right zip name
-            ExtractToDirectory(Path + name, Path + Folder);
-            Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + Folder);
+            ZipFile.ExtractToDirectory(Path + Name, Path + Folder);
+            await Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + Folder);
 
         }
 
-        public void Run()
+        public async void Run()
         {
             try 
             {
@@ -36,8 +36,8 @@ namespace Pakages
             } 
             catch (Win32Exception ex)
             {
-                Logger.Write(Name + " Is NOT Downloaded");
-                Directory.Delete(Folder, true)
+                await Logger.Write(Name + " Is NOT Downloaded" + ex);
+                Directory.Delete(Folder, true);
 
             }
 

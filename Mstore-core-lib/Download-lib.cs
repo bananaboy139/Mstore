@@ -52,7 +52,7 @@ namespace Mstore_download_lib
 
     public class DownloadManager
     {
-        public static void Download(string URL, string DownloadLocation)
+        public static async void Download(string URL, string DownloadLocation)
         {
 
             Downloadlib DGF = new Downloadlib();
@@ -64,7 +64,7 @@ namespace Mstore_download_lib
             
             if (DGF.DownloadCompleted)
             {
-                Logger.Write("Download Complete\n URL:  " + URL + "\nLocation:  " + DownloadLocation);
+                await Logger.Write("Download Complete\n URL:  " + URL + "\nLocation:  " + DownloadLocation);
             }
         }
     }
