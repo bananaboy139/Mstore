@@ -41,7 +41,7 @@ namespace Mstore_Core_lib
             return null;
         }
 
-        public void ExportList(Pakage[] Pakages)
+        public void ExportList(List<Pakage> Pakages)
         {
             foreach (Pakage pakage in Pakages)
             {
@@ -52,6 +52,15 @@ namespace Mstore_Core_lib
             }
             
         }
+
+        public void Export(Pakage Pakage)
+        {
+            string pakageinfo = JsonConvert.SerializeObject(Pakage);
+            string FileName = path + Pakage.JName + ".json";
+
+            File.WriteAllText(@FileName, pakageinfo);
+        }
+
 
         void spelunky()
         {
@@ -64,7 +73,8 @@ namespace Mstore_Core_lib
                 "Use your wits, your reflexes, and the items available to you to survive and go ever deeper! " +
                 "Perhaps at the end you may find what you're looking for...",
                 Folder = "Spelunky/",
-                EXEPath = "Spelunky.EXE"
+                EXEPath = "Spelunky.EXE",
+                JName = "Spelunky_classic"
             };
         }
         void xonotic() 
@@ -77,7 +87,8 @@ namespace Mstore_Core_lib
                 "It combines intuitive mechanics with in-your-face action to elevate your heart rate." +
                 "Xonotic is and will always be free-to-play. It is available under the copyleft-style GPLv3+ license.",
                 Folder = "Xonotic/",
-                EXEPath = "xonotic.exe"
+                EXEPath = "xonotic.exe",
+                JName = "Xonotic"
             };
         }
 
