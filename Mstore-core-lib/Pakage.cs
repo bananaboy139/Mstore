@@ -19,7 +19,7 @@ namespace Pakages
 
         public void Download()
         {
-            lib.download(URL, Path);
+            DownloadManager.Download(URL, path);
             //TODO: catch errors
             ExtractToDirectory(Path, Path + Folder);
             Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + Folder);
@@ -40,18 +40,6 @@ namespace Pakages
 
             }
 
-        }
-    }
-
-    class lib
-    {
-        public static void download(string URL, string path)
-        {
-            DownloadManager.URL = URL;
-            DownloadManager.DownloadLocation = path;
-            DownloadManager.Download();
-            DownloadManager.URL = null;
-            DownloadManager.DownloadLocation = null;
         }
     }
 }
