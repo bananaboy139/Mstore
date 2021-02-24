@@ -10,12 +10,21 @@ using System.Windows.Forms;
 
 namespace Mstore_GUI
 {
-    public partial class Form1 : Form
+    public partial class window : Form
     {
-        public Form1()
+        public window()
         {
             InitializeComponent();
         }
 
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PakageNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

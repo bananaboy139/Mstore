@@ -11,7 +11,7 @@ namespace Mstore_GUI
     static class Program
     {
         static Corelib Lib = new Corelib();
-        static List<Pakage> Pakages;
+        static List<Pakage> Pakages = new List<Pakage>();
 
         [STAThread]
         static void Main()
@@ -19,18 +19,25 @@ namespace Mstore_GUI
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new window());
+
+            Import();
+
         }
 
-        static void import()
+        static void ShowPackages()
         {
-            Pakages = Lib.ImportList(Lib.path);
+            foreach (Pakage P in Pakages)
+            {
+                //TODO: clone textbox1 with text = P.Name
+            }
         }
 
-        static void export()
-        {
-            Lib.ExportList(Pakages);
-        }
+
+
+        static void Import() => Pakages = Lib.Import(Lib.path);
+
+        static void Export() => Lib.ExportList(Pakages);
 
     }
 }
