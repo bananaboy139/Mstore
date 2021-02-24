@@ -1,29 +1,27 @@
 ﻿using Mstore_Core_lib;
 using System.Collections.Generic;
 using Pakages;
+using System;
+using System.IO;
 
 namespace Mstore_Console
 {
     class Program
     {
         static Corelib Lib = new Corelib();
-        static List<Pakage> Pakages;
+        static List<Pakage> Pakages = new List<Pakage>();
         static void Main(string[] args)
         {
-            Lib.start();
             import();
-            export();
+            foreach (Pakage s in Pakages)
+            {
+                Console.WriteLine(s.Name);
+            }
         }
 
-        static void import ()
-        {
-            Pakages = Lib.ImportList(Lib.path);
-        }
+        static void import() => Pakages = Lib.Import(Lib.path);
 
-        static void export ()
-        {
-            Lib.ExportList(Pakages);
-        }
+        static void export() => Lib.ExportList(Pakages);
 
     }
 }

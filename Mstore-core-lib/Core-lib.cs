@@ -11,35 +11,23 @@ namespace Mstore_Core_lib
     {
         public string path = @"./Mstore/";
 
-        public void start ()
-        {
-            Directory.CreateDirectory(path);
-            
-        }
+        public void Start() => Directory.CreateDirectory(path);
 
-        public dynamic ImportList(string sDir)
+        public List<Pakage> Import (string Path)
         {
             List<Pakage> pakages = new List<Pakage>();
-            foreach (string f in Directory.GetFiles(sDir))
+
+            foreach (string f in Directory.GetFiles(Path, "*.json", SearchOption.AllDirectories))
             {
-                if (Path.GetExtension(f) == ".json")
+                using (StreamReader file = File.OpenText(@f))
                 {
-                    using (StreamReader file = File.OpenText(@f))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
-                    }
-                    return pakages;
+                    JsonSerializer serializer = new JsonSerializer();
+                    pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
                 }
             }
-
-            foreach (string d in Directory.GetDirectories(sDir))
-            {
-                ImportList(d);
-            }
-            write("Did not find any json files");
-            return null;
+            return pakages;
         }
+
 
         public void ExportList(List<Pakage> Pakages)
         {
