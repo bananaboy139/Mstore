@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using Mstore_Log_lib;
 using Pakages;
 using Newtonsoft.Json;
-
+using Mstore_download_lib;
 
 namespace Mstore_Core_lib
 {
     public class Corelib
     {
         public string path = @"./Mstore/";
-
-        public void Start() => Directory.CreateDirectory(path);
 
         public List<Pakage> Import(string Path)
         {
@@ -39,5 +37,8 @@ namespace Mstore_Core_lib
             }
         }
         public async void Write(string text) => await Logger.Write(text);
+
+        public void download(string URL, string DownloadLocation) => DownloadManager.Download(URL, DownloadLocation);
+
     }
 }

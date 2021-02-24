@@ -1,4 +1,5 @@
 ﻿
+
 namespace Mstore_GUI
 {
     partial class window
@@ -37,7 +38,6 @@ namespace Mstore_GUI
             this.PakageNameLabel = new System.Windows.Forms.Label();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.InfoPanel = new System.Windows.Forms.Panel();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.SideBar.SuspendLayout();
@@ -70,6 +70,7 @@ namespace Mstore_GUI
             this.RunButton.TabIndex = 2;
             this.RunButton.Text = "Run";
             this.RunButton.UseVisualStyleBackColor = false;
+            this.RunButton.Click += new System.EventHandler(this.RunButton_Click);
             // 
             // DownloadButton
             // 
@@ -104,12 +105,10 @@ namespace Mstore_GUI
             this.PakageNameLabel.Size = new System.Drawing.Size(57, 20);
             this.PakageNameLabel.TabIndex = 0;
             this.PakageNameLabel.Text = "Name:";
-            this.PakageNameLabel.Click += new System.EventHandler(this.PakageNameLabel_Click);
             // 
             // MainPanel
             // 
             this.MainPanel.Controls.Add(this.vScrollBar1);
-            this.MainPanel.Controls.Add(this.textBox1);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MainPanel.Location = new System.Drawing.Point(200, 269);
             this.MainPanel.Name = "MainPanel";
@@ -119,20 +118,10 @@ namespace Mstore_GUI
             // vScrollBar1
             // 
             this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vScrollBar1.Location = new System.Drawing.Point(1117, 19);
+            this.vScrollBar1.Location = new System.Drawing.Point(1117, 0);
             this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 348);
+            this.vScrollBar1.Size = new System.Drawing.Size(17, 367);
             this.vScrollBar1.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1134, 19);
-            this.textBox1.TabIndex = 0;
             // 
             // InfoPanel
             // 
@@ -173,7 +162,6 @@ namespace Mstore_GUI
             this.PakageName.ResumeLayout(false);
             this.PakageName.PerformLayout();
             this.MainPanel.ResumeLayout(false);
-            this.MainPanel.PerformLayout();
             this.InfoPanel.ResumeLayout(false);
             this.InfoPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -183,14 +171,13 @@ namespace Mstore_GUI
         #endregion
 
         private System.Windows.Forms.Panel SideBar;
-        private System.Windows.Forms.Panel MainPanel;
+        public System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.Button DownloadButton;
         private System.Windows.Forms.Panel PakageName;
         private System.Windows.Forms.Button RunButton;
         private System.Windows.Forms.Label PakageNameLabel;
         private System.Windows.Forms.Panel InfoPanel;
         private System.Windows.Forms.Label DescriptionLabel;
-        public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.VScrollBar vScrollBar1;
     }
 }

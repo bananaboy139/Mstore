@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Mstore_Core_lib;
+
 
 namespace Mstore_GUI
 {
@@ -17,14 +19,13 @@ namespace Mstore_GUI
             InitializeComponent();
         }
 
-        private void DownloadButton_Click(object sender, EventArgs e)
+        private void RunButton_Click(object sender, EventArgs e)
         {
+            Corelib lib = new Corelib();
+            string path = lib.path + Program.current.Folder + Program.current.EXEPath;
+
 
         }
 
-        private void PakageNameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
