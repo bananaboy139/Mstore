@@ -28,7 +28,6 @@ namespace Mstore_Core_lib
             return pakages;
         }
 
-
         public void ExportList(List<Pakage> Pakages)
         {
             foreach (Pakage pakage in Pakages)
@@ -39,15 +38,6 @@ namespace Mstore_Core_lib
                 File.WriteAllText(@FileName, pakageinfo);
             }
         }
-
-        public async void write(string text) => await Logger.Write(text);
-
-        public void Export(Pakage Pakage)
-        {
-            string pakageinfo = JsonConvert.SerializeObject(Pakage);
-            string FileName = path + Pakage.JName + ".json";
-
-            File.WriteAllText(@FileName, pakageinfo);
-        }
+        public async void Write(string text) => await Logger.Write(text);
     }
 }
