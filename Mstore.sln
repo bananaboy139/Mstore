@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mstore-core-lib", "Mstore-core-lib\Mstore-core-lib.csproj", "{4F230E9E-0FA6-4BE4-88DA-AEB68C69BF83}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mstore-GUI", "Mstore-GUI\Mstore-GUI.csproj", "{C4070DCD-DA12-4B5C-A9E6-6A17018AE73B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4F230E9E-0FA6-4BE4-88DA-AEB68C69BF83} = {4F230E9E-0FA6-4BE4-88DA-AEB68C69BF83}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mstore-Console", "Mstore-Console\Mstore-Console.csproj", "{F8FE49E2-72F4-4E82-BC65-DFDC64000B78}"
 EndProject

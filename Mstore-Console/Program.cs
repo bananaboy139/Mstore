@@ -10,6 +10,7 @@ namespace Mstore_Console
         static List<Pakage> Pakages;
         static void Main(string[] args)
         {
+            Lib.start();
             import();
             export();
         }
