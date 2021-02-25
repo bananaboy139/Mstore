@@ -32,6 +32,11 @@ namespace Mstore_GUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(window));
             this.SideBar = new System.Windows.Forms.Panel();
+            this.OpenFolderBtn = new System.Windows.Forms.Button();
+            this.ImportButton = new System.Windows.Forms.Button();
+            this.ExportButton = new System.Windows.Forms.Button();
+            this.IsInstalled = new System.Windows.Forms.Label();
+            this.DownloadProgress = new System.Windows.Forms.ProgressBar();
             this.RunButton = new System.Windows.Forms.Button();
             this.DownloadButton = new System.Windows.Forms.Button();
             this.PakageName = new System.Windows.Forms.Panel();
@@ -48,6 +53,11 @@ namespace Mstore_GUI
             // 
             // SideBar
             // 
+            this.SideBar.Controls.Add(this.OpenFolderBtn);
+            this.SideBar.Controls.Add(this.ImportButton);
+            this.SideBar.Controls.Add(this.ExportButton);
+            this.SideBar.Controls.Add(this.IsInstalled);
+            this.SideBar.Controls.Add(this.DownloadProgress);
             this.SideBar.Controls.Add(this.RunButton);
             this.SideBar.Controls.Add(this.DownloadButton);
             this.SideBar.Controls.Add(this.PakageName);
@@ -56,6 +66,69 @@ namespace Mstore_GUI
             this.SideBar.Name = "SideBar";
             this.SideBar.Size = new System.Drawing.Size(200, 636);
             this.SideBar.TabIndex = 0;
+            // 
+            // OpenFolderBtn
+            // 
+            this.OpenFolderBtn.BackColor = System.Drawing.Color.Gray;
+            this.OpenFolderBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OpenFolderBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
+            this.OpenFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenFolderBtn.ForeColor = System.Drawing.SystemColors.Control;
+            this.OpenFolderBtn.Location = new System.Drawing.Point(0, 279);
+            this.OpenFolderBtn.Name = "OpenFolderBtn";
+            this.OpenFolderBtn.Size = new System.Drawing.Size(200, 34);
+            this.OpenFolderBtn.TabIndex = 6;
+            this.OpenFolderBtn.Text = "Open Folder";
+            this.OpenFolderBtn.UseVisualStyleBackColor = false;
+            this.OpenFolderBtn.Click += new System.EventHandler(this.OpenFolderBtn_Click);
+            // 
+            // ImportButton
+            // 
+            this.ImportButton.BackColor = System.Drawing.Color.Gray;
+            this.ImportButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ImportButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
+            this.ImportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ImportButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.ImportButton.Location = new System.Drawing.Point(0, 245);
+            this.ImportButton.Name = "ImportButton";
+            this.ImportButton.Size = new System.Drawing.Size(200, 34);
+            this.ImportButton.TabIndex = 5;
+            this.ImportButton.Text = "Import";
+            this.ImportButton.UseVisualStyleBackColor = false;
+            this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
+            // 
+            // ExportButton
+            // 
+            this.ExportButton.BackColor = System.Drawing.Color.Gray;
+            this.ExportButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ExportButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
+            this.ExportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.ExportButton.Location = new System.Drawing.Point(0, 211);
+            this.ExportButton.Name = "ExportButton";
+            this.ExportButton.Size = new System.Drawing.Size(200, 34);
+            this.ExportButton.TabIndex = 4;
+            this.ExportButton.Text = "Export";
+            this.ExportButton.UseVisualStyleBackColor = false;
+            this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
+            // 
+            // IsInstalled
+            // 
+            this.IsInstalled.AutoSize = true;
+            this.IsInstalled.Dock = System.Windows.Forms.DockStyle.Top;
+            this.IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
+            this.IsInstalled.Location = new System.Drawing.Point(0, 191);
+            this.IsInstalled.Name = "IsInstalled";
+            this.IsInstalled.Size = new System.Drawing.Size(0, 20);
+            this.IsInstalled.TabIndex = 3;
+            // 
+            // DownloadProgress
+            // 
+            this.DownloadProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.DownloadProgress.Location = new System.Drawing.Point(0, 168);
+            this.DownloadProgress.Name = "DownloadProgress";
+            this.DownloadProgress.Size = new System.Drawing.Size(200, 23);
+            this.DownloadProgress.TabIndex = 1;
             // 
             // RunButton
             // 
@@ -85,6 +158,7 @@ namespace Mstore_GUI
             this.DownloadButton.TabIndex = 1;
             this.DownloadButton.Text = "Download";
             this.DownloadButton.UseVisualStyleBackColor = false;
+            this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
             // PakageName
             // 
@@ -159,6 +233,7 @@ namespace Mstore_GUI
             this.Name = "window";
             this.Text = "Mstore";
             this.SideBar.ResumeLayout(false);
+            this.SideBar.PerformLayout();
             this.PakageName.ResumeLayout(false);
             this.PakageName.PerformLayout();
             this.MainPanel.ResumeLayout(false);
@@ -175,10 +250,15 @@ namespace Mstore_GUI
         private System.Windows.Forms.Button DownloadButton;
         private System.Windows.Forms.Panel PakageName;
         private System.Windows.Forms.Button RunButton;
-        private System.Windows.Forms.Label PakageNameLabel;
+        public System.Windows.Forms.Label PakageNameLabel;
         private System.Windows.Forms.Panel InfoPanel;
-        private System.Windows.Forms.Label DescriptionLabel;
+        public System.Windows.Forms.Label DescriptionLabel;
         private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.ProgressBar DownloadProgress;
+        public System.Windows.Forms.Label IsInstalled;
+        private System.Windows.Forms.Button ExportButton;
+        private System.Windows.Forms.Button ImportButton;
+        private System.Windows.Forms.Button OpenFolderBtn;
     }
 }
 
