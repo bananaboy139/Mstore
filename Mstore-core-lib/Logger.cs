@@ -6,7 +6,7 @@ namespace Mstore_Log_lib
 {
     public class Var
     {
-        public static string Path = @"C:/Mstore/";
+        public const string Path = @"C:/Mstore/";
 
     }
 

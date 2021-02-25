@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Mstore_Log_lib;
 using System.ComponentModel;
-
+using System.IO;
 namespace Pakages
 {
 
@@ -22,6 +22,7 @@ namespace Pakages
             ZipFile.ExtractToDirectory(Path + JName + ".zip", Path + "Apps/" + JName + "/");
             Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
             IsInstalled = true;
+            File.Delete(Path + JName + ".zip");
         }
 
         public void Run()

@@ -42,7 +42,6 @@ namespace Mstore_GUI
             Application.Run(screen);
 
         }
-
         static void Click(object sender, EventArgs s)
         {
             String name;
@@ -59,17 +58,23 @@ namespace Mstore_GUI
                 window w = (window.ActiveForm as window);
                 w.DescriptionLabel.Text = "Description: \n" + current.Description;
                 w.PakageNameLabel.Text = "Name: \n" + current.Name;
-                if (current.IsInstalled)
-                {
-                    w.IsInstalled.Text = "Installed";
-                }
-                else
-                {
-                    w.IsInstalled.Text = "";
-                }
+                UpdateIsInstalled();
             }
         }
-
+        public static void UpdateIsInstalled()
+        {
+            window w = (window.ActiveForm as window);
+            if (current.IsInstalled)
+            {
+                w.IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
+                w.IsInstalled.Text = Program.current.Name + "\nInstalled";
+            }
+            else
+            {
+                w.IsInstalled.ForeColor = System.Drawing.Color.Red;
+                w.IsInstalled.Text = Program.current.Name + "\nNOT Installed"; ;
+            }
+        }
         public static void Import() => Pakages = Lib.Import(Lib.path);
         public static void Export() => Lib.ExportList(Pakages);
     }

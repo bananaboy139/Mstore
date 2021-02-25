@@ -32,6 +32,7 @@ namespace Mstore_GUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(window));
             this.SideBar = new System.Windows.Forms.Panel();
+            this.DeleteGameBtn = new System.Windows.Forms.Button();
             this.OpenFolderBtn = new System.Windows.Forms.Button();
             this.ImportButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
@@ -42,17 +43,16 @@ namespace Mstore_GUI
             this.PakageName = new System.Windows.Forms.Panel();
             this.PakageNameLabel = new System.Windows.Forms.Label();
             this.MainPanel = new System.Windows.Forms.Panel();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.InfoPanel = new System.Windows.Forms.Panel();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.SideBar.SuspendLayout();
             this.PakageName.SuspendLayout();
-            this.MainPanel.SuspendLayout();
             this.InfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SideBar
             // 
+            this.SideBar.Controls.Add(this.DeleteGameBtn);
             this.SideBar.Controls.Add(this.OpenFolderBtn);
             this.SideBar.Controls.Add(this.ImportButton);
             this.SideBar.Controls.Add(this.ExportButton);
@@ -66,6 +66,21 @@ namespace Mstore_GUI
             this.SideBar.Name = "SideBar";
             this.SideBar.Size = new System.Drawing.Size(200, 636);
             this.SideBar.TabIndex = 0;
+            // 
+            // DeleteGameBtn
+            // 
+            this.DeleteGameBtn.BackColor = System.Drawing.Color.Gray;
+            this.DeleteGameBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.DeleteGameBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
+            this.DeleteGameBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteGameBtn.ForeColor = System.Drawing.SystemColors.Control;
+            this.DeleteGameBtn.Location = new System.Drawing.Point(0, 313);
+            this.DeleteGameBtn.Name = "DeleteGameBtn";
+            this.DeleteGameBtn.Size = new System.Drawing.Size(200, 34);
+            this.DeleteGameBtn.TabIndex = 7;
+            this.DeleteGameBtn.Text = "Delete";
+            this.DeleteGameBtn.UseVisualStyleBackColor = false;
+            this.DeleteGameBtn.Click += new System.EventHandler(this.DeleteGameBtn_Click);
             // 
             // OpenFolderBtn
             // 
@@ -182,20 +197,11 @@ namespace Mstore_GUI
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.vScrollBar1);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MainPanel.Location = new System.Drawing.Point(200, 269);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(1134, 367);
             this.MainPanel.TabIndex = 1;
-            // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vScrollBar1.Location = new System.Drawing.Point(1117, 0);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 367);
-            this.vScrollBar1.TabIndex = 1;
             // 
             // InfoPanel
             // 
@@ -236,7 +242,6 @@ namespace Mstore_GUI
             this.SideBar.PerformLayout();
             this.PakageName.ResumeLayout(false);
             this.PakageName.PerformLayout();
-            this.MainPanel.ResumeLayout(false);
             this.InfoPanel.ResumeLayout(false);
             this.InfoPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -253,12 +258,12 @@ namespace Mstore_GUI
         public System.Windows.Forms.Label PakageNameLabel;
         private System.Windows.Forms.Panel InfoPanel;
         public System.Windows.Forms.Label DescriptionLabel;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.ProgressBar DownloadProgress;
         public System.Windows.Forms.Label IsInstalled;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.Button ImportButton;
         private System.Windows.Forms.Button OpenFolderBtn;
+        private System.Windows.Forms.Button DeleteGameBtn;
     }
 }
 
