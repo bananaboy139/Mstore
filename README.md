@@ -2,7 +2,7 @@
 Windows ONLY
 One of my side project hobbies
 
-This is a free and highly custumizable 'app store' for windows.
+This is a free and highly customizable 'app store' for windows.
 
 BE AWARE: my code is terrible and a mess, WIP
 
