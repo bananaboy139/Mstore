@@ -14,6 +14,7 @@ namespace Mstore_GUI
         static Corelib Lib = new Corelib();
         public static List<Pakage> Pakages = new List<Pakage>();
         public static Pakage current;
+        public static Pakage Downloading;
 
         [STAThread]
         static void Main()

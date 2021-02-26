@@ -24,13 +24,14 @@ namespace Mstore_GUI
             if (!Program.current.IsInstalled)
             {
                 Corelib Lib = new Corelib();
+                Program.Downloading = Program.current;
                 using (WebClient wc = new WebClient())
                 {
                     wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     wc.DownloadFileAsync
                         (
-                        new System.Uri(Program.current.DownloadURL), 
-                        Lib.path + Program.current.JName + ".zip"
+                        new System.Uri(Program.Downloading.DownloadURL), 
+                        Lib.path + Program.Downloading.JName + ".zip"
                         );
                 }
 
@@ -45,9 +46,9 @@ namespace Mstore_GUI
             if (DownloadProgress.Value == 100)
             {
                 Corelib lib = new Corelib();
-                IsInstalled.Text = Program.current.Name + "\nInstalling";
-                Program.current.Install();
-                IsInstalled.Text = Program.current.Name + "\nInstalled";
+                IsInstalled.Text = Program.Downloading.Name + "\nInstalling";
+                Program.Downloading.Install();
+                IsInstalled.Text = Program.Downloading.Name + "\nInstalled";
                 lib.ExportList(Program.Pakages);
             }
         }
