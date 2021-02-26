@@ -13,6 +13,7 @@ namespace Pakages
         public string Description;
         public string JName;
         public string exe;
+        public string args;
         private string Path = Var.Path;
         public bool IsInstalled = false;
 
@@ -29,16 +30,19 @@ namespace Pakages
         {
             if (IsInstalled)
             {
+                var currentdir = Directory.GetCurrentDirectory();
                 try
-                {
+                {   
+                    Directory.SetCurrentDirectory(new FileInfo(Path + "Apps/" + JName + "/" + exe).Directory.FullName);
                     Process Launcher = new Process();
                     Launcher.StartInfo.FileName = Path + "Apps/" + JName + "/" + exe;
+                    Launcher.StartInfo.Arguments = args;
                     Launcher.Start();
+                    Directory.SetCurrentDirectory(currentdir);
                 }
                 catch (Win32Exception ex)
                 {
                     Logger.Write(Name + " can not start" + ex);
-
                 }
             }
         }

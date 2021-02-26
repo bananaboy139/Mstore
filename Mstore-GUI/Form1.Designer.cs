@@ -32,6 +32,7 @@ namespace Mstore_GUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(window));
             this.SideBar = new System.Windows.Forms.Panel();
+            this.CreateBtn = new System.Windows.Forms.Button();
             this.DeleteGameBtn = new System.Windows.Forms.Button();
             this.OpenFolderBtn = new System.Windows.Forms.Button();
             this.ImportButton = new System.Windows.Forms.Button();
@@ -52,6 +53,7 @@ namespace Mstore_GUI
             // 
             // SideBar
             // 
+            this.SideBar.Controls.Add(this.CreateBtn);
             this.SideBar.Controls.Add(this.DeleteGameBtn);
             this.SideBar.Controls.Add(this.OpenFolderBtn);
             this.SideBar.Controls.Add(this.ImportButton);
@@ -67,6 +69,21 @@ namespace Mstore_GUI
             this.SideBar.Size = new System.Drawing.Size(200, 636);
             this.SideBar.TabIndex = 0;
             // 
+            // CreateBtn
+            // 
+            this.CreateBtn.BackColor = System.Drawing.Color.Gray;
+            this.CreateBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CreateBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
+            this.CreateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateBtn.ForeColor = System.Drawing.SystemColors.Control;
+            this.CreateBtn.Location = new System.Drawing.Point(0, 372);
+            this.CreateBtn.Name = "CreateBtn";
+            this.CreateBtn.Size = new System.Drawing.Size(200, 34);
+            this.CreateBtn.TabIndex = 8;
+            this.CreateBtn.Text = "Create Pakage";
+            this.CreateBtn.UseVisualStyleBackColor = false;
+            this.CreateBtn.Click += new System.EventHandler(this.CreateBtn_Click);
+            // 
             // DeleteGameBtn
             // 
             this.DeleteGameBtn.BackColor = System.Drawing.Color.Gray;
@@ -74,7 +91,7 @@ namespace Mstore_GUI
             this.DeleteGameBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
             this.DeleteGameBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteGameBtn.ForeColor = System.Drawing.SystemColors.Control;
-            this.DeleteGameBtn.Location = new System.Drawing.Point(0, 313);
+            this.DeleteGameBtn.Location = new System.Drawing.Point(0, 338);
             this.DeleteGameBtn.Name = "DeleteGameBtn";
             this.DeleteGameBtn.Size = new System.Drawing.Size(200, 34);
             this.DeleteGameBtn.TabIndex = 7;
@@ -89,7 +106,7 @@ namespace Mstore_GUI
             this.OpenFolderBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
             this.OpenFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenFolderBtn.ForeColor = System.Drawing.SystemColors.Control;
-            this.OpenFolderBtn.Location = new System.Drawing.Point(0, 279);
+            this.OpenFolderBtn.Location = new System.Drawing.Point(0, 304);
             this.OpenFolderBtn.Name = "OpenFolderBtn";
             this.OpenFolderBtn.Size = new System.Drawing.Size(200, 34);
             this.OpenFolderBtn.TabIndex = 6;
@@ -104,7 +121,7 @@ namespace Mstore_GUI
             this.ImportButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
             this.ImportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ImportButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.ImportButton.Location = new System.Drawing.Point(0, 245);
+            this.ImportButton.Location = new System.Drawing.Point(0, 270);
             this.ImportButton.Name = "ImportButton";
             this.ImportButton.Size = new System.Drawing.Size(200, 34);
             this.ImportButton.TabIndex = 5;
@@ -119,7 +136,7 @@ namespace Mstore_GUI
             this.ExportButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
             this.ExportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExportButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.ExportButton.Location = new System.Drawing.Point(0, 211);
+            this.ExportButton.Location = new System.Drawing.Point(0, 236);
             this.ExportButton.Name = "ExportButton";
             this.ExportButton.Size = new System.Drawing.Size(200, 34);
             this.ExportButton.TabIndex = 4;
@@ -133,8 +150,9 @@ namespace Mstore_GUI
             this.IsInstalled.Dock = System.Windows.Forms.DockStyle.Top;
             this.IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
             this.IsInstalled.Location = new System.Drawing.Point(0, 191);
+            this.IsInstalled.MinimumSize = new System.Drawing.Size(19, 45);
             this.IsInstalled.Name = "IsInstalled";
-            this.IsInstalled.Size = new System.Drawing.Size(0, 20);
+            this.IsInstalled.Size = new System.Drawing.Size(19, 45);
             this.IsInstalled.TabIndex = 3;
             // 
             // DownloadProgress
@@ -264,6 +282,7 @@ namespace Mstore_GUI
         private System.Windows.Forms.Button ImportButton;
         private System.Windows.Forms.Button OpenFolderBtn;
         private System.Windows.Forms.Button DeleteGameBtn;
+        private System.Windows.Forms.Button CreateBtn;
     }
 }
 

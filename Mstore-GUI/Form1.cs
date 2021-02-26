@@ -16,7 +16,6 @@ namespace Mstore_GUI
 
         private void RunButton_Click(object sender, EventArgs e)
         {
-            //TODO: run spelunky without taking the entire screen
             Program.current.Run();
         }
 
@@ -45,8 +44,11 @@ namespace Mstore_GUI
             IsInstalled.Text = "Downloading";
             if (DownloadProgress.Value == 100)
             {
+                Corelib lib = new Corelib();
+                IsInstalled.Text = Program.current.Name + "\nInstalling";
                 Program.current.Install();
-                IsInstalled.Text = Program.current.Name + " Installed";
+                IsInstalled.Text = Program.current.Name + "\nInstalled";
+                lib.ExportList(Program.Pakages);
             }
         }
 
@@ -64,11 +66,15 @@ namespace Mstore_GUI
         }
         private void OpenFolderBtn_Click(object sender, EventArgs e)
         {
-            //TODO:fix access denied error
             Corelib lib = new Corelib();
             try
             {
-                Process.Start(lib.path);
+                Process.Start
+                    (
+                    Environment.GetEnvironmentVariable("WINDIR") + @"\explorer.exe", 
+                    Path.GetFullPath(lib.path + "pakages/")
+                    );
+
             }
             catch (System.ComponentModel.Win32Exception q)
             {
@@ -85,6 +91,12 @@ namespace Mstore_GUI
                 Program.current.IsInstalled = false;
                 Program.UpdateIsInstalled();
             }
+        }
+
+        private void CreateBtn_Click(object sender, EventArgs e)
+        {
+            CreatePakage p = new CreatePakage();
+            p.Show();
         }
     }
 }
