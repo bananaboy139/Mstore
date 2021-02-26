@@ -48,7 +48,7 @@ namespace Mstore_GUI
             // 
             this.textBoxName.Location = new System.Drawing.Point(114, 6);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(100, 23);
+            this.textBoxName.Size = new System.Drawing.Size(270, 23);
             this.textBoxName.TabIndex = 0;
             // 
             // labelName
@@ -73,7 +73,7 @@ namespace Mstore_GUI
             // 
             this.textBoxURL.Location = new System.Drawing.Point(114, 44);
             this.textBoxURL.Name = "textBoxURL";
-            this.textBoxURL.Size = new System.Drawing.Size(100, 23);
+            this.textBoxURL.Size = new System.Drawing.Size(270, 23);
             this.textBoxURL.TabIndex = 2;
             // 
             // labelDescription
@@ -89,7 +89,7 @@ namespace Mstore_GUI
             // 
             this.textBoxDescription.Location = new System.Drawing.Point(114, 86);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(100, 23);
+            this.textBoxDescription.Size = new System.Drawing.Size(270, 23);
             this.textBoxDescription.TabIndex = 4;
             // 
             // labelJName
@@ -105,7 +105,7 @@ namespace Mstore_GUI
             // 
             this.textBoxJName.Location = new System.Drawing.Point(114, 128);
             this.textBoxJName.Name = "textBoxJName";
-            this.textBoxJName.Size = new System.Drawing.Size(100, 23);
+            this.textBoxJName.Size = new System.Drawing.Size(270, 23);
             this.textBoxJName.TabIndex = 6;
             // 
             // labelExe
@@ -121,14 +121,14 @@ namespace Mstore_GUI
             // 
             this.textBoxExe.Location = new System.Drawing.Point(114, 169);
             this.textBoxExe.Name = "textBoxExe";
-            this.textBoxExe.Size = new System.Drawing.Size(100, 23);
+            this.textBoxExe.Size = new System.Drawing.Size(270, 23);
             this.textBoxExe.TabIndex = 8;
             // 
             // ExportBtn
             // 
-            this.ExportBtn.Location = new System.Drawing.Point(74, 249);
+            this.ExportBtn.Location = new System.Drawing.Point(176, 270);
             this.ExportBtn.Name = "ExportBtn";
-            this.ExportBtn.Size = new System.Drawing.Size(75, 23);
+            this.ExportBtn.Size = new System.Drawing.Size(81, 27);
             this.ExportBtn.TabIndex = 10;
             this.ExportBtn.Text = "Export";
             this.ExportBtn.UseVisualStyleBackColor = true;
@@ -147,14 +147,14 @@ namespace Mstore_GUI
             // 
             this.textBoxArgs.Location = new System.Drawing.Point(114, 203);
             this.textBoxArgs.Name = "textBoxArgs";
-            this.textBoxArgs.Size = new System.Drawing.Size(100, 23);
+            this.textBoxArgs.Size = new System.Drawing.Size(270, 23);
             this.textBoxArgs.TabIndex = 11;
             // 
             // CreatePakage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(260, 302);
+            this.ClientSize = new System.Drawing.Size(437, 328);
             this.Controls.Add(this.labelArgs);
             this.Controls.Add(this.textBoxArgs);
             this.Controls.Add(this.ExportBtn);

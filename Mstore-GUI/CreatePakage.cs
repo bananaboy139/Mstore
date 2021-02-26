@@ -25,6 +25,7 @@ namespace Mstore_GUI
 
         private void ExportBtn_Click(object sender, EventArgs e)
         {
+            //TODO: stop \n --> \\n in textbox
             Pakage p = new Pakage();
             List<TextBox> textboxes = new List<TextBox>()
             {
