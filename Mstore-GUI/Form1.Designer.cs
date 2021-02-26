@@ -53,6 +53,7 @@ namespace Mstore_GUI
             // 
             // SideBar
             // 
+            this.SideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(14)))), ((int)(((byte)(33)))));
             this.SideBar.Controls.Add(this.CreateBtn);
             this.SideBar.Controls.Add(this.DeleteGameBtn);
             this.SideBar.Controls.Add(this.OpenFolderBtn);
@@ -110,7 +111,7 @@ namespace Mstore_GUI
             this.OpenFolderBtn.Name = "OpenFolderBtn";
             this.OpenFolderBtn.Size = new System.Drawing.Size(200, 34);
             this.OpenFolderBtn.TabIndex = 6;
-            this.OpenFolderBtn.Text = "Open Folder";
+            this.OpenFolderBtn.Text = "Open REPO Folder";
             this.OpenFolderBtn.UseVisualStyleBackColor = false;
             this.OpenFolderBtn.Click += new System.EventHandler(this.OpenFolderBtn_Click);
             // 
@@ -215,6 +216,8 @@ namespace Mstore_GUI
             // 
             // MainPanel
             // 
+            this.MainPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(52)))), ((int)(((byte)(94)))));
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MainPanel.Location = new System.Drawing.Point(200, 269);
             this.MainPanel.Name = "MainPanel";
@@ -223,6 +226,7 @@ namespace Mstore_GUI
             // 
             // InfoPanel
             // 
+            this.InfoPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.InfoPanel.Controls.Add(this.DescriptionLabel);
             this.InfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InfoPanel.Location = new System.Drawing.Point(200, 0);
