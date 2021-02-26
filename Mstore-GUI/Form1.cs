@@ -98,5 +98,11 @@ namespace Mstore_GUI
             CreatePakage p = new CreatePakage();
             p.Show();
         }
+
+        private void InfoBtn_Click(object sender, EventArgs e)
+        {
+            MoreInfo m = new MoreInfo();
+            m.Show();
+        }
     }
 }

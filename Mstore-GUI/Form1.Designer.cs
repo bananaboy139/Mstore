@@ -32,6 +32,7 @@ namespace Mstore_GUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(window));
             this.SideBar = new System.Windows.Forms.Panel();
+            this.InfoBtn = new System.Windows.Forms.Button();
             this.CreateBtn = new System.Windows.Forms.Button();
             this.DeleteGameBtn = new System.Windows.Forms.Button();
             this.OpenFolderBtn = new System.Windows.Forms.Button();
@@ -54,6 +55,7 @@ namespace Mstore_GUI
             // SideBar
             // 
             this.SideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(14)))), ((int)(((byte)(33)))));
+            this.SideBar.Controls.Add(this.InfoBtn);
             this.SideBar.Controls.Add(this.CreateBtn);
             this.SideBar.Controls.Add(this.DeleteGameBtn);
             this.SideBar.Controls.Add(this.OpenFolderBtn);
@@ -69,6 +71,21 @@ namespace Mstore_GUI
             this.SideBar.Name = "SideBar";
             this.SideBar.Size = new System.Drawing.Size(200, 636);
             this.SideBar.TabIndex = 0;
+            // 
+            // InfoBtn
+            // 
+            this.InfoBtn.BackColor = System.Drawing.Color.Gray;
+            this.InfoBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.InfoBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
+            this.InfoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InfoBtn.ForeColor = System.Drawing.SystemColors.Control;
+            this.InfoBtn.Location = new System.Drawing.Point(0, 406);
+            this.InfoBtn.Name = "InfoBtn";
+            this.InfoBtn.Size = new System.Drawing.Size(200, 34);
+            this.InfoBtn.TabIndex = 9;
+            this.InfoBtn.Text = "More Info";
+            this.InfoBtn.UseVisualStyleBackColor = false;
+            this.InfoBtn.Click += new System.EventHandler(this.InfoBtn_Click);
             // 
             // CreateBtn
             // 
@@ -237,7 +254,7 @@ namespace Mstore_GUI
             // DescriptionLabel
             // 
             this.DescriptionLabel.AutoSize = true;
-            this.DescriptionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DescriptionLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.DescriptionLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.DescriptionLabel.Location = new System.Drawing.Point(0, 0);
             this.DescriptionLabel.Name = "DescriptionLabel";
@@ -287,6 +304,7 @@ namespace Mstore_GUI
         private System.Windows.Forms.Button OpenFolderBtn;
         private System.Windows.Forms.Button DeleteGameBtn;
         private System.Windows.Forms.Button CreateBtn;
+        private System.Windows.Forms.Button InfoBtn;
     }
 }
 

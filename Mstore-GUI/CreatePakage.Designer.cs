@@ -169,7 +169,7 @@ namespace Mstore_GUI
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxName);
             this.Name = "CreatePakage";
-            this.Text = "Form2";
+            this.Text = "Create Pakage";
             this.Load += new System.EventHandler(this.CreatePakage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

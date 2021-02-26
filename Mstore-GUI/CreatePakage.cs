@@ -26,6 +26,22 @@ namespace Mstore_GUI
         private void ExportBtn_Click(object sender, EventArgs e)
         {
             Pakage p = new Pakage();
+            List<TextBox> textboxes = new List<TextBox>()
+            {
+                textBoxName,
+                textBoxDescription,
+                textBoxURL,
+                textBoxExe,
+                textBoxJName,
+                textBoxArgs
+            };
+            foreach (TextBox t in textboxes)
+            {
+                if (t.Text == "")
+                {
+                    t.Text = null;
+                }
+            }
             p.Name = textBoxName.Text;
             p.Description = textBoxDescription.Text;
             p.DownloadURL = textBoxURL.Text;
