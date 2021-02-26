@@ -343,3 +343,6 @@ healthchecksdb
 
 #Mac os is shit
 *.DS_Store
+
+#vscode
+.vscode/
