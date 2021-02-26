@@ -1,4 +1,5 @@
 # Mstore
+Windows ONLY
 One of my side project hobbies
 
 This is a free and highly custumizable 'app store' for windows.
