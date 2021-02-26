@@ -12,11 +12,21 @@ namespace Mstore_Core_lib
     {
         public string path = Var.Path;
 
-        public List<Pakage> Import(string Path)
+        public List<Pakage> Import(string PATH)
         {
+            
+            if (!Directory.Exists(PATH + "Pakages/"))
+            {
+                Directory.CreateDirectory(PATH + "Pakages/");
+            }
+            if (!Directory.Exists(PATH + "Apps/"))
+            {
+                Directory.CreateDirectory(PATH + "Apps/");
+            }
+
             List<Pakage> pakages = new List<Pakage>();
 
-            foreach (string f in Directory.GetFiles(Path + "Pakages/", "*.json", SearchOption.AllDirectories))
+            foreach (string f in Directory.GetFiles(PATH + "Pakages/", "*.json", SearchOption.AllDirectories))
             {
                 using (StreamReader file = File.OpenText(@f))
                 {
