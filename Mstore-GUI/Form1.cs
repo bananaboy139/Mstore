@@ -37,8 +37,8 @@ namespace Mstore_GUI
 
             }
         }
-        // Event to track the progress
-        void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+
+        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             DownloadProgress.Value = e.ProgressPercentage;
             IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
