@@ -28,10 +28,10 @@ IsInstalled: false, when you download via the app, i will set it to true
 
 
 ## LEGAL
-You can use this app freely, it will always be free.
+You can use this app freely
 
-You can change the source code as much as you wish.
+You can make changes and forks.
 
-You can distribute a changed version of this app, paid or not BUT you must refrence this github page.
+You can distribute a CHANGED version of this app FOR FREE, and you MUST refrence this github page.
 
-You do not need to show me/give me your changes (but I hope that you do, so that this can grow).
+You do not need to show me/give me your changes (but I hope that you do).
