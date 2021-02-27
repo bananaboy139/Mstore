@@ -1,22 +1,3 @@
 
 This app stores all it's files in a C:/Mstore folder. 
 The app reads .json files in the pakages folder and allows you to download and run the exes specified in the json file.
-
-
-
-Json Format:
-{"Name":"","DownloadURL":"","Description":"","JName":"","exe":"","args":null,"IsInstalled":false}
-
-Name: name displayed to user
-
-download URL: http to zip file
-
-Description: description of app shown to the user
-
-JName: what the computer calls the app, NO SPACES
-
-exe: path to exe relative to the zip file
-
-args: possible arguments to use when launching app (useless for most apps)
-
-IsInstalled: false, when you download via the app, i will set it to true

@@ -1,0 +1,20 @@
+# Json Format:
+{"Name":"","DownloadURL":"","Description":"","JName":"","exe":"","args":"","IsInstalled":false}
+
+Name: name displayed to user
+
+download URL: http to zip file
+
+Description: description of app shown to the user
+
+JName: what the computer calls the app, NO SPACES
+
+exe: path to exe relative to the zip file
+
+args: possible arguments to use when launching app (useless for most apps)
+
+IsInstalled: false, when you download via the app, i will set it to true
+
+## Pakage creation tool
+The app has a pakage creation tool, as of V1.1, the only problem is the newline, in order to write to new line, 
+the app reads '\n', this is not possible in the creation tool as of yet, this must be applied manually after.
