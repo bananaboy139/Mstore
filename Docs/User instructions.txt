@@ -1,3 +1,13 @@
+This app creates a C:/Mstore folder (If you wish to change this, you can change the Var.path variable to any folder and compile this with visual studio)
 
-This app stores all it's files in a C:/Mstore folder. 
-The app reads .json files in the pakages folder and allows you to download and run the exes specified in the json file.
+
+
+
+## folder hierarchy:
+C:/Mstore
+/Apps
+    -[pakage.JName]/
+        -[The app]
+/pakages
+    -pakage.json
+-Log.txt

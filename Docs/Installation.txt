@@ -1,0 +1,6 @@
+download the latest binary
+open it
+press 'Open REPO folder' button
+drag and drop all your *.json files
+close folder
+press 'import' button 
