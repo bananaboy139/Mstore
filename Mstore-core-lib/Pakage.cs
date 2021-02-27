@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using Mstore_Var;
 
-namespace Pakages
+namespace Pakagesn
 {
     public class Pakage
     {
