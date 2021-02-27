@@ -1,18 +1,12 @@
 ﻿using System;
 using System.IO;
-
+using Mstore_Var;
 
 namespace Mstore_Log_lib
 {
-    public class Var
-    {
-        public const string Path = @"C:/Mstore/";
-
-    }
-
     public class Logger
     {
-        static string LogFile = Var.Path + "Log.txt";
+        static string LogFile = Var.LogFile;
         public static void Write(string text)
         {
             File.AppendAllText(LogFile, text);

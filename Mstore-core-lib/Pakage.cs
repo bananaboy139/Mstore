@@ -3,9 +3,10 @@ using System.Diagnostics;
 using Mstore_Log_lib;
 using System.ComponentModel;
 using System.IO;
+using Mstore_Var;
+
 namespace Pakages
 {
-
     public class Pakage
     {
         public string Name;

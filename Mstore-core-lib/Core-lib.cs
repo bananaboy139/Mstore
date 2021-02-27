@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Mstore_Log_lib;
 using Pakages;
 using Newtonsoft.Json;
-using System.Diagnostics;
-
+using Mstore_Var;
 
 namespace Mstore_Core_lib
 {
@@ -14,7 +13,7 @@ namespace Mstore_Core_lib
 
         public List<Pakage> Import(string PATH)
         {
-            
+            //TODO: fix REIMPORT bug
             if (!Directory.Exists(PATH + "Pakages/"))
             {
                 Directory.CreateDirectory(PATH + "Pakages/");
@@ -28,13 +27,20 @@ namespace Mstore_Core_lib
 
             foreach (string f in Directory.GetFiles(PATH + "Pakages/", "*.json", SearchOption.AllDirectories))
             {
-                using (StreamReader file = File.OpenText(@f))
+                using StreamReader file = File.OpenText(@f);
+                JsonSerializer serializer = new JsonSerializer();
+                pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+                file.Close();
+            }
+            
+            foreach (Pakage p in pakages)
+            {
+                if (p.IsInstalled && !Directory.Exists(PATH + "Pakages/" + p.JName))
                 {
-                    JsonSerializer serializer = new JsonSerializer();
-                    pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
-                    file.Close();
+                    p.IsInstalled = false;
                 }
             }
+
             return pakages;
         }
 

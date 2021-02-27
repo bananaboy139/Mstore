@@ -1,4 +1,4 @@
-This app creates a C:/Mstore folder (If you wish to change this, you can change the Var.path variable to any folder and compile this with visual studio)
+This app creates a C:/Mstore folder (If you wish to change this, you can change the Var.path variable (Mstore-core-lib/Variables.cs)to any folder and compile this with visual studio)
 
 
 
