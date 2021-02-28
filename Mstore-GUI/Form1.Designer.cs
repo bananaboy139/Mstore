@@ -47,9 +47,11 @@ namespace Mstore_GUI
             this.MainPanel = new System.Windows.Forms.Panel();
             this.InfoPanel = new System.Windows.Forms.Panel();
             this.DescriptionLabel = new System.Windows.Forms.Label();
+            this.ImageBox = new System.Windows.Forms.PictureBox();
             this.SideBar.SuspendLayout();
             this.PakageName.SuspendLayout();
             this.InfoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // SideBar
@@ -244,6 +246,7 @@ namespace Mstore_GUI
             // InfoPanel
             // 
             this.InfoPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.InfoPanel.Controls.Add(this.ImageBox);
             this.InfoPanel.Controls.Add(this.DescriptionLabel);
             this.InfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InfoPanel.Location = new System.Drawing.Point(200, 0);
@@ -261,6 +264,15 @@ namespace Mstore_GUI
             this.DescriptionLabel.Size = new System.Drawing.Size(99, 20);
             this.DescriptionLabel.TabIndex = 0;
             this.DescriptionLabel.Text = "Description: ";
+            // 
+            // ImageBox
+            // 
+            this.ImageBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ImageBox.Location = new System.Drawing.Point(865, 0);
+            this.ImageBox.Name = "ImageBox";
+            this.ImageBox.Size = new System.Drawing.Size(269, 269);
+            this.ImageBox.TabIndex = 1;
+            this.ImageBox.TabStop = false;
             // 
             // window
             // 
@@ -283,6 +295,7 @@ namespace Mstore_GUI
             this.PakageName.PerformLayout();
             this.InfoPanel.ResumeLayout(false);
             this.InfoPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -305,6 +318,7 @@ namespace Mstore_GUI
         private System.Windows.Forms.Button DeleteGameBtn;
         private System.Windows.Forms.Button CreateBtn;
         private System.Windows.Forms.Button InfoBtn;
+        public System.Windows.Forms.PictureBox ImageBox;
     }
 }
 
