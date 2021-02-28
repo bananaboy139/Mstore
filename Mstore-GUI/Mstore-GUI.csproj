@@ -7,6 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <StartupObject>Mstore_GUI.Program</StartupObject>
+    <AssemblyName>Mstore</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
