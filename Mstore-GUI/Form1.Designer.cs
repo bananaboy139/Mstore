@@ -46,8 +46,8 @@ namespace Mstore_GUI
             this.PakageNameLabel = new System.Windows.Forms.Label();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.InfoPanel = new System.Windows.Forms.Panel();
-            this.DescriptionLabel = new System.Windows.Forms.Label();
             this.ImageBox = new System.Windows.Forms.PictureBox();
+            this.DescriptionLabel = new System.Windows.Forms.Label();
             this.SideBar.SuspendLayout();
             this.PakageName.SuspendLayout();
             this.InfoPanel.SuspendLayout();
@@ -254,6 +254,15 @@ namespace Mstore_GUI
             this.InfoPanel.Size = new System.Drawing.Size(1134, 269);
             this.InfoPanel.TabIndex = 2;
             // 
+            // ImageBox
+            // 
+            this.ImageBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ImageBox.Location = new System.Drawing.Point(1004, 0);
+            this.ImageBox.Name = "ImageBox";
+            this.ImageBox.Size = new System.Drawing.Size(130, 269);
+            this.ImageBox.TabIndex = 1;
+            this.ImageBox.TabStop = false;
+            // 
             // DescriptionLabel
             // 
             this.DescriptionLabel.AutoSize = true;
@@ -264,15 +273,6 @@ namespace Mstore_GUI
             this.DescriptionLabel.Size = new System.Drawing.Size(99, 20);
             this.DescriptionLabel.TabIndex = 0;
             this.DescriptionLabel.Text = "Description: ";
-            // 
-            // ImageBox
-            // 
-            this.ImageBox.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ImageBox.Location = new System.Drawing.Point(865, 0);
-            this.ImageBox.Name = "ImageBox";
-            this.ImageBox.Size = new System.Drawing.Size(269, 269);
-            this.ImageBox.TabIndex = 1;
-            this.ImageBox.TabStop = false;
             // 
             // window
             // 

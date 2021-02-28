@@ -34,7 +34,9 @@ namespace Mstore_GUI
             {
                 w.IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
                 w.IsInstalled.Text = Program.current.Name + "\nInstalled";
-                w.ImageBox.Image = Icon.ExtractAssociatedIcon(Lib.path + "Apps/" + current.JName + "/" + current.exe).ToBitmap();
+                Bitmap image = Icon.ExtractAssociatedIcon(Lib.path + "Apps/" + current.JName + "/" + current.exe).ToBitmap();
+                image = new Bitmap(image, new Size(image.Width * 4, image.Height * 4));
+                w.ImageBox.Image = image;
             }
             else
             {
