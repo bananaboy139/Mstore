@@ -270,6 +270,7 @@ namespace Mstore_GUI
             this.DescriptionLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.DescriptionLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.DescriptionLabel.Location = new System.Drawing.Point(0, 0);
+            this.DescriptionLabel.MaximumSize = new System.Drawing.Size(994, 0);
             this.DescriptionLabel.Name = "DescriptionLabel";
             this.DescriptionLabel.Size = new System.Drawing.Size(99, 20);
             this.DescriptionLabel.TabIndex = 0;
