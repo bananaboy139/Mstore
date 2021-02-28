@@ -235,6 +235,7 @@ namespace Mstore_GUI
             // 
             // MainPanel
             // 
+            this.MainPanel.AutoScroll = true;
             this.MainPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(52)))), ((int)(((byte)(94)))));
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
