@@ -45,11 +45,14 @@ namespace Mstore_GUI
             IsInstalled.Text = "Downloading";
             if (DownloadProgress.Value == 100)
             {
+
                 Corelib lib = new Corelib();
+                lib.Write("Download done" + Program.Downloading.Name);
                 IsInstalled.Text = Program.Downloading.Name + "\nInstalling";
                 Program.Downloading.Install();
                 IsInstalled.Text = Program.Downloading.Name + "\nInstalled";
                 lib.ExportList(Program.Pakages);
+                DownloadProgress.Value = 0;
             }
         }
 

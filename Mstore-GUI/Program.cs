@@ -41,7 +41,8 @@ namespace Mstore_GUI
             else
             {
                 w.IsInstalled.ForeColor = System.Drawing.Color.Red;
-                w.IsInstalled.Text = Program.current.Name + "\nNOT Installed"; ;
+                w.IsInstalled.Text = Program.current.Name + "\nNOT Installed";
+                w.ImageBox.Image = null;
             }
         }
         public static void Import() 
