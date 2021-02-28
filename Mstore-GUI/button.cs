@@ -11,8 +11,10 @@ namespace Mstore_GUI
 {
     class button
     {
-        public static void UpdateBtn(window w)
+        public static void UpdateBtn()
         {
+            window w = (Program.windows[0] as window);
+            w.MainPanel.Controls.Clear();
             foreach (Pakage p in Program.Pakages)
             {
                 Button text = new Button()
@@ -42,7 +44,7 @@ namespace Mstore_GUI
                         Program.current = p;
                     }
                 }
-                window w = (window.ActiveForm as window);
+                window w = (Program.windows[0] as window);
                 w.DescriptionLabel.Text = "Description: \n" + Program.current.Description;
                 w.PakageNameLabel.Text = "Name: \n" + Program.current.Name;
                 Program.UpdateIsInstalled();

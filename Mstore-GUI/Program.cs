@@ -13,7 +13,7 @@ namespace Mstore_GUI
         public static List<Pakage> Pakages = new List<Pakage>();
         public static Pakage current;
         public static Pakage Downloading;
-
+        public static List<Form> windows = new List<Form>();
         [STAThread]
         static void Main()
         {
@@ -22,15 +22,14 @@ namespace Mstore_GUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             window screen = new window();
+            windows.Add(screen);
             Import();
-            button.UpdateBtn(screen);
             Application.Run(screen);
-
         }
 
         public static void UpdateIsInstalled()
         {
-            window w = (window.ActiveForm as window);
+            window w = (windows[0] as window);
             if (current.IsInstalled)
             {
                 w.IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
@@ -45,7 +44,7 @@ namespace Mstore_GUI
         public static void Import() 
         {
             Pakages = Lib.Import(Lib.path);
-            button.UpdateBtn(screen);
+            button.UpdateBtn();
         } 
         public static void Export() => Lib.ExportList(Pakages);
     }

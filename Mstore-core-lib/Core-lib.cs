@@ -13,7 +13,6 @@ namespace Mstore_Core_lib
 
         public List<Pakage> Import(string PATH)
         {
-            //TODO: fix REIMPORT bug
             if (!Directory.Exists(PATH + "Pakages/"))
             {
                 Directory.CreateDirectory(PATH + "Pakages/");
@@ -35,7 +34,7 @@ namespace Mstore_Core_lib
             
             foreach (Pakage p in pakages)
             {
-                if (p.IsInstalled && !Directory.Exists(PATH + "Pakages/" + p.JName))
+                if (p.IsInstalled && !Directory.Exists(PATH + "Apps/" + p.JName + "/"))
                 {
                     p.IsInstalled = false;
                 }
