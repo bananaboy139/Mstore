@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -32,17 +33,21 @@ namespace Mstore_GUI
             window w = (windows[0] as window);
             if (current.IsInstalled)
             {
-                w.IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
-                w.IsInstalled.Text = Program.current.Name + "\nInstalled";
+                w.IsInstalled.ForeColor = Color.Chartreuse;
+                w.IsInstalled.Text = current.Name + "\nInstalled";
                 Bitmap image = Icon.ExtractAssociatedIcon(Lib.path + "Apps/" + current.JName + "/" + current.exe).ToBitmap();
                 image = new Bitmap(image, new Size(image.Width * 4, image.Height * 4));
                 w.ImageBox.Image = image;
             }
             else
             {
-                w.IsInstalled.ForeColor = System.Drawing.Color.Red;
-                w.IsInstalled.Text = Program.current.Name + "\nNOT Installed";
-                w.ImageBox.Image = null;
+                w.IsInstalled.ForeColor = Color.Red;
+                w.IsInstalled.Text = current.Name + "\nNOT Installed";
+                Icon icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+                Bitmap image = new Bitmap(
+                    icon.ToBitmap(), 
+                    new Size(icon.ToBitmap().Width * 4, icon.ToBitmap().Height * 4));
+                w.ImageBox.Image = image;
             }
         }
         public static void Import() 
