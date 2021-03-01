@@ -291,6 +291,7 @@ namespace Mstore_GUI
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "window";
             this.Text = "Mstore";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.window_FormClosing);
             this.SideBar.ResumeLayout(false);
             this.SideBar.PerformLayout();
             this.PakageName.ResumeLayout(false);

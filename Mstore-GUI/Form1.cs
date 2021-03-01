@@ -55,11 +55,7 @@ namespace Mstore_GUI
                 DownloadProgress.Value = 0;
             }
         }
-
-        private void Form1_FormClosing(System.Object sender, System.Windows.Forms.FormClosingEventArgs e)
-        {
-            Program.Export();
-        }
+        
         private void ExportButton_Click(object sender, EventArgs e)
         {
             Program.Export();
@@ -108,5 +104,14 @@ namespace Mstore_GUI
             MoreInfo m = new MoreInfo();
             m.Show();
         }
+
+        private void window_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            Program.Export();
+            Corelib lib = new Corelib();
+            lib.Write("CLOSING");
+        }
+
+
     }
 }
