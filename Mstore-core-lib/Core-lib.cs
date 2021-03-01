@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using Mstore_Log_lib;
 using Pakagesn;
@@ -10,7 +11,7 @@ namespace Mstore_Core_lib
     public class Corelib
     {
         public string path = Var.Path;
-
+        public string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public List<Pakage> Import(string PATH)
         {
             if (!Directory.Exists(PATH + "Pakages/"))
