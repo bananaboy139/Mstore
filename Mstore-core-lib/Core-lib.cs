@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 using Mstore_Log_lib;
 using Pakagesn;
@@ -11,21 +10,25 @@ namespace Mstore_Core_lib
     public class Corelib
     {
         public string path = Var.Path;
-        public string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public List<Pakage> Import(string PATH)
+        public string appdata = Var.appdata;
+        public List<Pakage> Import()
         {
-            if (!Directory.Exists(PATH + "Pakages/"))
+            if (File.Exists(appdata))
             {
-                Directory.CreateDirectory(PATH + "Pakages/");
+                path = JsonConvert.DeserializeObject<string>(appdata);
             }
-            if (!Directory.Exists(PATH + "Apps/"))
+            if (!Directory.Exists(path + "Pakages/"))
             {
-                Directory.CreateDirectory(PATH + "Apps/");
+                Directory.CreateDirectory(path + "Pakages/");
+            }
+            if (!Directory.Exists(path + "Apps/"))
+            {
+                Directory.CreateDirectory(path + "Apps/");
             }
 
             List<Pakage> pakages = new List<Pakage>();
 
-            foreach (string f in Directory.GetFiles(PATH + "Pakages/", "*.json", SearchOption.AllDirectories))
+            foreach (string f in Directory.GetFiles(path + "Pakages/", "*.json", SearchOption.AllDirectories))
             {
                 using StreamReader file = File.OpenText(@f);
                 JsonSerializer serializer = new JsonSerializer();
@@ -35,7 +38,7 @@ namespace Mstore_Core_lib
             
             foreach (Pakage p in pakages)
             {
-                if (p.IsInstalled && !Directory.Exists(PATH + "Apps/" + p.JName + "/"))
+                if (p.IsInstalled && !Directory.Exists(path + "Apps/" + p.JName + "/"))
                 {
                     p.IsInstalled = false;
                 }
@@ -46,6 +49,7 @@ namespace Mstore_Core_lib
 
         public void ExportList(List<Pakage> Pakages)
         {
+            File.WriteAllText(appdata, JsonConvert.SerializeObject(path));
             foreach (Pakage pakage in Pakages)
             {
                 string pakageinfo = JsonConvert.SerializeObject(pakage);

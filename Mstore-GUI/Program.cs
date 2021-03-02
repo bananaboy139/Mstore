@@ -52,7 +52,7 @@ namespace Mstore_GUI
         }
         public static void Import() 
         {
-            Pakages = Lib.Import(Lib.path);
+            Pakages = Lib.Import();
             button.UpdateBtn();
         } 
         public static void Export() => Lib.ExportList(Pakages);
