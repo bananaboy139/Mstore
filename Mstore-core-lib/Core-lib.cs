@@ -20,6 +20,7 @@ namespace Mstore_Core_lib
             else
             {
                 Var.path = File.ReadAllText(appdata);
+                Logger.LogFile = Var.path + "Log.txt";
                 path = Var.path;
             }
             if (!Directory.Exists(path + "Pakages/"))

@@ -6,7 +6,7 @@ namespace Mstore_Log_lib
 {
     public class Logger
     {
-        static string LogFile = Var.LogFile;
+        public static string LogFile = Var.path + "Log.txt";
         public static void Write(string t)
         {
             DateTime dateToDisplay = new DateTime();
