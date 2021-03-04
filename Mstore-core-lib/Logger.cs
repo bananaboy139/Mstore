@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Mstore_Var;
+using System;
 using System.IO;
-using Mstore_Var;
 
 namespace Mstore_Log_lib
 {
     public class Logger
     {
         public static string LogFile = Var.path + "Log.txt";
+
         public static void Write(string t)
         {
             DateTime dateToDisplay = new DateTime();
@@ -14,5 +15,4 @@ namespace Mstore_Log_lib
             File.AppendAllText(LogFile, text);
         }
     }
-
 }

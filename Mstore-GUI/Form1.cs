@@ -137,6 +137,9 @@ namespace Mstore_GUI
             }
         }
 
-
+        private void DownloadAllBtn_Click(object sender, EventArgs e)
+        {
+            DownloadAll(Program.Pakages);
+        }
     }
 }

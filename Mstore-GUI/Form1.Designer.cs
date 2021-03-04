@@ -32,6 +32,7 @@ namespace Mstore_GUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(window));
             this.SideBar = new System.Windows.Forms.Panel();
+            this.DownloadAllBtn = new System.Windows.Forms.Button();
             this.ChangePathBtn = new System.Windows.Forms.Button();
             this.InfoBtn = new System.Windows.Forms.Button();
             this.CreateBtn = new System.Windows.Forms.Button();
@@ -58,6 +59,7 @@ namespace Mstore_GUI
             // SideBar
             // 
             this.SideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(14)))), ((int)(((byte)(33)))));
+            this.SideBar.Controls.Add(this.DownloadAllBtn);
             this.SideBar.Controls.Add(this.ChangePathBtn);
             this.SideBar.Controls.Add(this.InfoBtn);
             this.SideBar.Controls.Add(this.CreateBtn);
@@ -75,6 +77,21 @@ namespace Mstore_GUI
             this.SideBar.Name = "SideBar";
             this.SideBar.Size = new System.Drawing.Size(200, 636);
             this.SideBar.TabIndex = 0;
+            // 
+            // DownloadAllBtn
+            // 
+            this.DownloadAllBtn.BackColor = System.Drawing.Color.Gray;
+            this.DownloadAllBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.DownloadAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
+            this.DownloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DownloadAllBtn.ForeColor = System.Drawing.SystemColors.Control;
+            this.DownloadAllBtn.Location = new System.Drawing.Point(0, 474);
+            this.DownloadAllBtn.Name = "DownloadAllBtn";
+            this.DownloadAllBtn.Size = new System.Drawing.Size(200, 34);
+            this.DownloadAllBtn.TabIndex = 11;
+            this.DownloadAllBtn.Text = "Download All";
+            this.DownloadAllBtn.UseVisualStyleBackColor = false;
+            this.DownloadAllBtn.Click += new System.EventHandler(this.DownloadAllBtn_Click);
             // 
             // ChangePathBtn
             // 
@@ -340,6 +357,7 @@ namespace Mstore_GUI
         private System.Windows.Forms.Button InfoBtn;
         public System.Windows.Forms.PictureBox ImageBox;
         private System.Windows.Forms.Button ChangePathBtn;
+        private System.Windows.Forms.Button DownloadAllBtn;
     }
 }
 

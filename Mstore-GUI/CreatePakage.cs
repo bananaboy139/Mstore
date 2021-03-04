@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using Mstore_Core_lib;
 using Pakagesn;
-using Mstore_Core_lib;
-
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Mstore_GUI
 {
@@ -20,7 +15,6 @@ namespace Mstore_GUI
 
         private void CreatePakage_Load(object sender, EventArgs e)
         {
-
         }
 
         private void ExportBtn_Click(object sender, EventArgs e)

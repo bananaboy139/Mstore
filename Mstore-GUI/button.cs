@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Pakagesn;
+using System;
 using System.Windows.Forms;
-using Pakagesn;
-
 
 namespace Mstore_GUI
 {
-    class button
+    internal class button
     {
         public static void UpdateBtn()
         {
@@ -27,7 +26,7 @@ namespace Mstore_GUI
             }
         }
 
-        static void Click(object sender, EventArgs s)
+        private static void Click(object sender, EventArgs s)
         {
             String name;
             if (sender is Button)
@@ -46,6 +45,5 @@ namespace Mstore_GUI
                 Program.UpdateIsInstalled();
             }
         }
-
     }
 }
