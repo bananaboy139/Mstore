@@ -13,7 +13,11 @@ namespace Mstore_Core_lib
         public string appdata = Var.appdata;
         public List<Pakage> Import()
         {
-            if (File.Exists(appdata))
+            if (!File.Exists(appdata))
+            {
+                File.WriteAllText(appdata, "C:/Mstore/");
+            } 
+            else
             {
                 Var.path = File.ReadAllText(appdata);
                 path = Var.path;
