@@ -19,14 +19,14 @@ namespace Mstore_GUI
         [STAThread]
         static void Main()
         {
-            Import();
-            Lib.Write("hello");
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             window screen = new window();
             windows.Add(screen);
-            
+            Import();
+            Lib.Write("hello");
             Application.Run(screen);
         }
         public static void UpdateIsInstalled()
