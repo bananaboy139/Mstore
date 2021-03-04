@@ -4,6 +4,8 @@ using System.Net;
 using System.Windows.Forms;
 using Mstore_Core_lib;
 using System.Diagnostics;
+using System.Collections.Generic;
+using Pakagesn;
 
 namespace Mstore_GUI
 {
@@ -19,23 +21,28 @@ namespace Mstore_GUI
             Program.current.Run();
         }
 
-        private void DownloadButton_Click(object sender, EventArgs e)
+        public void Download(Pakage p)
         {
-            if (!Program.current.IsInstalled)
+            if (!p.IsInstalled)
             {
                 Corelib Lib = new Corelib();
-                Program.Downloading = Program.current;
+                Program.Downloading = p;
                 using (WebClient wc = new WebClient())
                 {
                     wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     wc.DownloadFileAsync
                         (
-                        new System.Uri(Program.Downloading.DownloadURL), 
+                        new System.Uri(Program.Downloading.DownloadURL),
                         Lib.path + Program.Downloading.JName + ".zip"
                         );
                 }
 
             }
+        }
+
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            Download(Program.current);
         }
 
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -119,5 +126,17 @@ namespace Mstore_GUI
             s.ShowPathLabel.Text = lib.path;
             s.Show();
         }
+        public void DownloadAll(List<Pakage> Pakages)
+        {
+            foreach (Pakage p in Pakages)
+            {
+                if (!p.IsInstalled)
+                {
+                    Download(p);
+                }
+            }
+        }
+
+
     }
 }

@@ -66,5 +66,7 @@ namespace Mstore_Core_lib
         }
         public void Write(string text) => Logger.Write(text);
 
+
+
     }
 }
