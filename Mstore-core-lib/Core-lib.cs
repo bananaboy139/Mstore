@@ -1,9 +1,9 @@
-﻿using System.IO;
-using System.Collections.Generic;
-using Mstore_Log_lib;
-using Pakagesn;
-using Newtonsoft.Json;
+﻿using Mstore_Log_lib;
 using Mstore_Var;
+using Newtonsoft.Json;
+using Pakagesn;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Mstore_Core_lib
 {
@@ -11,12 +11,13 @@ namespace Mstore_Core_lib
     {
         public string path = Var.path;
         public string appdata = Var.appdata;
+
         public List<Pakage> Import()
         {
             if (!File.Exists(appdata))
             {
                 File.WriteAllText(appdata, "C:/Mstore/");
-            } 
+            }
             else
             {
                 Var.path = File.ReadAllText(appdata);
@@ -41,7 +42,7 @@ namespace Mstore_Core_lib
                 pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
                 file.Close();
             }
-            
+
             foreach (Pakage p in pakages)
             {
                 if (p.IsInstalled && !Directory.Exists(path + "Apps/" + p.JName + "/"))
@@ -60,13 +61,11 @@ namespace Mstore_Core_lib
             {
                 string pakageinfo = JsonConvert.SerializeObject(pakage);
                 string FileName = path + "Pakages/" + pakage.JName + ".json";
-                
+
                 File.WriteAllText(@FileName, pakageinfo);
             }
         }
+
         public void Write(string text) => Logger.Write(text);
-
-
-
     }
 }

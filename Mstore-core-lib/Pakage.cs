@@ -1,9 +1,9 @@
-﻿using System.IO.Compression;
-using System.Diagnostics;
-using Mstore_Log_lib;
-using System.ComponentModel;
-using System.IO;
+﻿using Mstore_Log_lib;
 using Mstore_Var;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 
 namespace Pakagesn
 {
@@ -33,7 +33,7 @@ namespace Pakagesn
             {
                 var currentdir = Directory.GetCurrentDirectory();
                 try
-                {   
+                {
                     Directory.SetCurrentDirectory(new FileInfo(Path + "Apps/" + JName + "/" + exe).Directory.FullName);
                     Process Launcher = new Process();
                     Launcher.StartInfo.FileName = Path + "Apps/" + JName + "/" + exe;

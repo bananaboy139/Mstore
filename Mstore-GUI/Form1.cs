@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Mstore_Core_lib;
+using Pakagesn;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using Mstore_Core_lib;
-using System.Diagnostics;
-using System.Collections.Generic;
-using Pakagesn;
 
 namespace Mstore_GUI
 {
@@ -36,7 +36,6 @@ namespace Mstore_GUI
                         Lib.path + Program.Downloading.JName + ".zip"
                         );
                 }
-
             }
         }
 
@@ -52,7 +51,6 @@ namespace Mstore_GUI
             IsInstalled.Text = "Downloading";
             if (DownloadProgress.Value == 100)
             {
-
                 Corelib lib = new Corelib();
                 lib.Write("Download done" + Program.Downloading.Name);
                 IsInstalled.Text = Program.Downloading.Name + "\nInstalling";
@@ -62,15 +60,17 @@ namespace Mstore_GUI
                 DownloadProgress.Value = 0;
             }
         }
-        
+
         private void ExportButton_Click(object sender, EventArgs e)
         {
             Program.Export();
         }
+
         private void ImportButton_Click(object sender, EventArgs e)
         {
             Program.Import();
         }
+
         private void OpenFolderBtn_Click(object sender, EventArgs e)
         {
             Corelib lib = new Corelib();
@@ -78,10 +78,9 @@ namespace Mstore_GUI
             {
                 Process.Start
                     (
-                    Environment.GetEnvironmentVariable("WINDIR") + @"\explorer.exe", 
+                    Environment.GetEnvironmentVariable("WINDIR") + @"\explorer.exe",
                     Path.GetFullPath(lib.path + "pakages/")
                     );
-
             }
             catch (System.ComponentModel.Win32Exception q)
             {
@@ -89,6 +88,7 @@ namespace Mstore_GUI
                 lib.Write(q.Message);
             }
         }
+
         private void DeleteGameBtn_Click(object sender, EventArgs e)
         {
             Corelib lib = new Corelib();
@@ -126,6 +126,7 @@ namespace Mstore_GUI
             s.ShowPathLabel.Text = lib.path;
             s.Show();
         }
+
         public void DownloadAll(List<Pakage> Pakages)
         {
             foreach (Pakage p in Pakages)

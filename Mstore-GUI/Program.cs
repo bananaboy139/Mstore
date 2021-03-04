@@ -6,20 +6,19 @@ using System.Windows.Forms;
 using Mstore_Core_lib;
 using Pakagesn;
 
-
 namespace Mstore_GUI
 {
-    static class Program
+    internal static class Program
     {
-        static Corelib Lib = new Corelib();
+        private static Corelib Lib = new Corelib();
         public static List<Pakage> Pakages = new List<Pakage>();
         public static Pakage current;
         public static Pakage Downloading;
         public static List<Form> windows = new List<Form>();
-        [STAThread]
-        static void Main()
-        {
 
+        [STAThread]
+        private static void Main()
+        {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -29,6 +28,7 @@ namespace Mstore_GUI
             Lib.Write("hello");
             Application.Run(screen);
         }
+
         public static void UpdateIsInstalled()
         {
             window w = (windows[0] as window);
@@ -46,16 +46,18 @@ namespace Mstore_GUI
                 w.IsInstalled.Text = current.Name + "\nNOT Installed";
                 Icon icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
                 Bitmap image = new Bitmap(
-                    icon.ToBitmap(), 
+                    icon.ToBitmap(),
                     new Size(icon.ToBitmap().Width * 4, icon.ToBitmap().Height * 4));
                 w.ImageBox.Image = image;
             }
         }
-        public static void Import() 
+
+        public static void Import()
         {
             Pakages = Lib.Import();
             button.UpdateBtn();
-        } 
+        }
+
         public static void Export() => Lib.ExportList(Pakages);
     }
 }
