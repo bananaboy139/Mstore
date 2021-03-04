@@ -9,13 +9,14 @@ namespace Mstore_Core_lib
 {
     public class Corelib
     {
-        public string path = Var.Path;
+        public string path = Var.path;
         public string appdata = Var.appdata;
         public List<Pakage> Import()
         {
             if (File.Exists(appdata))
             {
-                path = JsonConvert.DeserializeObject<string>(appdata);
+                Var.path = File.ReadAllText(appdata);
+                path = Var.path;
             }
             if (!Directory.Exists(path + "Pakages/"))
             {
@@ -49,7 +50,7 @@ namespace Mstore_Core_lib
 
         public void ExportList(List<Pakage> Pakages)
         {
-            File.WriteAllText(appdata, JsonConvert.SerializeObject(path));
+            File.WriteAllText(appdata, Var.path);
             foreach (Pakage pakage in Pakages)
             {
                 string pakageinfo = JsonConvert.SerializeObject(pakage);

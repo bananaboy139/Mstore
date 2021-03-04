@@ -5,9 +5,9 @@ namespace Mstore_Var
 {
     public class Var
     {
-        public static string Path = @"C:/Mstore/";
-        public static string LogFile = Path + "Log.txt";
-        public static string appdata = Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData) + "Mstore.settings";
+        public static string path;
+        public static string LogFile = path + "Log.txt";
+        public static string appdata = Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData), "Mstore.settings");
     }
 }
