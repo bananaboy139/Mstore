@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Mstore_GUI
 {
@@ -21,7 +23,11 @@ namespace Mstore_GUI
             Program.current.Run();
         }
 
-        public void Download(Pakage p)
+        private async void DownloadButton_Click(object sender, EventArgs e)
+        {
+            await Download(Program.current);
+        }
+        public async Task Download(Pakage p)
         {
             if (!p.IsInstalled)
             {
@@ -31,18 +37,24 @@ namespace Mstore_GUI
                 {
                     wc.Credentials = new NetworkCredential(Program.Downloading.User, Program.Downloading.Password);
                     wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                    wc.DownloadFileAsync
+                    wc.DownloadFileCompleted += wc_DownloadFinished;
+                    await Task.Run(() => wc.DownloadFileAsync
                         (
                         new System.Uri(Program.Downloading.DownloadURL),
                         Lib.path + Program.Downloading.JName + ".zip"
-                        );
+                        ));
                 }
             }
         }
-
-        private void DownloadButton_Click(object sender, EventArgs e)
+        private void wc_DownloadFinished(object sender, EventArgs e)
         {
-            Download(Program.current);
+            Corelib lib = new Corelib();
+            lib.Write("Download done" + Program.Downloading.Name);
+            IsInstalled.Text = Program.Downloading.Name + "\nInstalling";
+            //FIXME:System.InvalidOperationException: 'Cross-thread operation not valid: Control 'IsInstalled' accessed from a thread other than the thread it was created on.'
+            Program.Downloading.Install();
+            IsInstalled.Text = Program.Downloading.Name + "\nInstalled";
+            lib.ExportList(Program.Pakages);
         }
 
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -50,16 +62,6 @@ namespace Mstore_GUI
             DownloadProgress.Value = e.ProgressPercentage;
             IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
             IsInstalled.Text = "Downloading";
-            if (DownloadProgress.Value == 100)
-            {
-                Corelib lib = new Corelib();
-                lib.Write("Download done" + Program.Downloading.Name);
-                IsInstalled.Text = Program.Downloading.Name + "\nInstalling";
-                Program.Downloading.Install();
-                IsInstalled.Text = Program.Downloading.Name + "\nInstalled";
-                lib.ExportList(Program.Pakages);
-                DownloadProgress.Value = 0;
-            }
         }
 
         private void ExportButton_Click(object sender, EventArgs e)
@@ -128,20 +130,15 @@ namespace Mstore_GUI
             s.Show();
         }
 
-        public void DownloadAll(List<Pakage> Pakages)
+        private async void DownloadAllBtn_Click(object sender, EventArgs e)
         {
-            foreach (Pakage p in Pakages)
+            foreach (Pakage p in Program.Pakages)
             {
                 if (!p.IsInstalled)
                 {
-                    Download(p);
+                    await Download(p);
                 }
             }
-        }
-
-        private void DownloadAllBtn_Click(object sender, EventArgs e)
-        {
-            DownloadAll(Program.Pakages);
         }
     }
 }
