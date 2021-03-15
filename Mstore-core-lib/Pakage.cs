@@ -17,7 +17,8 @@ namespace Pakagesn
         public string args;
         private string Path = Var.path;
         public bool IsInstalled = false;
-
+        public string User;
+        public string Password;
         public void Install()
         {
             Logger.Write("Download finished: " + JName);

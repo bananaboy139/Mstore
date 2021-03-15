@@ -29,6 +29,7 @@ namespace Mstore_GUI
                 Program.Downloading = p;
                 using (WebClient wc = new WebClient())
                 {
+                    wc.Credentials = new NetworkCredential(Program.Downloading.User, Program.Downloading.Password);
                     wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                     wc.DownloadFileAsync
                         (

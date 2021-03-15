@@ -20,9 +20,13 @@ JName: what the computer calls the app, NO SPACES
 
 exe: path to exe relative to the zip file
 
-args: possible arguments to use when launching app (useless for most apps)
+args: possible arguments to use when launching app (optional)
 
-IsInstalled: false, when you download via the app, i will set it to true
+IsInstalled: false, when you download via the app, it will set it to true
+
+user: the username of the online credential to use when downloading (optional)
+
+password:the password of the online credential to use when downloading (optional)
 
 
 
