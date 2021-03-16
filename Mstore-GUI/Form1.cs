@@ -153,9 +153,10 @@ namespace Mstore_GUI
                 if (!p.IsInstalled)
                 {
                     await Download(p);
+                    InUse = true;
                     while (InUse)
                     {
-                        //avoid stopping UI
+                        await Task.Delay(1000);
                     }
                 }
             }
