@@ -27,10 +27,12 @@ namespace Mstore_GUI
         {
             await Download(Program.current);
         }
+        private bool InUse = false;
         public async Task Download(Pakage p)
         {
             if (!p.IsInstalled)
             {
+                InUse = true;
                 Corelib Lib = new Corelib();
                 Program.Downloading = p;
                 using (WebClient wc = new WebClient())
@@ -46,22 +48,36 @@ namespace Mstore_GUI
                 }
             }
         }
+        private void setIsInstalled()
+        {
+            IsInstalled.Text = Program.Downloading.Name + "\nInstalling";
+        }
+        private void SetIsInstalled()
+        {
+            IsInstalled.Text = Program.Downloading.Name + "\nInstalled";
+        }
+        
         private void wc_DownloadFinished(object sender, EventArgs e)
         {
             Corelib lib = new Corelib();
             lib.Write("Download done" + Program.Downloading.Name);
-            IsInstalled.Text = Program.Downloading.Name + "\nInstalling";
-            //FIXME:System.InvalidOperationException: 'Cross-thread operation not valid: Control 'IsInstalled' accessed from a thread other than the thread it was created on.'
+            Invoke(new Action(setIsInstalled));
             Program.Downloading.Install();
-            IsInstalled.Text = Program.Downloading.Name + "\nInstalled";
+            Invoke(new Action(SetIsInstalled));
             lib.ExportList(Program.Pakages);
+            InUse = false;
         }
-
-        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private DownloadProgressChangedEventArgs s;
+        private void progress()
         {
-            DownloadProgress.Value = e.ProgressPercentage;
+            DownloadProgress.Value = s.ProgressPercentage;
             IsInstalled.ForeColor = System.Drawing.Color.Chartreuse;
             IsInstalled.Text = "Downloading";
+        }
+        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            s = e;
+            Invoke(new Action(progress));
         }
 
         private void ExportButton_Click(object sender, EventArgs e)
@@ -137,6 +153,10 @@ namespace Mstore_GUI
                 if (!p.IsInstalled)
                 {
                     await Download(p);
+                    while (InUse)
+                    {
+                        //avoid stopping UI
+                    }
                 }
             }
         }
