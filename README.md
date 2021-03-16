@@ -8,7 +8,7 @@ BE AWARE: my code is terrible and a mess, WIP
 This app stores all it's files in a C:/Mstore folder, the app reads .json files in the pakages folder and allows the user to download and run the exes specified in the json file
 
 ### Json Format:
-{"Name":"","DownloadURL":"","Description":"","JName":"","exe":"","args":"","IsInstalled":false}
+{"Name":"","DownloadURL":"","Description":"","JName":"","exe":"","args":"","IsInstalled":false, "User": "", "Password": ""}
 
 Name: name displayed to user
 
