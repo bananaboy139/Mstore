@@ -19,33 +19,29 @@ namespace Mstore_GUI
 
         private void ExportBtn_Click(object sender, EventArgs e)
         {
-            //TODO: stop \n --> \\n in textbox
             Pakage p = new Pakage();
-            List<TextBox> textboxes = new List<TextBox>()
-            {
-                textBoxName,
-                textBoxDescription,
-                textBoxURL,
-                textBoxExe,
-                textBoxJName,
-                textBoxArgs
-            };
-            foreach (TextBox t in textboxes)
-            {
-                if (t.Text == "")
-                {
-                    t.Text = null;
-                }
-            }
+
             p.Name = textBoxName.Text;
+
             p.Description = textBoxDescription.Text;
+            p.Description = p.Description.Replace("{n}", Environment.NewLine);
+
             p.DownloadURL = textBoxURL.Text;
+
             p.exe = textBoxExe.Text;
+
             p.JName = textBoxJName.Text;
+
             p.args = textBoxArgs.Text;
+
+            p.Password = textBoxPassword.Text;
+
+            p.User = textBoxUser.Text;
+
             Program.Pakages.Add(p);
             Corelib lib = new Corelib();
             lib.ExportList(Program.Pakages);
+            lib.Import();
             Close();
         }
     }

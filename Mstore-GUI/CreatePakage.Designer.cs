@@ -42,6 +42,10 @@ namespace Mstore_GUI
             this.ExportBtn = new System.Windows.Forms.Button();
             this.labelArgs = new System.Windows.Forms.Label();
             this.textBoxArgs = new System.Windows.Forms.TextBox();
+            this.textBoxUser = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxName
@@ -126,7 +130,7 @@ namespace Mstore_GUI
             // 
             // ExportBtn
             // 
-            this.ExportBtn.Location = new System.Drawing.Point(176, 270);
+            this.ExportBtn.Location = new System.Drawing.Point(174, 340);
             this.ExportBtn.Name = "ExportBtn";
             this.ExportBtn.Size = new System.Drawing.Size(81, 27);
             this.ExportBtn.TabIndex = 10;
@@ -150,11 +154,47 @@ namespace Mstore_GUI
             this.textBoxArgs.Size = new System.Drawing.Size(270, 23);
             this.textBoxArgs.TabIndex = 11;
             // 
+            // textBoxUser
+            // 
+            this.textBoxUser.Location = new System.Drawing.Point(114, 241);
+            this.textBoxUser.Name = "textBoxUser";
+            this.textBoxUser.Size = new System.Drawing.Size(270, 23);
+            this.textBoxUser.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 249);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 15);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "User:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 289);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 15);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Password:";
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(114, 281);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(270, 23);
+            this.textBoxPassword.TabIndex = 16;
+            // 
             // CreatePakage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 328);
+            this.ClientSize = new System.Drawing.Size(437, 390);
+            this.Controls.Add(this.textBoxPassword);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxUser);
             this.Controls.Add(this.labelArgs);
             this.Controls.Add(this.textBoxArgs);
             this.Controls.Add(this.ExportBtn);
@@ -191,5 +231,9 @@ namespace Mstore_GUI
         private System.Windows.Forms.Button ExportBtn;
         private System.Windows.Forms.Label labelArgs;
         private System.Windows.Forms.TextBox textBoxArgs;
+        private System.Windows.Forms.TextBox textBoxUser;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxPassword;
     }
 }
