@@ -41,7 +41,7 @@ namespace Mstore_GUI
             Program.Pakages.Add(p);
             Corelib lib = new Corelib();
             lib.ExportList(Program.Pakages);
-            lib.Import();
+            Program.Import();
             Close();
         }
     }
