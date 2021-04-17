@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Mstore_Core_lib;
 
-namespace Mstore_wpf_GUI
+namespace GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -36,7 +36,7 @@ namespace Mstore_wpf_GUI
                 Background = new SolidColorBrush(Color.FromArgb(100, 19, 40, 87))
             };
             DockPanel.SetDock(B, Dock.Top);
-            Control_Dock.Children.Add(B);
+            Button_Dock.Children.Add(B);
 
         }
     }

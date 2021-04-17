@@ -1,32 +1,34 @@
-﻿using Mstore_Log_lib;
-using Mstore_Var;
+﻿using System;
 using Newtonsoft.Json;
-using Pakagesn;
 using System.Collections.Generic;
 using System.IO;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO.Compression;
 
 namespace Mstore_Core_lib
 {
-    public class Corelib
+    public static class Corelib
     {
-        public string path = Var.MstorePath;
-        public string appdata = Var.appdata;
+        public static string appdata = Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData);
+        public static string MstorePath = Path.Combine(appdata, "Mstore/");
 
-        public List<Pakage> Import()
+        public static List<Pakage> Import()
         {
 
-            if (!Directory.Exists(path + "Pakages/"))
+            if (!Directory.Exists(MstorePath + "Pakages/"))
             {
-                Directory.CreateDirectory(path + "Pakages/");
+                Directory.CreateDirectory(MstorePath + "Pakages/");
             }
-            if (!Directory.Exists(path + "Apps/"))
+            if (!Directory.Exists(MstorePath + "Apps/"))
             {
-                Directory.CreateDirectory(path + "Apps/");
+                Directory.CreateDirectory(MstorePath + "Apps/");
             }
 
             List<Pakage> pakages = new List<Pakage>();
 
-            foreach (string f in Directory.GetFiles(path + "Pakages/", "*.json", SearchOption.AllDirectories))
+            foreach (string f in Directory.GetFiles(MstorePath + "Pakages/", "*.json", SearchOption.AllDirectories))
             {
                 using StreamReader file = File.OpenText(@f);
                 JsonSerializer serializer = new JsonSerializer();
@@ -36,7 +38,7 @@ namespace Mstore_Core_lib
 
             foreach (Pakage p in pakages)
             {
-                if (p.IsInstalled && !Directory.Exists(path + "Apps/" + p.JName + "/"))
+                if (p.IsInstalled && !Directory.Exists(MstorePath + "Apps/" + p.JName + "/"))
                 {
                     p.IsInstalled = false;
                 }
@@ -45,18 +47,73 @@ namespace Mstore_Core_lib
             return pakages;
         }
 
-        public void ExportList(List<Pakage> Pakages)
+        public static void ExportList(List<Pakage> Pakages)
         {
-            File.WriteAllText(appdata, Var.MstorePath);
+            File.WriteAllText(appdata, MstorePath);
             foreach (Pakage pakage in Pakages)
             {
                 string pakageinfo = JsonConvert.SerializeObject(pakage);
-                string FileName = path + "Pakages/" + pakage.JName + ".json";
+                string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
 
                 File.WriteAllText(@FileName, pakageinfo);
             }
         }
 
-        public void Write(string text) => Logger.Write(text);
+        public static void  Write(string text) => Logger.Write(text);
+    }
+
+    public class Pakage
+    {
+        public string Name;
+        public string DownloadURL;
+        public string Description;
+        public string JName;
+        public string exe;
+        public string args;
+        private string Path = Corelib.MstorePath; //FIXME: remove this line
+        public bool IsInstalled = false;
+        public string User;
+        public string Password;
+        public void Install()
+        {
+            Logger.Write("Download finished: " + JName);
+            ZipFile.ExtractToDirectory(Path + JName + ".zip", Path + "Apps/" + JName + "/");
+            Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
+            IsInstalled = true;
+            File.Delete(Path + JName + ".zip");
+        }
+
+        public void Run()
+        {
+            if (IsInstalled)
+            {
+                var currentdir = Directory.GetCurrentDirectory();
+                try
+                {
+                    Directory.SetCurrentDirectory(new FileInfo(Path + "Apps/" + JName + "/" + exe).Directory.FullName);
+                    Process Launcher = new Process();
+                    Launcher.StartInfo.FileName = Path + "Apps/" + JName + "/" + exe;
+                    Launcher.StartInfo.Arguments = args;
+                    Launcher.Start();
+                    Directory.SetCurrentDirectory(currentdir);
+                }
+                catch (Win32Exception ex)
+                {
+                    Logger.Write(Name + " can not start" + ex);
+                }
+            }
+        }
+    }
+
+    public class Logger
+    {
+        public static string LogFile = Corelib.MstorePath + "Log.txt";
+
+        public static void Write(string t)
+        {
+            DateTime dateToDisplay = new DateTime();
+            string text = dateToDisplay.ToString() + ":   " + t + "\n";
+            File.AppendAllText(LogFile, text);
+        }
     }
 }
