@@ -6,7 +6,7 @@ namespace Mstore_Log_lib
 {
     public class Logger
     {
-        public static string LogFile = Var.path + "Log.txt";
+        public static string LogFile = Var.MstorePath + "Log.txt";
 
         public static void Write(string t)
         {

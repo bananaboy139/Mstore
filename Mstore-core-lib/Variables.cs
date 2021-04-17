@@ -3,11 +3,10 @@ using System.IO;
 
 namespace Mstore_Var
 {
-    public class Var
+    public static class Var
     {
-        public static string path;
-
-        public static string appdata = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData), "Mstore.settings");
+        public static string appdata = Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData);
+        public static string MstorePath = Path.Combine(appdata, "Mstore/");
     }
 }

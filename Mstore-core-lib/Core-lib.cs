@@ -9,21 +9,12 @@ namespace Mstore_Core_lib
 {
     public class Corelib
     {
-        public string path = Var.path;
+        public string path = Var.MstorePath;
         public string appdata = Var.appdata;
 
         public List<Pakage> Import()
         {
-            if (!File.Exists(appdata))
-            {
-                File.WriteAllText(appdata, "C:/Mstore/");
-            }
-            else
-            {
-                Var.path = File.ReadAllText(appdata);
-                Logger.LogFile = Var.path + "Log.txt";
-                path = Var.path;
-            }
+
             if (!Directory.Exists(path + "Pakages/"))
             {
                 Directory.CreateDirectory(path + "Pakages/");

@@ -15,7 +15,7 @@ namespace Pakagesn
         public string JName;
         public string exe;
         public string args;
-        private string Path = Var.path;
+        private string Path = Var.MstorePath;
         public bool IsInstalled = false;
         public string User;
         public string Password;
