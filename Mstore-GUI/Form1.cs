@@ -138,14 +138,6 @@ namespace Mstore_GUI
             lib.Write("CLOSING");
         }
 
-        private void ChangePathBtn_Click(object sender, EventArgs e)
-        {
-            settings s = new settings();
-            Corelib lib = new Corelib();
-            s.ShowPathLabel.Text = lib.path;
-            s.Show();
-        }
-
         private async void DownloadAllBtn_Click(object sender, EventArgs e)
         {
             foreach (Pakage p in Program.Pakages)

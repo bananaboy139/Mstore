@@ -33,7 +33,6 @@ namespace Mstore_GUI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(window));
             this.SideBar = new System.Windows.Forms.Panel();
             this.DownloadAllBtn = new System.Windows.Forms.Button();
-            this.ChangePathBtn = new System.Windows.Forms.Button();
             this.InfoBtn = new System.Windows.Forms.Button();
             this.CreateBtn = new System.Windows.Forms.Button();
             this.DeleteGameBtn = new System.Windows.Forms.Button();
@@ -60,7 +59,6 @@ namespace Mstore_GUI
             // 
             this.SideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(14)))), ((int)(((byte)(33)))));
             this.SideBar.Controls.Add(this.DownloadAllBtn);
-            this.SideBar.Controls.Add(this.ChangePathBtn);
             this.SideBar.Controls.Add(this.InfoBtn);
             this.SideBar.Controls.Add(this.CreateBtn);
             this.SideBar.Controls.Add(this.DeleteGameBtn);
@@ -85,28 +83,13 @@ namespace Mstore_GUI
             this.DownloadAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
             this.DownloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DownloadAllBtn.ForeColor = System.Drawing.SystemColors.Control;
-            this.DownloadAllBtn.Location = new System.Drawing.Point(0, 474);
+            this.DownloadAllBtn.Location = new System.Drawing.Point(0, 440);
             this.DownloadAllBtn.Name = "DownloadAllBtn";
             this.DownloadAllBtn.Size = new System.Drawing.Size(200, 34);
             this.DownloadAllBtn.TabIndex = 11;
             this.DownloadAllBtn.Text = "Download All";
             this.DownloadAllBtn.UseVisualStyleBackColor = false;
             this.DownloadAllBtn.Click += new System.EventHandler(this.DownloadAllBtn_Click);
-            // 
-            // ChangePathBtn
-            // 
-            this.ChangePathBtn.BackColor = System.Drawing.Color.Gray;
-            this.ChangePathBtn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ChangePathBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
-            this.ChangePathBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChangePathBtn.ForeColor = System.Drawing.SystemColors.Control;
-            this.ChangePathBtn.Location = new System.Drawing.Point(0, 440);
-            this.ChangePathBtn.Name = "ChangePathBtn";
-            this.ChangePathBtn.Size = new System.Drawing.Size(200, 34);
-            this.ChangePathBtn.TabIndex = 10;
-            this.ChangePathBtn.Text = "Change Folder Location";
-            this.ChangePathBtn.UseVisualStyleBackColor = false;
-            this.ChangePathBtn.Click += new System.EventHandler(this.ChangePathBtn_Click);
             // 
             // InfoBtn
             // 
@@ -356,7 +339,6 @@ namespace Mstore_GUI
         private System.Windows.Forms.Button CreateBtn;
         private System.Windows.Forms.Button InfoBtn;
         public System.Windows.Forms.PictureBox ImageBox;
-        private System.Windows.Forms.Button ChangePathBtn;
         private System.Windows.Forms.Button DownloadAllBtn;
     }
 }

@@ -21,8 +21,8 @@ namespace Mstore_GUI
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(NewPath.SelectedPath))
                 {
-                    Var.path = Path.GetFullPath(NewPath.SelectedPath + "/");
-                    ShowPathLabel.Text = Var.path;
+                    Var.MstorePath = Path.GetFullPath(NewPath.SelectedPath + "/");
+                    ShowPathLabel.Text = Var.MstorePath;
                     Corelib lib = new Corelib();
                     MessageBox.Show("found: " + lib.path, "Message");
                     Program.Export();

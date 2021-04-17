@@ -47,7 +47,7 @@ namespace Mstore_Core_lib
 
         public void ExportList(List<Pakage> Pakages)
         {
-            File.WriteAllText(appdata, Var.path);
+            File.WriteAllText(appdata, Var.MstorePath);
             foreach (Pakage pakage in Pakages)
             {
                 string pakageinfo = JsonConvert.SerializeObject(pakage);
