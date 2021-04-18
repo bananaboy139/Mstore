@@ -1,9 +1,9 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Compression;
 
 namespace Mstore_Core_lib
@@ -12,15 +12,18 @@ namespace Mstore_Core_lib
     {
         public static string appdata = Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData);
+
         public static string MstorePath = Path.Combine(appdata, "Mstore/");
 
         public static List<Pakage> Pakages = new List<Pakage>();
 
         public static Pakage Current;
+
+        public static Pakage Downloading;
+
         //Functions
         public static List<Pakage> Import()
         {
-
             if (!Directory.Exists(MstorePath + "Pakages/"))
             {
                 Directory.CreateDirectory(MstorePath + "Pakages/");
@@ -63,7 +66,7 @@ namespace Mstore_Core_lib
             }
         }
 
-        public static void  Write(string text) => Logger.Write(text);
+        public static void Write(string text) => Logger.Write(text);
     }
 
     public class Pakage
@@ -78,9 +81,10 @@ namespace Mstore_Core_lib
         public bool IsInstalled = false;
         public string User;
         public string Password;
+
         public void Install()
         {
-            Logger.Write("Download finished: " + JName);
+            Logger.Write("Install Starting: " + JName);
             ZipFile.ExtractToDirectory(Path + JName + ".zip", Path + "Apps/" + JName + "/");
             Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
             IsInstalled = true;

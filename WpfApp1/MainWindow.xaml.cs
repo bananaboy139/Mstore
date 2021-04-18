@@ -1,20 +1,8 @@
-﻿using System;
-using System.IO;
-
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Mstore_Core_lib;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Mstore_Core_lib;
 
 namespace GUI
 {
@@ -27,6 +15,7 @@ namespace GUI
         {
             InitializeComponent();
         }
+
         public void AddButtons()
         {
             foreach (Pakage p in Corelib.Pakages)
@@ -40,14 +29,13 @@ namespace GUI
                     Background = new SolidColorBrush(Color.FromArgb(100, 19, 40, 87)),
                     Name = p.JName,
                     Content = p.Name
-                    
                 };
                 B.Click += new RoutedEventHandler(Click);
                 DockPanel.SetDock(B, Dock.Top);
                 Button_Dock.Children.Add(B);
             }
-
         }
+
         private void Click(object sender, RoutedEventArgs s)
         {
             String name;
@@ -77,6 +65,21 @@ namespace GUI
             {
                 Corelib.Write("ERROR: click event not from button");
             }
+        }
+
+        private void DownloadButtonClick(object sender, RoutedEventArgs s)
+        {
+            if (!Corelib.Current.IsInstalled)
+            {
+                Corelib.Downloading = Corelib.Current;
+                Corelib.Write(Corelib.Downloading.ToString() + " start downloading");
+                //FIXME: download async with download bar
+            }
+        }
+
+        private void RunButtonClick(object sender, RoutedEventArgs s)
+        {
+            Corelib.Current.Run();
         }
     }
 }
