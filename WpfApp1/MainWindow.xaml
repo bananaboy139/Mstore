@@ -1,4 +1,4 @@
-﻿<Window x:Class="GUI.MainWindow"
+﻿<Window x:Name="Mstore_Window" x:Class="GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,14 +7,25 @@
         mc:Ignorable="d"
         Title="Mstore" Height="450" Width="800">
     <Grid Background="#FF282C34">
-        <DockPanel x:Name="Button_Dock" HorizontalAlignment="Left" Height="216.526" LastChildFill="False" Margin="223.443,192.474,0,0" VerticalAlignment="Top" Width="558.557" Background="#FF21252B">
-            <Button Content="Button" Height="33.275" Width="558.557" HorizontalAlignment="Center" DockPanel.Dock="Top" Background="#FF132857"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="16*"/>
+        </Grid.RowDefinitions>
+        <DockPanel x:Name="Button_Dock" HorizontalAlignment="Left" Height="232" LastChildFill="False" Margin="223,192,0,0" VerticalAlignment="Top" Width="559" Background="#FF21252B" Grid.RowSpan="2">
+            <Button Content="APP" Height="33.275" Width="558.557" HorizontalAlignment="Center" DockPanel.Dock="Top" Background="#FF132857"/>
         </DockPanel>
-        <DockPanel x:Name="Control_Dock" HorizontalAlignment="Left" Height="399" LastChildFill="False" Margin="10,10,0,0" VerticalAlignment="Top" Width="208.443" Background="#FF434957">
-            <TextBlock Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF2C364D" Width="208.568"/>
+        <DockPanel x:Name="Control_Dock" HorizontalAlignment="Right" Height="414" LastChildFill="False" Margin="0,10,582,0" VerticalAlignment="Top" Width="208" Background="#FF434957" Grid.RowSpan="2" RenderTransformOrigin="0.0,0.0">
+            <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF2C364D" Width="208.568" DockPanel.Dock="Top"/>
+            <Button x:Name="Run_app_button" Content="Run app" Background="#FF56CBEE" Width="208" DockPanel.Dock="Top" Height="28"/>
+            <Button x:Name="Download_button" Content="Download app" Background="#FF56CBEE" Width="208" DockPanel.Dock="Top" Height="28"/>
         </DockPanel>
-        <DockPanel x:Name="Description_dock" HorizontalAlignment="Left" Height="182.474" LastChildFill="False" Margin="223.443,10,0,0" VerticalAlignment="Top" Width="558.557" Background="#0A99BBFF">
+        <DockPanel x:Name="Description_dock" HorizontalAlignment="Left" Height="182" LastChildFill="False" Margin="223,10,0,0" VerticalAlignment="Top" Width="559" Background="#0A99BBFF">
             <TextBox x:Name="Description_textbox" Height="182.474" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="389.072" Background="#FF2C364D"/>
+            <Image x:Name="EXE_Icon">
+                <Image.OpacityMask>
+                    <ImageBrush/>
+                </Image.OpacityMask>
+            </Image>
         </DockPanel>
 
     </Grid>

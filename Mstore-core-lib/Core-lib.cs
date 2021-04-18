@@ -14,6 +14,10 @@ namespace Mstore_Core_lib
             Environment.SpecialFolder.ApplicationData);
         public static string MstorePath = Path.Combine(appdata, "Mstore/");
 
+        public static List<Pakage> Pakages = new List<Pakage>();
+
+        public static Pakage Current;
+        //Functions
         public static List<Pakage> Import()
         {
 
@@ -70,7 +74,7 @@ namespace Mstore_Core_lib
         public string JName;
         public string exe;
         public string args;
-        private string Path = Corelib.MstorePath; //FIXME: remove this line
+        private string Path = Corelib.MstorePath;
         public bool IsInstalled = false;
         public string User;
         public string Password;
