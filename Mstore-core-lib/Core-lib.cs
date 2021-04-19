@@ -10,6 +10,8 @@ namespace Mstore_Core_lib
 {
     public static class Corelib
     {
+        public static string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Mstore";
+
         public static string appdata = Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData);
 
@@ -22,36 +24,50 @@ namespace Mstore_Core_lib
         public static Pakage Downloading;
 
         //Functions
-        public static List<Pakage> Import()
+        public static void FolderSetup()
         {
-            if (!Directory.Exists(MstorePath + "Pakages/"))
+            if (!Directory.Exists(MstorePath))
             {
-                Directory.CreateDirectory(MstorePath + "Pakages/");
+                Directory.CreateDirectory(MstorePath);
             }
             if (!Directory.Exists(MstorePath + "Apps/"))
             {
                 Directory.CreateDirectory(MstorePath + "Apps/");
             }
+            if (!Directory.Exists(MstorePath + "Pakages/"))
+            {
+                Directory.CreateDirectory(MstorePath + "Pakages/");
+            }
+            if (!Directory.Exists(StartFolder))
+            {
+                Directory.CreateDirectory(StartFolder);
+            }
+        }
 
-            List<Pakage> pakages = new List<Pakage>();
-
-            foreach (string f in Directory.GetFiles(MstorePath + "Pakages/", "*.json", SearchOption.AllDirectories))
+        public static List<Pakage> Import()
+        {
+            //read pakage files
+            foreach (string f in Directory.GetFiles(MstorePath + "Pakages/", "*.json", SearchOption.TopDirectoryOnly))
             {
                 using StreamReader file = File.OpenText(@f);
                 JsonSerializer serializer = new JsonSerializer();
-                pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+                Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
                 file.Close();
             }
-
-            foreach (Pakage p in pakages)
+            //check if installed
+            foreach (Pakage p in Pakages)
             {
-                if (p.IsInstalled && !Directory.Exists(MstorePath + "Apps/" + p.JName + "/"))
+                if (!Directory.Exists(MstorePath + "Apps/" + p.JName + "/"))
                 {
                     p.IsInstalled = false;
                 }
+                else
+                {
+                    p.IsInstalled = true;
+                }
             }
 
-            return pakages;
+            return Pakages;
         }
 
         public static void ExportList(List<Pakage> Pakages)
@@ -89,6 +105,7 @@ namespace Mstore_Core_lib
             Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
             IsInstalled = true;
             File.Delete(Path + JName + ".zip");
+
         }
 
         public void Run()

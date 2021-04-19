@@ -246,7 +246,7 @@ namespace Mstore_GUI
             this.PakageNameLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.PakageNameLabel.Location = new System.Drawing.Point(0, 0);
             this.PakageNameLabel.Name = "PakageNameLabel";
-            this.PakageNameLabel.Size = new System.Drawing.Size(57, 20);
+            this.PakageNameLabel.Size = new System.Drawing.Size(71, 22);
             this.PakageNameLabel.TabIndex = 0;
             this.PakageNameLabel.Text = "Name:";
             // 
@@ -289,13 +289,13 @@ namespace Mstore_GUI
             this.DescriptionLabel.Location = new System.Drawing.Point(0, 0);
             this.DescriptionLabel.MaximumSize = new System.Drawing.Size(994, 0);
             this.DescriptionLabel.Name = "DescriptionLabel";
-            this.DescriptionLabel.Size = new System.Drawing.Size(99, 20);
+            this.DescriptionLabel.Size = new System.Drawing.Size(121, 22);
             this.DescriptionLabel.TabIndex = 0;
             this.DescriptionLabel.Text = "Description: ";
             // 
             // window
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(46)))));
