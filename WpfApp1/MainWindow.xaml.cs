@@ -26,6 +26,7 @@ namespace GUI
             Corelib.Write("folder setup");
             Corelib.Import();
             Corelib.Write("inital import");
+            AddButtons();
         }
 
         public void AddButtons()

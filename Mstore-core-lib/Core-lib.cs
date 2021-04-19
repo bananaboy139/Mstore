@@ -46,16 +46,16 @@ namespace Mstore_Core_lib
                 Directory.CreateDirectory(StartFolder);
             }
 
-            if (!File.Exists(Logger.LogFile))
+            if (!File.Exists(Corelib.LogFile))
             {
-                System.IO.File.Create(Logger.LogFile);
+                File.Create(Corelib.LogFile);
             }
         }
 
-        public static List<Pakage> Import()
+        public static void Import()
         {
             //read pakage files
-            foreach (string f in Directory.GetFiles(MstorePath + "Pakages/", "*.json", SearchOption.TopDirectoryOnly))
+            foreach (string f in Directory.GetFiles(MstorePath + "Pakages/", "*.json", SearchOption.AllDirectories))
             {
                 using StreamReader file = File.OpenText(@f);
                 JsonSerializer serializer = new JsonSerializer();
@@ -74,8 +74,6 @@ namespace Mstore_Core_lib
                     p.IsInstalled = true;
                 }
             }
-
-            return Pakages;
         }
 
         public static void ExportList(List<Pakage> Pakages)
@@ -90,7 +88,14 @@ namespace Mstore_Core_lib
             }
         }
 
-        public static void Write(string text) => Logger.Write(text);
+        public static string LogFile = Corelib.MstorePath + "Log.txt";
+
+        public static void Write(string t)
+        {
+            DateTime dateToDisplay = new DateTime();
+            string text = dateToDisplay.ToString() + ":   " + t + "\n";
+            File.AppendAllText(LogFile, text);
+        }
     }
 
     public class Pakage
@@ -145,21 +150,9 @@ namespace Mstore_Core_lib
                 }
                 catch (Win32Exception ex)
                 {
-                    Logger.Write(Name + " can not start" + ex);
+                    Corelib.Write(Name + " can not start" + ex);
                 }
             }
-        }
-    }
-
-    public class Logger
-    {
-        public static string LogFile = Corelib.MstorePath + "Log.txt";
-
-        public static void Write(string t)
-        {
-            DateTime dateToDisplay = new DateTime();
-            string text = dateToDisplay.ToString() + ":   " + t + "\n";
-            File.AppendAllText(LogFile, text);
         }
     }
 }
