@@ -16,6 +16,16 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            //setup mstore
+            Corelib.FolderSetup();
+            Corelib.Write("folder setup");
+            Corelib.Import();
+            Corelib.Write("inital import");
         }
 
         public void AddButtons()

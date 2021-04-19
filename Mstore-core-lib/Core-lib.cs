@@ -10,7 +10,7 @@ namespace Mstore_Core_lib
 {
     public static class Corelib
     {
-        public static string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Mstore";
+        public const string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Mstore";
 
         public static string appdata = Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData);
@@ -30,17 +30,25 @@ namespace Mstore_Core_lib
             {
                 Directory.CreateDirectory(MstorePath);
             }
+
             if (!Directory.Exists(MstorePath + "Apps/"))
             {
                 Directory.CreateDirectory(MstorePath + "Apps/");
             }
+
             if (!Directory.Exists(MstorePath + "Pakages/"))
             {
                 Directory.CreateDirectory(MstorePath + "Pakages/");
             }
+
             if (!Directory.Exists(StartFolder))
             {
                 Directory.CreateDirectory(StartFolder);
+            }
+
+            if (!File.Exists(Logger.LogFile))
+            {
+                File.Create(Logger.LogFile);
             }
         }
 
