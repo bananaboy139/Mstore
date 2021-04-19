@@ -10,7 +10,7 @@ namespace Mstore_Core_lib
 {
     public static class Corelib
     {
-        public const string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Mstore";
+        public const string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Mstore/";
 
         public static string appdata = Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData);
@@ -48,7 +48,7 @@ namespace Mstore_Core_lib
 
             if (!File.Exists(Logger.LogFile))
             {
-                File.Create(Logger.LogFile);
+                System.IO.File.Create(Logger.LogFile);
             }
         }
 
@@ -108,12 +108,25 @@ namespace Mstore_Core_lib
 
         public void Install()
         {
-            Logger.Write("Install Starting: " + JName);
+            Corelib.Write("Install Starting: " + JName);
             ZipFile.ExtractToDirectory(Path + JName + ".zip", Path + "Apps/" + JName + "/");
-            Logger.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
+            Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
             IsInstalled = true;
             File.Delete(Path + JName + ".zip");
+            CreateShortcut();
+            Corelib.Write("created shortcut" + JName);
+        }
 
+        private void CreateShortcut()
+        {
+            using (StreamWriter writer = new StreamWriter(Corelib.StartFolder + Name + ".url"))
+            {
+                string app = Path + "Apps/" + JName + "/" + exe;;
+                writer.WriteLine("[InternetShortcut]");
+                writer.WriteLine("URL=file:///" + app);
+                writer.WriteLine("IconIndex=0");
+                writer.WriteLine("IconFile=" + app);
+            }
         }
 
         public void Run()
