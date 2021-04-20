@@ -66,12 +66,24 @@ namespace Mstore_Core_lib
         {
             Pakages.Clear();
             //read pakage files
+            JsonSerializer serializer = new JsonSerializer();
             foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
             {
                 using StreamReader file = File.OpenText(f);
-                JsonSerializer serializer = new JsonSerializer();
                 Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
                 file.Close();
+            }
+            //import Config
+            try
+            {
+                using StreamReader Cfile = File.OpenText(Config.ConfigFile);
+                Config C = (Config)serializer.Deserialize(Cfile, typeof(Config));
+                Cfile.Close();
+            }
+            catch (FileNotFoundException ex)
+            {
+                Write(ex.ToString());
+                ExportList();
             }
 
             //check if installed
@@ -99,6 +111,12 @@ namespace Mstore_Core_lib
                     
                     File.WriteAllText(FileName, pakageinfo);
                 }
+
+                //export config
+                Config c = new Config();
+                string Configuration = JsonConvert.SerializeObject(c);
+
+                File.WriteAllText(Config.ConfigFile, Configuration);
             }
             catch (Exception e)
             {
@@ -199,6 +217,10 @@ namespace Mstore_Core_lib
     public class Config
     {
         public static string ConfigFile = Path.Combine(Corelib.MstorePath, "Mstore.config");
+
+        [JsonProperty]
         public static bool StorePass = false;
+
+        public static bool StoreEncrypted = false;
     }
 }

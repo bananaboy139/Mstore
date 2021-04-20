@@ -217,17 +217,17 @@ namespace GUI
         {
             if (ConfigurationManager.AppSettings.Get("StorePass") != null)
             {
-                Config.StorePass = bool.Parse(ConfigurationManager.AppSettings.Get("StorePass"));
+                //Config.StorePass = bool.Parse(ConfigurationManager.AppSettings.Get("StorePass"));
             }
             else
             {
-                ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
+                ExportSettings();
             }
         }
 
         public void ExportSettings()
         {
-            ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
+            //ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
         }
     }
 }

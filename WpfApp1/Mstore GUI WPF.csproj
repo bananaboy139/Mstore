@@ -5,6 +5,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>GUI.App</StartupObject>
+    <AssemblyName>Mstore</AssemblyName>
+    <RootNamespace>GUI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
