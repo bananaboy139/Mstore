@@ -6,24 +6,26 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="Mstore" Height="450" Width="800" SizeToContent="Manual">
-    <Grid Background="#FF282C34">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="0*" />
-        </Grid.RowDefinitions>
-        <DockPanel x:Name="Button_Dock" LastChildFill="False" Margin="223,204,18,10" Background="#FF21252B"/>
-        <DockPanel x:Name="Control_Dock" LastChildFill="False" Margin="10,10,582,10" Background="#FF434957">
-            <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF2C364D" Width="208.568" DockPanel.Dock="Top" />
-            <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
-            <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
-        </DockPanel>
-        <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
-            <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="412" Background="#FF2C364D" />
-            <Image x:Name="EXE_Icon">
-                <Image.OpacityMask>
-                    <ImageBrush />
-                </Image.OpacityMask>
-            </Image>
-        </DockPanel>
-    </Grid>
+    <Viewbox>
+        <Grid Background="#FF282C34" Height="434" Width="800">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="0*" />
+            </Grid.RowDefinitions>
+            <DockPanel x:Name="Button_Dock" LastChildFill="False" Margin="223,204,18,10" Background="#FF21252B"/>
+            <DockPanel x:Name="Control_Dock" LastChildFill="False" Margin="10,10,582,10" Background="#FF434957">
+                <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF2C364D" Width="208.568" DockPanel.Dock="Top" />
+                <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
+                <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
+            </DockPanel>
+            <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
+                <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="412" Background="#FF2C364D" />
+                <Image x:Name="EXE_Icon">
+                    <Image.OpacityMask>
+                        <ImageBrush />
+                    </Image.OpacityMask>
+                </Image>
+            </DockPanel>
+        </Grid>
+    </Viewbox>
 </Window>
