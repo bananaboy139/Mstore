@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Shell;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Diagnostics;
@@ -16,12 +17,18 @@ namespace GUI
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Corelib.ExportList();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //setup mstore
-            Corelib.FolderSetup();
+            Corelib.Setup();
             Corelib.Write("folder setup");
             Corelib.Import();
             Corelib.Write("inital import");
@@ -32,6 +39,7 @@ namespace GUI
 
         public void AddButtons()
         {
+            Button_Dock.Children.Clear();
             foreach (Pakage p in Corelib.Pakages)
             {
                 //< Button Content = "Button" Height = "33.275" Width = "558.557" HorizontalAlignment = "Center" DockPanel.Dock = "Top" Background = "#FF132857" />
@@ -88,7 +96,12 @@ namespace GUI
             {
                 Corelib.Downloading = Corelib.Current;
                 Corelib.Write(Corelib.Downloading.ToString() + " start downloading");
-                //FIXME: download async with download bar
+                if (!Config.StorePass && Corelib.Current.User != "")
+                {
+                    Credentials c = new Credentials();
+                    c.ShowDialog();
+                }
+
                 await Download();
             }
         }
@@ -99,6 +112,7 @@ namespace GUI
             WClient.Credentials = new NetworkCredential(Corelib.Downloading.User, Corelib.Downloading.Password);
             WClient.DownloadProgressChanged += wc_DownloadProgressChanged;
             WClient.DownloadFileCompleted += wc_DownloadFinished;
+            TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Normal;
             await Task.Run(() => WClient.DownloadFileAsync
                 (
                 new System.Uri(Corelib.Downloading.DownloadURL),
@@ -108,15 +122,26 @@ namespace GUI
 
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            double p = e.ProgressPercentage;
-            TaskbarItemInfo.ProgressValue = p;
+            //fixme: not working
+            this.Dispatcher.Invoke(() =>
+            {
+                TaskBarItemInfoMainWindow.ProgressValue = (double)e.ProgressPercentage / 100;
+            });
+            
         }
 
         private void wc_DownloadFinished(object sender, EventArgs e)
         {
             Corelib.Write(Corelib.Downloading.ToString() + "finished downloading");
-            TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
+            this.Dispatcher.Invoke(() =>
+            {
+                TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
+            });
             Corelib.Downloading.Install(Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip");
+            this.Dispatcher.Invoke(() =>
+            {
+                TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
+            });
         }
 
         private void RunButtonClick(object sender, RoutedEventArgs s)
@@ -143,7 +168,30 @@ namespace GUI
 
         private void ImportButtonClicked(object sender, RoutedEventArgs s)
         {
+            Corelib.Write("Import button clicked");
+            Corelib.Import();
+            AddButtons();
+            Corelib.Write("Import button clicked - finished");
+        }
 
+        private void ImportRepository(object sender, RoutedEventArgs s)
+        {
+            Import_Repo_window w = new Import_Repo_window();
+            w.Closing += Repo_window_Closing;
+            w.Show();
+        }
+
+        private void Repo_window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Corelib.Import();
+            AddButtons();
+        }
+
+        private void SettingsClick(object sender, RoutedEventArgs s)
+        {
+            //Settings w = new Settings();
+            Credentials w = new Credentials();
+            w.Show();
         }
     }
 }

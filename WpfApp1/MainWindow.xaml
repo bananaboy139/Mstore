@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="Mstore" Height="450" Width="800" SizeToContent="Manual">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo x:Name="TaskBarItemInfoMainWindow"/>
+    </Window.TaskbarItemInfo>
     <Viewbox x:Name="scale_viewbox" Stretch="Fill">
         <Grid x:Name="MainWindowGrid" Background="#FF282C34" Height="434" Width="800">
             <Grid.RowDefinitions>
@@ -18,7 +21,9 @@
                 <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
                 <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
                 <Button x:Name="Open_Repo_Folder_Button" Content="Open repository folder" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="OpenRepoButtonClick" Height="28" />
-                <Button x:Name="Import_Button" Content="Import" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="OpenRepoButtonClick" Height="28" />
+                <Button x:Name="Import_Button" Content="Import" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="ImportButtonClicked" Height="28" />
+                <Button x:Name="Import_Repository_Button" Content="Import repository" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="ImportRepository" Height="28" />
+                <Button x:Name="Settings_Button" Content="Settings" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="SettingsClick" Height="28" />
             </DockPanel>
             <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
                 <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="412" Background="#FF2C364D" />

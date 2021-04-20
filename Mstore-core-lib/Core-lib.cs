@@ -12,13 +12,12 @@ namespace Mstore_Core_lib
     {
         public const string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/" +
             "Windows/Start Menu/Programs/Mstore/";
-        public static string appdata = Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData);
+        public static string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string MstorePath = Path.Combine(appdata, "Mstore/");
-        public static string LogFile = Corelib.MstorePath + "Log.txt";
-        public static string AppsFolder = MstorePath + "Apps/";
-        public static string PakagesFolder = MstorePath + "Pakages/";
-        public static string DownloadsFolder = MstorePath + "Downloads";
+        public static string LogFile = Path.Combine(MstorePath, "Log.txt");
+        public static string AppsFolder = Path.Combine(MstorePath, "Apps/");
+        public static string PakagesFolder = Path.Combine(MstorePath, "Pakages/");
+        public static string DownloadsFolder = Path.Combine(MstorePath, "Downloads/");
 
         public static List<Pakage> Pakages = new List<Pakage>();
 
@@ -29,7 +28,7 @@ namespace Mstore_Core_lib
 
 
         //Functions
-        public static void FolderSetup()
+        public static void Setup()
         {
             if (!Directory.Exists(MstorePath))
             {
@@ -60,18 +59,31 @@ namespace Mstore_Core_lib
             {
                 Directory.CreateDirectory(DownloadsFolder);
             }
+
+            ClearDownloadsFolder();
         }
 
         public static void Import()
         {
+            Pakages.Clear();
             //read pakage files
-            foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.AllDirectories))
+            foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
             {
-                using StreamReader file = File.OpenText(@f);
+                using StreamReader file = File.OpenText(f);
                 JsonSerializer serializer = new JsonSerializer();
                 Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
                 file.Close();
             }
+
+            //Fixme: Make Config a static class + Not working
+            /*
+            if (File.Exists(Config.ConfigFile))
+            {
+                Config C = JsonConvert.DeserializeObject<Config>(Config.ConfigFile);
+            }
+            */
+
+
             //check if installed
             foreach (Pakage p in Pakages)
             {
@@ -86,15 +98,28 @@ namespace Mstore_Core_lib
             }
         }
 
-        public static void ExportList(List<Pakage> Pakages)
+        public static void ExportList()
         {
-            File.WriteAllText(appdata, MstorePath);
-            foreach (Pakage pakage in Pakages)
+            try
             {
-                string pakageinfo = JsonConvert.SerializeObject(pakage);
-                string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
+                foreach (Pakage pakage in Pakages)
+                {
+                    string pakageinfo = JsonConvert.SerializeObject(pakage);
+                    string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
 
-                File.WriteAllText(@FileName, pakageinfo);
+                    File.WriteAllText(FileName, pakageinfo);
+                }
+                //FIXME: cannot serialize static class
+                /*
+                Config C = new Config();
+                string Configuration = JsonConvert.SerializeObject(C);
+                File.WriteAllText(Config.ConfigFile, Configuration);
+                */
+            }
+            catch (Exception e)
+            {
+                Write(e.ToString());
+                throw new Exception(e.ToString());
             }
         }
 
@@ -112,6 +137,11 @@ namespace Mstore_Core_lib
                 Write(f);
                 File.Delete(f);
             }
+            foreach (string d in Directory.GetDirectories(DownloadsFolder))
+            {
+                Write(d);
+                Directory.Delete(d);
+            }
         }
     }
 
@@ -123,18 +153,26 @@ namespace Mstore_Core_lib
         public string JName;
         public string exe;
         public string args;
-        private string Path = Corelib.MstorePath;
-        public bool IsInstalled = false;
         public string User;
+
+
+        [JsonIgnore]
+        public bool IsInstalled = false;
+        //fixme: add option to store, for idiots
+        //storing passwords in plain text is the single stupidest thing ever, don't ever store passwords in plain text
+        public bool ShouldSerializePassword()
+        {
+            return Config.StorePass;
+        }
         public string Password;
 
         public void Install(string dow)
         {
             Corelib.Write("Install Starting: " + JName);
-            ZipFile.ExtractToDirectory(dow, Path + "Apps/" + JName + "/");
-            Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
+            ZipFile.ExtractToDirectory(dow, Corelib.MstorePath + "Apps/" + JName + "/");
+            Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Corelib.MstorePath + JName);
             IsInstalled = true;
-            File.Delete(Path + JName + ".zip");
+            File.Delete(Corelib.MstorePath + JName + ".zip");
             CreateShortcut();
             Corelib.Write("created shortcut" + JName);
         }
@@ -143,7 +181,7 @@ namespace Mstore_Core_lib
         {
             using (StreamWriter writer = new StreamWriter(Corelib.StartFolder + Name + ".url"))
             {
-                string app = Path + "Apps/" + JName + "/" + exe;;
+                string app = Corelib.AppsFolder + JName + "/" + exe;;
                 writer.WriteLine("[InternetShortcut]");
                 writer.WriteLine("URL=file:///" + app);
                 writer.WriteLine("IconIndex=0");
@@ -158,9 +196,9 @@ namespace Mstore_Core_lib
                 var currentdir = Directory.GetCurrentDirectory();
                 try
                 {
-                    Directory.SetCurrentDirectory(new FileInfo(Path + "Apps/" + JName + "/" + exe).Directory.FullName);
+                    Directory.SetCurrentDirectory(new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName);
                     Process Launcher = new Process();
-                    Launcher.StartInfo.FileName = Path + "Apps/" + JName + "/" + exe;
+                    Launcher.StartInfo.FileName = Corelib.AppsFolder + JName + "/" + exe;
                     Launcher.StartInfo.Arguments = args;
                     Launcher.Start();
                     Directory.SetCurrentDirectory(currentdir);
@@ -171,5 +209,15 @@ namespace Mstore_Core_lib
                 }
             }
         }
+    }
+
+    //FIXME: cannot serialize static class
+    public class Config
+    {
+        [JsonIgnore]
+        public static string ConfigFile = Path.Combine(Corelib.MstorePath, "Mstore.config");
+
+        [JsonProperty]
+        public static bool StorePass = false;
     }
 }
