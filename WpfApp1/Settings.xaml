@@ -11,6 +11,9 @@
                 <TextBlock Text="Store Passwords in plain text? (For idiots)" TextWrapping="Wrap" Width="468" Foreground="White" Height="31" FontSize="18"/>
                 <CheckBox x:Name="Store_Pass_check" Content="" DockPanel.Dock="Right" Width="17" Margin="0,0,70,0" Height="17"/>
             </DockPanel>
+            <DockPanel LastChildFill="False">
+                <Button Content="Clear Log" Width="87" Height="25" Click="Button_Click"/>
+            </DockPanel>
         </Grid>
     </Viewbox>
 </Window>

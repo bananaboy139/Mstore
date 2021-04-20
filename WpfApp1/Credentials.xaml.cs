@@ -30,12 +30,17 @@ namespace GUI
         private void Credentials_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Corelib.Current.User = User_box.Text;
-            Corelib.Current.Password = Pass_box.Text;
+            Corelib.Current.Password = Pass_box.Password;
         }
 
         private void Credentials_Loaded(object sender, RoutedEventArgs e)
         {
             User_box.Text = Corelib.Current.User;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -6,12 +6,12 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 
+
 namespace Mstore_Core_lib
 {
     public static class Corelib
     {
-        public const string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/" +
-            "Windows/Start Menu/Programs/Mstore/";
+        public static string StartFolder = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
         public static string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string MstorePath = Path.Combine(appdata, "Mstore/");
         public static string LogFile = Path.Combine(MstorePath, "Log.txt");
@@ -24,7 +24,6 @@ namespace Mstore_Core_lib
         public static Pakage Current;
 
         public static Pakage Downloading;
-
 
 
         //Functions
@@ -75,15 +74,6 @@ namespace Mstore_Core_lib
                 file.Close();
             }
 
-            //Fixme: Make Config a static class + Not working
-            /*
-            if (File.Exists(Config.ConfigFile))
-            {
-                Config C = JsonConvert.DeserializeObject<Config>(Config.ConfigFile);
-            }
-            */
-
-
             //check if installed
             foreach (Pakage p in Pakages)
             {
@@ -106,15 +96,9 @@ namespace Mstore_Core_lib
                 {
                     string pakageinfo = JsonConvert.SerializeObject(pakage);
                     string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
-
+                    
                     File.WriteAllText(FileName, pakageinfo);
                 }
-                //FIXME: cannot serialize static class
-                /*
-                Config C = new Config();
-                string Configuration = JsonConvert.SerializeObject(C);
-                File.WriteAllText(Config.ConfigFile, Configuration);
-                */
             }
             catch (Exception e)
             {
@@ -155,21 +139,22 @@ namespace Mstore_Core_lib
         public string args;
         public string User;
 
-
         [JsonIgnore]
         public bool IsInstalled = false;
+
         //fixme: add option to store, for idiots
         //storing passwords in plain text is the single stupidest thing ever, don't ever store passwords in plain text
         public bool ShouldSerializePassword()
         {
             return Config.StorePass;
         }
+
         public string Password;
 
         public void Install(string dow)
         {
             Corelib.Write("Install Starting: " + JName);
-            ZipFile.ExtractToDirectory(dow, Corelib.MstorePath + "Apps/" + JName + "/");
+            ZipFile.ExtractToDirectory(dow, Corelib.AppsFolder + JName + "/");
             Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Corelib.MstorePath + JName);
             IsInstalled = true;
             File.Delete(Corelib.MstorePath + JName + ".zip");
@@ -181,7 +166,7 @@ namespace Mstore_Core_lib
         {
             using (StreamWriter writer = new StreamWriter(Corelib.StartFolder + Name + ".url"))
             {
-                string app = Corelib.AppsFolder + JName + "/" + exe;;
+                string app = Corelib.AppsFolder + JName + "/" + exe;
                 writer.WriteLine("[InternetShortcut]");
                 writer.WriteLine("URL=file:///" + app);
                 writer.WriteLine("IconIndex=0");
@@ -203,7 +188,7 @@ namespace Mstore_Core_lib
                     Launcher.Start();
                     Directory.SetCurrentDirectory(currentdir);
                 }
-                catch (Win32Exception ex)
+                catch (Exception ex)
                 {
                     Corelib.Write(Name + " can not start" + ex);
                 }
@@ -211,13 +196,9 @@ namespace Mstore_Core_lib
         }
     }
 
-    //FIXME: cannot serialize static class
     public class Config
     {
-        [JsonIgnore]
         public static string ConfigFile = Path.Combine(Corelib.MstorePath, "Mstore.config");
-
-        [JsonProperty]
         public static bool StorePass = false;
     }
 }

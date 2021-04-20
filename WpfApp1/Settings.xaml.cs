@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,12 @@ namespace GUI
         private void Settings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Config.StorePass = (bool)Store_Pass_check.IsChecked;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            File.Delete(Corelib.LogFile);
+            File.Create(Corelib.LogFile);
         }
     }
 }

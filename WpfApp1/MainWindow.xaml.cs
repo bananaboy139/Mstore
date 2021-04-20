@@ -1,5 +1,6 @@
 ﻿using Mstore_Core_lib;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -20,13 +21,10 @@ namespace GUI
             Closing += MainWindow_Closing;
         }
 
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Corelib.ExportList();
-        }
-
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            //import settings
+            ImportSettings();
             //setup mstore
             Corelib.Setup();
             Corelib.Write("folder setup");
@@ -37,9 +35,15 @@ namespace GUI
             Corelib.Write("downloads cleared");
         }
 
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Corelib.ExportList();
+            ExportSettings();
+        }
+
         public void AddButtons()
         {
-            Button_Dock.Children.Clear();
+            ButtonPanel.Children.Clear();
             foreach (Pakage p in Corelib.Pakages)
             {
                 //< Button Content = "Button" Height = "33.275" Width = "558.557" HorizontalAlignment = "Center" DockPanel.Dock = "Top" Background = "#FF132857" />
@@ -54,7 +58,8 @@ namespace GUI
                 };
                 B.Click += new RoutedEventHandler(Click);
                 DockPanel.SetDock(B, Dock.Top);
-                Button_Dock.Children.Add(B);
+                ButtonPanel.Children.Add(B);
+                ButtonPanel.UpdateLayout();
             }
         }
 
@@ -94,6 +99,7 @@ namespace GUI
         {
             if (!Corelib.Current.IsInstalled)
             {
+                Download_button.IsEnabled = false;
                 Corelib.Downloading = Corelib.Current;
                 Corelib.Write(Corelib.Downloading.ToString() + " start downloading");
                 if (!Config.StorePass && Corelib.Current.User != "")
@@ -141,7 +147,9 @@ namespace GUI
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
+                Download_button.IsEnabled = true;
             });
+            
         }
 
         private void RunButtonClick(object sender, RoutedEventArgs s)
@@ -189,9 +197,37 @@ namespace GUI
 
         private void SettingsClick(object sender, RoutedEventArgs s)
         {
-            //Settings w = new Settings();
-            Credentials w = new Credentials();
+            Settings w = new Settings();
             w.Show();
+        }
+
+        private void DeleteClicked(object sender, RoutedEventArgs s)
+        {
+            if (Corelib.Current.IsInstalled)
+            {
+                TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
+                string Shortcut = Corelib.StartFolder + Corelib.Current.Name + ".url";
+                File.Delete(Shortcut);
+                Directory.Delete(Path.Combine(Corelib.AppsFolder, Corelib.Current.JName), true);
+                TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
+            }
+        }
+
+        public void ImportSettings()
+        {
+            if (ConfigurationManager.AppSettings.Get("StorePass") != null)
+            {
+                Config.StorePass = bool.Parse(ConfigurationManager.AppSettings.Get("StorePass"));
+            }
+            else
+            {
+                ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
+            }
+        }
+
+        public void ExportSettings()
+        {
+            ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
         }
     }
 }
