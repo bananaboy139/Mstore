@@ -8,9 +8,6 @@ using System.Windows.Media;
 
 namespace GUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -27,6 +24,8 @@ namespace GUI
             Corelib.Import();
             Corelib.Write("inital import");
             AddButtons();
+            Corelib.ClearDownloadsFolder();
+            Corelib.Write("downloads cleared");
         }
 
         public void AddButtons()
@@ -101,7 +100,7 @@ namespace GUI
             await Task.Run(() => WClient.DownloadFileAsync
                 (
                 new System.Uri(Corelib.Downloading.DownloadURL),
-                Corelib.MstorePath + Corelib.Downloading.JName + ".zip"
+                Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
                 ));
         }
 
@@ -115,7 +114,7 @@ namespace GUI
         {
             Corelib.Write(Corelib.Downloading.ToString() + "finished downloading");
             TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
-            Corelib.Downloading.Install();
+            Corelib.Downloading.Install(Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip");
         }
 
         private void RunButtonClick(object sender, RoutedEventArgs s)

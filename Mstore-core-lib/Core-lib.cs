@@ -16,12 +16,17 @@ namespace Mstore_Core_lib
             Environment.SpecialFolder.ApplicationData);
 
         public static string MstorePath = Path.Combine(appdata, "Mstore/");
+        public static string LogFile = Corelib.MstorePath + "Log.txt";
 
         public static List<Pakage> Pakages = new List<Pakage>();
 
         public static Pakage Current;
 
         public static Pakage Downloading;
+
+        public static string AppsFolder = MstorePath + "Apps/";
+        public static string PakagesFolder = MstorePath + "Pakages/";
+        public static string DownloadsFolder = MstorePath + "Downloads";
 
         //Functions
         public static void FolderSetup()
@@ -31,14 +36,14 @@ namespace Mstore_Core_lib
                 Directory.CreateDirectory(MstorePath);
             }
 
-            if (!Directory.Exists(MstorePath + "Apps/"))
+            if (!Directory.Exists(AppsFolder))
             {
-                Directory.CreateDirectory(MstorePath + "Apps/");
+                Directory.CreateDirectory(AppsFolder);
             }
 
-            if (!Directory.Exists(MstorePath + "Pakages/"))
+            if (!Directory.Exists(PakagesFolder))
             {
-                Directory.CreateDirectory(MstorePath + "Pakages/");
+                Directory.CreateDirectory(PakagesFolder);
             }
 
             if (!Directory.Exists(StartFolder))
@@ -46,9 +51,14 @@ namespace Mstore_Core_lib
                 Directory.CreateDirectory(StartFolder);
             }
 
-            if (!File.Exists(Corelib.LogFile))
+            if (!File.Exists(LogFile))
             {
-                File.Create(Corelib.LogFile);
+                File.Create(LogFile);
+            }
+
+            if (!Directory.Exists(DownloadsFolder))
+            {
+                Directory.CreateDirectory(DownloadsFolder);
             }
         }
 
@@ -88,13 +98,20 @@ namespace Mstore_Core_lib
             }
         }
 
-        public static string LogFile = Corelib.MstorePath + "Log.txt";
-
         public static void Write(string t)
         {
             DateTime dateToDisplay = new DateTime();
             string text = dateToDisplay.ToString() + ":   " + t + "\n";
             File.AppendAllText(LogFile, text);
+        }
+
+        public static void ClearDownloadsFolder()
+        {
+            foreach (string f in Directory.GetFiles(DownloadsFolder))
+            {
+                Write(f);
+                File.Delete(f);
+            }
         }
     }
 
@@ -111,10 +128,10 @@ namespace Mstore_Core_lib
         public string User;
         public string Password;
 
-        public void Install()
+        public void Install(string dow)
         {
             Corelib.Write("Install Starting: " + JName);
-            ZipFile.ExtractToDirectory(Path + JName + ".zip", Path + "Apps/" + JName + "/");
+            ZipFile.ExtractToDirectory(dow, Path + "Apps/" + JName + "/");
             Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Path + JName);
             IsInstalled = true;
             File.Delete(Path + JName + ".zip");
