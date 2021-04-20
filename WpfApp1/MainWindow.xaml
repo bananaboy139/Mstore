@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Mstore" Height="450" Width="800" SizeToContent="Manual">
     <Viewbox x:Name="scale_viewbox" Stretch="Fill">
-        <Grid Background="#FF282C34" Height="434" Width="800">
+        <Grid x:Name="MainWindowGrid" Background="#FF282C34" Height="434" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="0*" />
@@ -17,6 +17,8 @@
                 <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF2C364D" Width="208.568" DockPanel.Dock="Top" />
                 <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
                 <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
+                <Button x:Name="Open_Repo_Folder_Button" Content="Open repository folder" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="OpenRepoButtonClick" Height="28" />
+                <Button x:Name="Import_Button" Content="Import" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="OpenRepoButtonClick" Height="28" />
             </DockPanel>
             <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
                 <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="412" Background="#FF2C364D" />

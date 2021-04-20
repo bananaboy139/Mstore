@@ -10,13 +10,15 @@ namespace Mstore_Core_lib
 {
     public static class Corelib
     {
-        public const string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Mstore/";
-
+        public const string StartFolder = "C:/Users/matte/AppData/Roaming/Microsoft/" +
+            "Windows/Start Menu/Programs/Mstore/";
         public static string appdata = Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData);
-
         public static string MstorePath = Path.Combine(appdata, "Mstore/");
         public static string LogFile = Corelib.MstorePath + "Log.txt";
+        public static string AppsFolder = MstorePath + "Apps/";
+        public static string PakagesFolder = MstorePath + "Pakages/";
+        public static string DownloadsFolder = MstorePath + "Downloads";
 
         public static List<Pakage> Pakages = new List<Pakage>();
 
@@ -24,9 +26,7 @@ namespace Mstore_Core_lib
 
         public static Pakage Downloading;
 
-        public static string AppsFolder = MstorePath + "Apps/";
-        public static string PakagesFolder = MstorePath + "Pakages/";
-        public static string DownloadsFolder = MstorePath + "Downloads";
+
 
         //Functions
         public static void FolderSetup()
@@ -65,7 +65,7 @@ namespace Mstore_Core_lib
         public static void Import()
         {
             //read pakage files
-            foreach (string f in Directory.GetFiles(MstorePath + "Pakages/", "*.json", SearchOption.AllDirectories))
+            foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.AllDirectories))
             {
                 using StreamReader file = File.OpenText(@f);
                 JsonSerializer serializer = new JsonSerializer();
@@ -75,7 +75,7 @@ namespace Mstore_Core_lib
             //check if installed
             foreach (Pakage p in Pakages)
             {
-                if (!Directory.Exists(MstorePath + "Apps/" + p.JName + "/"))
+                if (!Directory.Exists(AppsFolder + p.JName + "/"))
                 {
                     p.IsInstalled = false;
                 }

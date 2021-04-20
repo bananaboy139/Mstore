@@ -1,10 +1,12 @@
 ﻿using Mstore_Core_lib;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace GUI
 {
@@ -120,6 +122,28 @@ namespace GUI
         private void RunButtonClick(object sender, RoutedEventArgs s)
         {
             Corelib.Current.Run();
+        }
+
+        private void OpenRepoButtonClick(object sender, RoutedEventArgs s)
+        {
+            try
+            {
+                Process.Start
+                    (
+                    Environment.GetEnvironmentVariable("WINDIR") + @"\explorer.exe",
+                    Path.GetFullPath(Corelib.PakagesFolder)
+                    );
+            }
+            catch (System.ComponentModel.Win32Exception q)
+            {
+                Corelib.Write("     " + Corelib.PakagesFolder + "     ");
+                Corelib.Write(q.Message);
+            }
+        }
+
+        private void ImportButtonClicked(object sender, RoutedEventArgs s)
+        {
+
         }
     }
 }
