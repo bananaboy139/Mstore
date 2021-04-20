@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="Mstore" Height="450" Width="800" SizeToContent="Manual">
-    <Viewbox>
+    <Viewbox x:Name="scale_viewbox" Stretch="Fill">
         <Grid Background="#FF282C34" Height="434" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition />
