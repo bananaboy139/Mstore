@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
+	<TargetPlatformVersion>8.1</TargetPlatformVersion>
     <UseWPF>true</UseWPF>
     <StartupObject>GUI.App</StartupObject>
     <AssemblyName>Mstore</AssemblyName>
@@ -10,13 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="App.config" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
   </ItemGroup>
 
   <ItemGroup>

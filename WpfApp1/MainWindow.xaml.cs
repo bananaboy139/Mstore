@@ -9,11 +9,14 @@ using System.Windows.Shell;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Diagnostics;
+using Notifications.Wpf;
 
 namespace GUI
 {
     public partial class MainWindow : Window
     {
+        NotificationManager Notify = new NotificationManager();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -124,6 +127,12 @@ namespace GUI
                 new System.Uri(Corelib.Downloading.DownloadURL),
                 Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
                 ));
+            Notify.Show(new NotificationContent
+            {
+                Title = "Download Started",
+                Type = NotificationType.Information
+            });
+
         }
 
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -147,6 +156,11 @@ namespace GUI
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
+                Notify.Show(new NotificationContent
+                {
+                    Title = "Download Finished",
+                    Type = NotificationType.Success
+                });
                 Download_button.IsEnabled = true;
             });
             
@@ -210,6 +224,7 @@ namespace GUI
                 File.Delete(Shortcut);
                 Directory.Delete(Path.Combine(Corelib.AppsFolder, Corelib.Current.JName), true);
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
+                Corelib.Current.IsInstalled = false;
             }
         }
 
