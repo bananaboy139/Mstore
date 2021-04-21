@@ -37,7 +37,7 @@ namespace GUI
                 exe = EXEBox.Text,
                 args = ArgsBox.Text,
                 User = UserBox.Text,
-                Password = PassBox.Text
+                Password = PassBox.Password
             };
             Corelib.Pakages.Add(p);
             Corelib.ExportList();

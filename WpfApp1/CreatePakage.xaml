@@ -23,7 +23,7 @@
             <TextBlock Text="Username (optional)" TextWrapping="Wrap" FontSize="15"/>
             <TextBox x:Name="UserBox" Text="" TextWrapping="Wrap" Width="358" Height="23" FontSize="15"/>
             <TextBlock Text="Password (optional)" TextWrapping="Wrap" FontSize="15"/>
-            <TextBox x:Name="PassBox" Text="" TextWrapping="Wrap" Width="358" Height="23" FontSize="15"/>
+            <PasswordBox x:Name="PassBox" Password="" Width="358" Height="23" FontSize="15"/>
             <Button x:Name="DoneButton" Content="Done!" Margin="0,20,0,0" Width="58" Click="DoneButton_Click"/>
         </StackPanel>
 
