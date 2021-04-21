@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Mstore_Core_lib;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Mstore_Core_lib;
 
 namespace GUI
 {
@@ -45,7 +34,6 @@ namespace GUI
 
         private void DoneButton_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

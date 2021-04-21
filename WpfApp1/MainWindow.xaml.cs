@@ -1,17 +1,15 @@
 ﻿using Mstore_Core_lib;
+using Notifications.Wpf;
 using System;
-using System.Windows.Interop;
-using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Shell;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Media;
-using System.Diagnostics;
-using Notifications.Wpf;
-
+using System.Windows.Shell;
 
 namespace GUI
 {
@@ -20,7 +18,7 @@ namespace GUI
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
 
-        NotificationManager Notify = new NotificationManager();
+        private NotificationManager Notify = new NotificationManager();
 
         public MainWindow()
         {
@@ -31,8 +29,6 @@ namespace GUI
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //import settings
-            ImportSettings();
             //setup mstore
             Corelib.Setup();
             Corelib.Write("folder setup");
@@ -46,7 +42,6 @@ namespace GUI
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Corelib.ExportList();
-            ExportSettings();
         }
 
         public void AddButtons()
@@ -86,38 +81,43 @@ namespace GUI
                 }
                 Description_textbox.Text = Corelib.Current.Description;
                 Current_Name_Textbox.Text = Corelib.Current.Name;
-                if (Corelib.Current.IsInstalled)
-                {
-                    System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
-                    IntPtr i = Ico.ToBitmap().GetHbitmap();
-
-                    using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(1000, 1000))
-                    {
-                        try
-                        {
-                            var ICON = Imaging.CreateBitmapSourceFromHBitmap(
-                                i, 
-                                IntPtr.Zero, 
-                                Int32Rect.Empty, 
-                                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
-                                );
-                            EXE_Icon.Source = ICON;
-                        }
-                        finally
-                        {
-                            DeleteObject(i);
-                        }
-                    }
-                }
-                else
-                {
-                    //FIXME: EXE_Icon.Source = GET RESOURCE APP ICON
-                    EXE_Icon.Source = null;
-                }
+                UpdateImage();
             }
             else
             {
                 Corelib.Write("ERROR: click event not from button");
+            }
+        }
+
+        public void UpdateImage()
+        {
+            if (Corelib.Current.IsInstalled)
+            {
+                System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
+                IntPtr i = Ico.ToBitmap().GetHbitmap();
+
+                using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(1000, 1000))
+                {
+                    try
+                    {
+                        var ICON = Imaging.CreateBitmapSourceFromHBitmap(
+                            i,
+                            IntPtr.Zero,
+                            Int32Rect.Empty,
+                            System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
+                            );
+                        EXE_Icon.Source = ICON;
+                    }
+                    finally
+                    {
+                        DeleteObject(i);
+                    }
+                }
+            }
+            else
+            {
+                //FIXME: EXE_Icon.Source = GET RESOURCE APP ICON
+                EXE_Icon.Source = null;
             }
         }
 
@@ -130,22 +130,14 @@ namespace GUI
                 Corelib.Write(Corelib.Downloading.ToString() + " start downloading");
                 if (!Config.StorePass && Corelib.Current.User != "")
                 {
-                    Credentials c = new Credentials();
-                    c.ShowDialog();
-                }
-                try
-                {
-                    await Download();
-                }
-                catch (Exception ex)
-                {
-                    Corelib.Write(ex.ToString());
-                    Notify.Show(new NotificationContent
+                    if (Corelib.Current.User != null)
                     {
-                        Title = "Download failed",
-                        Type = NotificationType.Error
-                    });
+                        Credentials c = new Credentials();
+                        c.ShowDialog();
+                    }
                 }
+
+                await Download();
             }
         }
 
@@ -156,6 +148,7 @@ namespace GUI
             WClient.DownloadProgressChanged += wc_DownloadProgressChanged;
             WClient.DownloadFileCompleted += wc_DownloadFinished;
             TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Normal;
+
             await Task.Run(() => WClient.DownloadFileAsync
                 (
                 new System.Uri(Corelib.Downloading.DownloadURL),
@@ -166,27 +159,47 @@ namespace GUI
                 Title = "Download Started",
                 Type = NotificationType.Information
             });
-
         }
+
+        private DateTime _startedAt;
 
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            //fixme: not working
+            if (_startedAt == default(DateTime))
+            {
+                _startedAt = DateTime.Now;
+            }
+            else
+            {
+                var timeSpan = DateTime.Now - _startedAt;
+                if (timeSpan.TotalSeconds > 1)
+                {
+                    long bytesPerSecond = e.BytesReceived / (long)timeSpan.TotalSeconds;
+                    long KBPerSec = bytesPerSecond / 1000;
+                    Dispatcher.Invoke(() =>
+                    {
+                        Download_button.Content = "Downloading " + KBPerSec.ToString() + " KB/sec";
+                    });
+                }
+            }
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressValue = (double)e.ProgressPercentage / 100;
             });
-            
         }
 
         private void wc_DownloadFinished(object sender, EventArgs e)
         {
             Corelib.Write(Corelib.Downloading.ToString() + "finished downloading");
+
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
+                Download_button.Content = "Download app";
             });
+
             Corelib.Downloading.Install(Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip");
+
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
@@ -196,8 +209,8 @@ namespace GUI
                     Type = NotificationType.Success
                 });
                 Download_button.IsEnabled = true;
+                UpdateImage();
             });
-            
         }
 
         private void RunButtonClick(object sender, RoutedEventArgs s)
@@ -259,24 +272,8 @@ namespace GUI
                 Directory.Delete(Path.Combine(Corelib.AppsFolder, Corelib.Current.JName), true);
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
                 Corelib.Current.IsInstalled = false;
+                UpdateImage();
             }
-        }
-
-        public void ImportSettings()
-        {
-            if (ConfigurationManager.AppSettings.Get("StorePass") != null)
-            {
-                //Config.StorePass = bool.Parse(ConfigurationManager.AppSettings.Get("StorePass"));
-            }
-            else
-            {
-                ExportSettings();
-            }
-        }
-
-        public void ExportSettings()
-        {
-            //ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
         }
 
         private void CreatePButton_Click(object sender, RoutedEventArgs e)

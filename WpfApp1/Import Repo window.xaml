@@ -8,21 +8,21 @@
     <Viewbox Stretch="Fill">
         <Grid Height="216" Width="507" Background="#FF79B1BD">
             <DockPanel x:Name="Link_Dock" LastChildFill="False" HorizontalAlignment="Center" VerticalAlignment="Top" Width="489" Margin="0,20,0,0">
-                <TextBlock x:Name="Link_Text_block" Text="Link to repository:" TextWrapping="Wrap" Width="111"/>
-                <TextBox x:Name="Link_Textbox" Text="" TextWrapping="NoWrap" Width="373"/>
+                <TextBlock x:Name="Link_Text_block" Text="Link to repository:" TextWrapping="Wrap" Width="111" />
+                <TextBox x:Name="Link_Textbox" Text="" TextWrapping="NoWrap" Width="373" />
             </DockPanel>
             <DockPanel x:Name="User_dock" LastChildFill="False" HorizontalAlignment="Center" VerticalAlignment="Top" Width="489" Margin="0,50,0,0">
-                <TextBlock x:Name="User_textblock" Text="Username: (optional)" TextWrapping="Wrap" Width="111"/>
-                <TextBox x:Name="User_textbox" Text="" TextWrapping="NoWrap" Width="373"/>
+                <TextBlock x:Name="User_textblock" Text="Username: (optional)" TextWrapping="Wrap" Width="111" />
+                <TextBox x:Name="User_textbox" Text="" TextWrapping="NoWrap" Width="373" />
             </DockPanel>
             <DockPanel x:Name="Password_dock" LastChildFill="False" HorizontalAlignment="Center" VerticalAlignment="Top" Width="489" Margin="0,80,0,0">
-                <TextBlock x:Name="Password_textblock" Text="Password: (optional)" TextWrapping="Wrap" Width="111"/>
-                <TextBox x:Name="Password_textbox" Text="" TextWrapping="NoWrap" Width="373"/>
+                <TextBlock x:Name="Password_textblock" Text="Password: (optional)" TextWrapping="Wrap" Width="111" />
+                <TextBox x:Name="Password_textbox" Text="" TextWrapping="NoWrap" Width="373" />
             </DockPanel>
             <DockPanel x:Name="Download_button_dock" LastChildFill="False" Margin="0,126,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <Button x:Name="Download_Button" Content="Download repository" Width="139" Height="31" Click="Download_Button_Click" DockPanel.Dock="Top"/>
-                <TextBlock x:Name="progress_text" Text="" TextWrapping="Wrap" Width="141" DockPanel.Dock="Bottom"/>
-                <TextBlock x:Name="Download_text" Text="" TextWrapping="Wrap" Width="136" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch"/>
+                <Button x:Name="Download_Button" Content="Download repository" Width="139" Height="31" Click="Download_Button_Click" DockPanel.Dock="Top" />
+                <TextBlock x:Name="progress_text" Text="" TextWrapping="Wrap" Width="141" DockPanel.Dock="Bottom" />
+                <TextBlock x:Name="Download_text" Text="" TextWrapping="Wrap" Width="136" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" />
             </DockPanel>
         </Grid>
     </Viewbox>

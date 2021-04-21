@@ -1,26 +1,17 @@
-﻿using System;
-using System.Net;
+﻿using Mstore_Core_lib;
+using System;
 using System.IO;
 using System.IO.Compression;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Mstore_Core_lib;
 
 namespace GUI
 {
     public partial class Import_Repo_window : Window
     {
-        string destinationFolder = Corelib.DownloadsFolder + "pakages/";
-        string destinationFile = Corelib.DownloadsFolder + "pakages" + ".zip";
+        private string destinationFolder = Corelib.DownloadsFolder + "pakages/";
+        private string destinationFile = Corelib.DownloadsFolder + "pakages" + ".zip";
 
         public Import_Repo_window()
         {
@@ -32,7 +23,6 @@ namespace GUI
             string User = User_textbox.Text;
             string Pass = Password_textbox.Text;
             string URL = Link_Textbox.Text;
-
 
             WebClient WClient = new WebClient();
             WClient.Credentials = new NetworkCredential(User, Pass);
@@ -48,7 +38,6 @@ namespace GUI
                 progress_text.Text = e.ProgressPercentage.ToString();
                 Download_text.Text = "Downloading";
             });
-
         }
 
         private void wc_DownloadFinished(object sender, EventArgs e)
@@ -57,7 +46,7 @@ namespace GUI
             {
                 Download_text.Text = "Installing";
             });
-            
+
             Corelib.Write("finished downloading Pakages REPO");
 
             ZipFile.ExtractToDirectory(destinationFile, destinationFolder);
