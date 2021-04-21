@@ -18,7 +18,7 @@
             <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Width="556" ScrollViewer.VerticalScrollBarVisibility="Visible" MinWidth="100" MinHeight="100" Height="219" Visibility="Visible" Margin="226,205,18,10" Background="#FF2E4368">
             </StackPanel>
             <DockPanel x:Name="Control_Dock" LastChildFill="False" Margin="10,10,582,10" Background="#FF434957">
-                <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF2C364D" Width="208.568" DockPanel.Dock="Top" />
+                <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF4F6597" Width="208.568" DockPanel.Dock="Top" />
                 <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
                 <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
                 <Button x:Name="Open_Repo_Folder_Button" Content="Open repository folder" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="OpenRepoButtonClick" Height="28" />
@@ -29,7 +29,7 @@
                 <Button x:Name="CreatePButton" Content="Create Pakage" Background="#FF5F9BAD" DockPanel.Dock="Top" Height="28" Click="CreatePButton_Click"/>
             </DockPanel>
             <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
-                <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="378" Background="#FF2C364D" />
+                <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="378" Background="#FF4F6597" />
                 <Image x:Name="EXE_Icon" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderOptions.BitmapScalingMode ="NearestNeighbor"/>
             </DockPanel>
         </Grid>

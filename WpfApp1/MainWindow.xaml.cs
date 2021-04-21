@@ -133,8 +133,19 @@ namespace GUI
                     Credentials c = new Credentials();
                     c.ShowDialog();
                 }
-
-                await Download();
+                try
+                {
+                    await Download();
+                }
+                catch (Exception ex)
+                {
+                    Corelib.Write(ex.ToString());
+                    Notify.Show(new NotificationContent
+                    {
+                        Title = "Download failed",
+                        Type = NotificationType.Error
+                    });
+                }
             }
         }
 

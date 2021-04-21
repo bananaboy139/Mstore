@@ -142,7 +142,7 @@ namespace Mstore_Core_lib
             foreach (string d in Directory.GetDirectories(DownloadsFolder))
             {
                 Write(d);
-                Directory.Delete(d);
+                Directory.Delete(d, true);
             }
         }
     }

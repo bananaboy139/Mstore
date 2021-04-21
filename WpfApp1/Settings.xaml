@@ -4,14 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Mstore - Settings" Height="186" Width="800" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True">
-    <Viewbox>
-        <Grid Background="#FF547ADE" Height="170" Width="800">
-            <DockPanel x:Name="store_pass_dock" LastChildFill="False" VerticalAlignment="Top" Margin="0,30,0,0">
-                <TextBlock Text="Store Passwords in plain text? (For idiots)" TextWrapping="Wrap" Width="468" Foreground="White" Height="31" FontSize="18"/>
-                <CheckBox x:Name="Store_Pass_check" Content="" DockPanel.Dock="Right" Width="17" Margin="0,0,70,0" Height="17"/>
-            </DockPanel>
-            <Button Content="Clear Log" Click="Button_Click" Margin="10,135,703,10"/>
-        </Grid>
-    </Viewbox>
+        Title="Mstore - Settings" Height="265" Width="599" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True">
+    <Grid Background="#FF547ADE">
+        <DockPanel x:Name="store_pass_dock" LastChildFill="False" VerticalAlignment="Top" Margin="0,30,0,0" HorizontalAlignment="Center" Width="533">
+            <TextBlock Text="Store Passwords in plain text? (For idiots)" TextWrapping="Wrap" Width="468" Foreground="White" Height="31" FontSize="18"/>
+            <CheckBox x:Name="Store_Pass_check"  DockPanel.Dock="Right" Width="18" Margin="0,0,30,0" Height="21" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </DockPanel>
+        <Button Content="Clear Log" Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="66" Margin="10,213,0,0"/>
+    </Grid>
 </Window>
