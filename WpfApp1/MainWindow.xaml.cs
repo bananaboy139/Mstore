@@ -1,5 +1,6 @@
 ﻿using Mstore_Core_lib;
 using System;
+using System.Windows.Interop;
 using System.Configuration;
 using System.IO;
 using System.Net;
@@ -11,10 +12,14 @@ using System.Windows.Media;
 using System.Diagnostics;
 using Notifications.Wpf;
 
+
 namespace GUI
 {
     public partial class MainWindow : Window
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
         NotificationManager Notify = new NotificationManager();
 
         public MainWindow()
@@ -55,7 +60,7 @@ namespace GUI
                     Height = 33.275,
                     Width = 558.557,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    Background = new SolidColorBrush(Color.FromArgb(100, 19, 40, 87)),
+                    Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 19, 40, 87)),
                     Name = p.JName,
                     Content = p.Name
                 };
@@ -80,16 +85,34 @@ namespace GUI
                     }
                 }
                 Description_textbox.Text = Corelib.Current.Description;
-                //Fixme: Error CS0103  The name 'Current_Name_Textbox' does not exist in the current context Mstore GUI WPF  C: \Users\matte\Documents\Code\Mstore\WpfApp1\MainWindow.xaml.cs 54  Active
                 Current_Name_Textbox.Text = Corelib.Current.Name;
-                //Program.UpdateIsInstalled();
                 if (Corelib.Current.IsInstalled)
                 {
-                    //FixME: EXE_Icon.Source = Icon.ExtractAssociatedIcon(Corelib.Current.exepath);
+                    System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
+                    IntPtr i = Ico.ToBitmap().GetHbitmap();
+
+                    using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(1000, 1000))
+                    {
+                        try
+                        {
+                            var ICON = Imaging.CreateBitmapSourceFromHBitmap(
+                                i, 
+                                IntPtr.Zero, 
+                                Int32Rect.Empty, 
+                                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
+                                );
+                            EXE_Icon.Source = ICON;
+                        }
+                        finally
+                        {
+                            DeleteObject(i);
+                        }
+                    }
                 }
                 else
                 {
                     //FIXME: EXE_Icon.Source = GET RESOURCE APP ICON
+                    EXE_Icon.Source = null;
                 }
             }
             else

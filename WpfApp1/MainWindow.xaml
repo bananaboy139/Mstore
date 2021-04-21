@@ -29,12 +29,8 @@
                 <Button x:Name="CreatePButton" Content="Create Pakage" Background="#FF5F9BAD" DockPanel.Dock="Top" Height="28" Click="CreatePButton_Click"/>
             </DockPanel>
             <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
-                <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="412" Background="#FF2C364D" />
-                <Image x:Name="EXE_Icon">
-                    <Image.OpacityMask>
-                        <ImageBrush />
-                    </Image.OpacityMask>
-                </Image>
+                <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="378" Background="#FF2C364D" />
+                <Image x:Name="EXE_Icon" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderOptions.BitmapScalingMode ="NearestNeighbor"/>
             </DockPanel>
         </Grid>
     </Viewbox>
