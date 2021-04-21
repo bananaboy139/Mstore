@@ -156,7 +156,7 @@ namespace Mstore_Core_lib
         public string exe;
         public string args;
         public string User;
-
+        public bool IsHashed = false;
         [JsonIgnore]
         public bool IsInstalled = false;
 
@@ -212,6 +212,11 @@ namespace Mstore_Core_lib
                 }
             }
         }
+
+        public void Hash()
+        {
+
+        }
     }
 
     public class Config
@@ -220,7 +225,7 @@ namespace Mstore_Core_lib
 
         [JsonProperty]
         public static bool StorePass = false;
-
-        public static bool StoreEncrypted = false;
+        //make sure storepass needs to be on for this
+        public static bool StoreSecured = false;
     }
 }

@@ -23,8 +23,6 @@ namespace GUI
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //import settings
-            ImportSettings();
             //setup mstore
             Corelib.Setup();
             Corelib.Write("folder setup");
@@ -38,7 +36,6 @@ namespace GUI
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Corelib.ExportList();
-            ExportSettings();
         }
 
         public void AddButtons()
@@ -106,6 +103,10 @@ namespace GUI
                 {
                     Credentials c = new Credentials();
                     c.ShowDialog();
+                }
+                if (Config.StorePass && Config.StoreSecured && Corelib.Current.User != "")
+                {
+                    //decrypt password
                 }
 
                 await Download();
@@ -213,21 +214,5 @@ namespace GUI
             }
         }
 
-        public void ImportSettings()
-        {
-            if (ConfigurationManager.AppSettings.Get("StorePass") != null)
-            {
-                //Config.StorePass = bool.Parse(ConfigurationManager.AppSettings.Get("StorePass"));
-            }
-            else
-            {
-                ExportSettings();
-            }
-        }
-
-        public void ExportSettings()
-        {
-            //ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
-        }
     }
 }
