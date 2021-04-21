@@ -229,5 +229,17 @@ namespace GUI
         {
             //ConfigurationManager.AppSettings.Set("StorePass", Config.StorePass.ToString());
         }
+
+        private void CreatePButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreatePakage p = new CreatePakage();
+            p.Closed += P_Closed;
+            p.Show();
+        }
+
+        private void P_Closed(object sender, EventArgs e)
+        {
+            AddButtons();
+        }
     }
 }

@@ -26,6 +26,7 @@
                 <Button x:Name="Import_Repository_Button" Content="Import repository" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="ImportRepository" Height="28" />
                 <Button x:Name="Settings_Button" Content="Settings" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="SettingsClick" Height="28" />
                 <Button x:Name="Delete_Button" Content="Delete" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="DeleteClicked" Height="28" />
+                <Button x:Name="CreatePButton" Content="Create Pakage" Background="#FF5F9BAD" DockPanel.Dock="Top" Height="28" Click="CreatePButton_Click"/>
             </DockPanel>
             <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
                 <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="412" Background="#FF2C364D" />
