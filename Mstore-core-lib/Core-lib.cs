@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-
 
 namespace Mstore_Core_lib
 {
@@ -24,7 +22,6 @@ namespace Mstore_Core_lib
         public static Pakage Current;
 
         public static Pakage Downloading;
-
 
         //Functions
         public static void Setup()
@@ -108,7 +105,7 @@ namespace Mstore_Core_lib
                 {
                     string pakageinfo = JsonConvert.SerializeObject(pakage);
                     string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
-                    
+
                     File.WriteAllText(FileName, pakageinfo);
                 }
 
@@ -142,7 +139,7 @@ namespace Mstore_Core_lib
             foreach (string d in Directory.GetDirectories(DownloadsFolder))
             {
                 Write(d);
-                Directory.Delete(d);
+                Directory.Delete(d, true);
             }
         }
     }

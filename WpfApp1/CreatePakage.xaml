@@ -1,0 +1,30 @@
+﻿<Window x:Class="GUI.CreatePakage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="Mstore - CreatePakage" Height="426" Width="480" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" Width="424">
+            <TextBlock Text="Name:" TextWrapping="NoWrap" FontSize="15" />
+            <TextBox x:Name="NameBox" Text="" TextWrapping="NoWrap" Width="358" HorizontalAlignment="Stretch" Height="23" FontSize="15" />
+            <TextBlock Text="Download URL" TextWrapping="NoWrap" FontSize="15" />
+            <TextBox x:Name="URLBox" Text="" TextWrapping="NoWrap" Width="358" Height="23" FontSize="15" />
+            <TextBlock Text="Description" TextWrapping="NoWrap" FontSize="15" />
+            <TextBox x:Name="DescriptionBox" Text="" TextWrapping="Wrap" Width="358" Height="23" FontSize="15" />
+            <TextBlock Text="JName" TextWrapping="NoWrap" FontSize="15" />
+            <TextBox x:Name="JNameBox" Text="" TextWrapping="NoWrap" Width="358" Height="23" FontSize="15" />
+            <TextBlock Text="EXE Path" TextWrapping="NoWrap" FontSize="15" />
+            <TextBox x:Name="EXEBox" Text="" TextWrapping="NoWrap" Width="358" Height="23" FontSize="15" />
+            <TextBlock Text="Arguments (optional)" TextWrapping="NoWrap" FontSize="15" />
+            <TextBox x:Name="ArgsBox" Text="" TextWrapping="Wrap" Width="358" Height="23" FontSize="15" />
+            <TextBlock Text="Username (optional)" TextWrapping="NoWrap" FontSize="15" />
+            <TextBox x:Name="UserBox" Text="" TextWrapping="NoWrap" Width="358" Height="23" FontSize="15" />
+            <TextBlock Text="Password (optional)" TextWrapping="NoWrap" FontSize="15" />
+            <PasswordBox x:Name="PassBox" Password="" Width="358" Height="23" FontSize="15" />
+            <Button x:Name="DoneButton" Content="Done!" Margin="0,20,0,0" Width="58" Click="DoneButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
