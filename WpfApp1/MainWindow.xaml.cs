@@ -280,8 +280,6 @@ namespace GUI
             }
         }
 
-<<<<<<< HEAD
-=======
         private void CreatePButton_Click(object sender, RoutedEventArgs e)
         {
             CreatePakage p = new CreatePakage();
@@ -298,6 +296,6 @@ namespace GUI
         {
             Corelib.ExportList();
         }
->>>>>>> WPF
+
     }
 }
