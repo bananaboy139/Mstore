@@ -5,6 +5,8 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using Notifications.Wpf;
+
 
 namespace GUI
 {
@@ -12,6 +14,7 @@ namespace GUI
     {
         private string destinationFolder = Corelib.DownloadsFolder + "pakages/";
         private string destinationFile = Corelib.DownloadsFolder + "pakages" + ".zip";
+        private NotificationManager Notify = new NotificationManager();
 
         public Import_Repo_window()
         {
@@ -35,6 +38,11 @@ namespace GUI
             catch (WebException ex)
             {
                 Corelib.Write(ex.ToString());
+                Notify.Show(new NotificationContent
+                {
+                    Title = "Download failed",
+                    Type = NotificationType.Error
+                });
             }
             
         }

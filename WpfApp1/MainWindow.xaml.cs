@@ -164,6 +164,11 @@ namespace GUI
             catch (WebException ex)
             {
                 Corelib.Write(ex.ToString());
+                Notify.Show(new NotificationContent
+                {
+                    Title = "Download failed",
+                    Type = NotificationType.Error
+                });
             }
 
         }
