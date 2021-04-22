@@ -12,26 +12,35 @@
     <Viewbox x:Name="scale_viewbox" Stretch="Fill">
         <Grid x:Name="MainWindowGrid" Background="#FF282C34" Height="434" Width="800">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="0*" />
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Width="556" ScrollViewer.VerticalScrollBarVisibility="Visible" MinWidth="100" MinHeight="100" Height="219" Visibility="Visible" Margin="226,205,18,10" Background="#FF2E4368">
-            </StackPanel>
-            <DockPanel x:Name="Control_Dock" LastChildFill="False" Margin="10,10,582,10" Background="#FF434957">
-                <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF4F6597" Width="208.568" DockPanel.Dock="Top" />
-                <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
-                <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
-                <Button x:Name="Open_Repo_Folder_Button" Content="Open repository folder" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="OpenRepoButtonClick" Height="28" />
-                <Button x:Name="Import_Button" Content="Import" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="ImportButtonClicked" Height="28" />
-                <Button x:Name="Import_Repository_Button" Content="Import repository" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="ImportRepository" Height="28" />
-                <Button x:Name="Settings_Button" Content="Settings" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="SettingsClick" Height="28" />
-                <Button x:Name="Delete_Button" Content="Delete" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="DeleteClicked" Height="28" />
-                <Button x:Name="CreatePButton" Content="Create Pakage" Background="#FF5F9BAD" DockPanel.Dock="Top" Height="28" Click="CreatePButton_Click" />
-            </DockPanel>
-            <DockPanel x:Name="Description_dock" LastChildFill="False" Margin="223,10,18,242" Background="#0A99BBFF">
-                <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Text="" Width="378" Background="#FF4F6597" />
-                <Image x:Name="EXE_Icon" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderOptions.BitmapScalingMode ="NearestNeighbor" />
-            </DockPanel>
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button x:Name="Import_Button" Content="Import" Background="{x:Null}" Click="ImportButtonClicked" Height="28" Width="50" BorderThickness="0" Foreground="White"/>
+                    <Button x:Name="Export_Button" Content="Export" Background="{x:Null}" Click="Export_Button_Click" Height="28" Width="50" BorderThickness="0" Foreground="White"/>
+                    <Button x:Name="CreatePButton" Content="Create Pakage" Background="{x:Null}" Height="28" Click="CreatePButton_Click" Width="90" BorderThickness="0" Foreground="White"/>
+                    <Button x:Name="Open_Repo_Folder_Button" Content="Open repository folder" Background="{x:Null}" Click="OpenRepoButtonClick" Height="28" Width="140" BorderThickness="0" Foreground="White"/>
+                    <Button x:Name="Import_Repository_Button" Content="Import repository" Background="{x:Null}" Click="ImportRepository" Height="28" Width="110" HorizontalAlignment="Right" VerticalAlignment="Top" BorderThickness="0" Foreground="White"/>
+                    <Button x:Name="Settings_Button" Content="Settings" BorderThickness="0" Background="{x:Null}" Click="SettingsClick" Height="28" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" />
+
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="Main" Grid.Row="2">
+                <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Width="556" ScrollViewer.VerticalScrollBarVisibility="Visible" MinWidth="100" MinHeight="100" Height="219" Visibility="Visible" Margin="223,185,21,10" Background="#FF2E4368">
+                </StackPanel>
+                <DockPanel x:Name="Control_Dock" LastChildFill="False" Margin="10,10,582,10" Background="#FF434957">
+                    <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF4F6597" Width="208.568" DockPanel.Dock="Top" />
+                    <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
+                    <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
+                    <Button x:Name="Delete_Button" Content="Delete app" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="DeleteClicked" Height="28" />
+                </DockPanel>
+                <StackPanel x:Name="Description_dock" Margin="0,10,18,242" Background="#0A99BBFF" HorizontalAlignment="Right" Width="559" Orientation="Horizontal">
+                    <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Width="405" Background="#FF4F6597"/>
+                    <Image x:Name="EXE_Icon" HorizontalAlignment="Right" VerticalAlignment="Bottom" RenderOptions.BitmapScalingMode ="NearestNeighbor" Width="154" Height="154"/>
+                </StackPanel>
+            </Grid>
+
         </Grid>
     </Viewbox>
 </Window>

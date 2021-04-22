@@ -287,5 +287,10 @@ namespace GUI
         {
             AddButtons();
         }
+
+        private void Export_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Corelib.ExportList();
+        }
     }
 }
