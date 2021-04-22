@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Mstore" Height="450" Width="800" SizeToContent="Manual">
+        Title="Mstore" Height="450" Width="800" SizeToContent="WidthAndHeight">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskBarItemInfoMainWindow" />
     </Window.TaskbarItemInfo>
@@ -23,6 +23,7 @@
                     <Button x:Name="Open_Repo_Folder_Button" Content="Open repository folder" Background="{x:Null}" Click="OpenRepoButtonClick" Height="28" Width="140" BorderThickness="0" Foreground="White"/>
                     <Button x:Name="Import_Repository_Button" Content="Import repository" Background="{x:Null}" Click="ImportRepository" Height="28" Width="110" HorizontalAlignment="Right" VerticalAlignment="Top" BorderThickness="0" Foreground="White"/>
                     <Button x:Name="Settings_Button" Content="Settings" BorderThickness="0" Background="{x:Null}" Click="SettingsClick" Height="28" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" />
+                    <Button x:Name="HelpBtn" Content="Help" Background="{x:Null}" Click="HelpBtn_Click" Height="28" Width="50" BorderThickness="0" Foreground="White"/>
 
                 </StackPanel>
             </Grid>

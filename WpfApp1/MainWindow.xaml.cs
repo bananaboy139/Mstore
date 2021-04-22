@@ -37,6 +37,11 @@ namespace GUI
             AddButtons();
             Corelib.ClearDownloadsFolder();
             Corelib.Write("downloads cleared");
+            if (Corelib.Current == null && Corelib.Pakages.Count > 0)
+            {
+                Corelib.Current = Corelib.Pakages[0];
+                UpdateUI();
+            }
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -79,14 +84,18 @@ namespace GUI
                         Corelib.Current = p;
                     }
                 }
-                Description_textbox.Text = Corelib.Current.Description;
-                Current_Name_Textbox.Text = Corelib.Current.Name;
+                UpdateUI();
                 UpdateImage();
             }
             else
             {
                 Corelib.Write("ERROR: click event not from button");
             }
+        }
+        public void UpdateUI()
+        {
+            Description_textbox.Text = Corelib.Current.Description;
+            Current_Name_Textbox.Text = Corelib.Current.Name;
         }
 
         public void UpdateImage()
@@ -311,6 +320,11 @@ namespace GUI
             p.Loaded += p.P_Loaded;
             p.Closed += P_Closed;
             p.Show();
+        }
+
+        private void HelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
