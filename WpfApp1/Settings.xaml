@@ -14,9 +14,13 @@
             <TextBlock Text="Store Passwords in plain text? (For idiots)" TextWrapping="Wrap" Foreground="White" FontSize="18" Width="328" Margin="10,0,0,0" />
             <CheckBox x:Name="Store_Pass_check" DockPanel.Dock="Right" Width="18" Margin="0,0,30,0" Height="15" />
         </DockPanel>
+        <DockPanel LastChildFill="False" VerticalAlignment="Top" Margin="0,48,0,0">
+            <TextBlock Text="Store encrypted?" TextWrapping="Wrap" Foreground="White" FontSize="18" Width="328" Margin="10,0,0,0" />
+            <CheckBox x:Name="Store_Encrypted_check" DockPanel.Dock="Right" Width="18" Margin="0,0,30,0" Height="15" />
+        </DockPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="1">
             <Button Content="Clear Log" Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="66" Margin="5,0,0,0"/>
         </StackPanel>
-        
+
     </Grid>
 </Window>

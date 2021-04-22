@@ -24,6 +24,7 @@ namespace Mstore_Core_lib
         public static Pakage Downloading;
 
         //Functions
+
         public static void Setup()
         {
             if (!Directory.Exists(MstorePath))
@@ -61,15 +62,7 @@ namespace Mstore_Core_lib
 
         public static void Import()
         {
-            Pakages.Clear();
-            //read pakage files
             JsonSerializer serializer = new JsonSerializer();
-            foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
-            {
-                using StreamReader file = File.OpenText(f);
-                Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
-                file.Close();
-            }
             //import Config
             try
             {
@@ -81,6 +74,39 @@ namespace Mstore_Core_lib
             {
                 Write(ex.ToString());
                 ExportList();
+            }
+
+            Pakages.Clear();
+
+            //read pakage files
+            if (Config.StoreSecured)
+            {
+                foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
+                {
+                    //FIXME: new encryption not working
+                    try
+                    {
+                        File.Decrypt(f);
+                    }
+                    catch (System.IO.IOException e)
+                    {
+                        Write(e.ToString());
+                    }
+                    using StreamReader file = File.OpenText(f);
+                    Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+                    file.Close();
+
+                    File.Encrypt(f);
+                }
+            }
+            else
+            {
+                foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
+                {
+                    using StreamReader file = File.OpenText(f);
+                    Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+                    file.Close();
+                }
             }
 
             //check if installed
@@ -101,18 +127,32 @@ namespace Mstore_Core_lib
         {
             try
             {
-                foreach (Pakage pakage in Pakages)
+                if (Config.StoreSecured)
                 {
-                    string pakageinfo = JsonConvert.SerializeObject(pakage);
-                    string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
+                    foreach (Pakage pakage in Pakages)
+                    {
+                        string pakageinfo = JsonConvert.SerializeObject(pakage);
+                        string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
 
-                    File.WriteAllText(FileName, pakageinfo);
+                        File.WriteAllText(FileName, pakageinfo);
+                        File.Encrypt(FileName);
+                    }
                 }
+                else
+                {
+                    foreach (Pakage pakage in Pakages)
+                    {
+                        string pakageinfo = JsonConvert.SerializeObject(pakage);
+                        string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
+
+                        File.WriteAllText(FileName, pakageinfo);
+                    }
+                }
+
 
                 //export config
                 Config c = new Config();
                 string Configuration = JsonConvert.SerializeObject(c);
-
                 File.WriteAllText(Config.ConfigFile, Configuration);
             }
             catch (Exception e)
@@ -222,7 +262,7 @@ namespace Mstore_Core_lib
 
         [JsonProperty]
         public static bool StorePass = false;
-        //make sure storepass needs to be on for this
+        [JsonProperty]
         public static bool StoreSecured = false;
     }
 }

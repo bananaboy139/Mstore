@@ -19,11 +19,13 @@ namespace GUI
         private void Settings_Loaded(object sender, RoutedEventArgs e)
         {
             Store_Pass_check.IsChecked = Config.StorePass;
+            Store_Encrypted_check.IsChecked = Config.StoreSecured;
         }
 
         private void Settings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Config.StorePass = (bool)Store_Pass_check.IsChecked;
+            Config.StoreSecured = (bool)Store_Encrypted_check.IsChecked;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
