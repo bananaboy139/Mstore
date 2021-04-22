@@ -28,7 +28,15 @@ namespace GUI
             WClient.Credentials = new NetworkCredential(User, Pass);
             WClient.DownloadFileCompleted += wc_DownloadFinished;
             WClient.DownloadProgressChanged += WClient_DownloadProgressChanged;
-            await Task.Run(() => WClient.DownloadFileAsync(new System.Uri(URL), destinationFile));
+            try
+            {
+                await Task.Run(() => WClient.DownloadFileAsync(new System.Uri(URL), destinationFile));
+            }
+            catch (WebException ex)
+            {
+                Corelib.Write(ex.ToString());
+            }
+            
         }
 
         private void WClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -52,7 +60,7 @@ namespace GUI
             ZipFile.ExtractToDirectory(destinationFile, destinationFolder);
             Corelib.Write("Extract Complete of Pakages REPO");
             File.Delete(destinationFile);
-            foreach (string s in Directory.GetFiles(destinationFolder))
+            foreach (string s in Directory.GetFiles(destinationFolder, "*.json"))
             {
                 try
                 {

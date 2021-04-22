@@ -148,17 +148,24 @@ namespace GUI
             WClient.DownloadProgressChanged += wc_DownloadProgressChanged;
             WClient.DownloadFileCompleted += wc_DownloadFinished;
             TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Normal;
-
-            await Task.Run(() => WClient.DownloadFileAsync
-                (
-                new System.Uri(Corelib.Downloading.DownloadURL),
-                Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
-                ));
-            Notify.Show(new NotificationContent
+            try
             {
-                Title = "Download Started",
-                Type = NotificationType.Information
-            });
+                await Task.Run(() => WClient.DownloadFileAsync
+                    (
+                    new System.Uri(Corelib.Downloading.DownloadURL),
+                    Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
+                    ));
+                Notify.Show(new NotificationContent
+                {
+                    Title = "Download Started",
+                    Type = NotificationType.Information
+                });
+            }
+            catch (WebException ex)
+            {
+                Corelib.Write(ex.ToString());
+            }
+
         }
 
         private DateTime _startedAt;
