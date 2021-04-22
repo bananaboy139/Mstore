@@ -292,5 +292,13 @@ namespace GUI
         {
             Corelib.ExportList();
         }
+
+        private void Edit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            CreatePakage p = new CreatePakage();
+            p.Loaded += p.P_Loaded;
+            p.Closed += P_Closed;
+            p.Show();
+        }
     }
 }
