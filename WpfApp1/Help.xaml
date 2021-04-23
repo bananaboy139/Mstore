@@ -1,0 +1,14 @@
+﻿<Window x:Class="GUI.Help"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="Mstore - Help" Height="718" Width="744" ShowInTaskbar="False" ResizeMode="CanMinimize">
+    <Grid>
+        <TextBox Text="The Mstore is a free digital store with a localised repository.&#xD;&#xA;There are no apps in the store, you add them yourself. &#xD;&#xA;You can add apps as 'Pakages', these are .json files located in your repository folder.&#xD;&#xA;You can create these pakages using the 'Create Pakage' button.&#xD;&#xA;You can import pakages from the internet using the 'Import repository' button.&#xD;&#xA;Once you add a pakage, it will appear in the Mstore.&#xD;&#xA;You can select the pakage and download it.&#xD;&#xA;Once the pakage is downloaded, the App's Icon can be seen.&#xD;&#xA;You can run downloaded Apps using the 'Run app' button." TextWrapping="Wrap" Width="744" FontSize="30"/>
+
+
+    </Grid>
+</Window>

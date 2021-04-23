@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Mstore" Height="450" Width="800" SizeToContent="Manual">
+        Title="Mstore" Height="600" Width="1050" SizeToContent="Manual" ResizeMode="CanMinimize">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskBarItemInfoMainWindow" />
     </Window.TaskbarItemInfo>
-    <Viewbox x:Name="scale_viewbox" Stretch="Fill">
+    <Viewbox x:Name="scale_viewbox" Stretch="Uniform">
         <Grid x:Name="MainWindowGrid" Background="#FF282C34" Height="434" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition Height="28"/>
@@ -23,20 +23,28 @@
                     <Button x:Name="Open_Repo_Folder_Button" Content="Open repository folder" Background="{x:Null}" Click="OpenRepoButtonClick" Height="28" Width="140" BorderThickness="0" Foreground="White"/>
                     <Button x:Name="Import_Repository_Button" Content="Import repository" Background="{x:Null}" Click="ImportRepository" Height="28" Width="110" HorizontalAlignment="Right" VerticalAlignment="Top" BorderThickness="0" Foreground="White"/>
                     <Button x:Name="Settings_Button" Content="Settings" BorderThickness="0" Background="{x:Null}" Click="SettingsClick" Height="28" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" />
+                    <Button x:Name="HelpBtn" Content="Help" Background="{x:Null}" Click="HelpBtn_Click" Height="28" Width="50" BorderThickness="0" Foreground="White"/>
 
                 </StackPanel>
             </Grid>
             <Grid x:Name="Main" Grid.Row="2">
-                <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Width="556" ScrollViewer.VerticalScrollBarVisibility="Visible" MinWidth="100" MinHeight="100" Height="219" Visibility="Visible" Margin="223,185,21,10" Background="#FF2E4368">
-                </StackPanel>
+                <ScrollViewer Margin="223,178,10,10" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Visibility="Visible" Background="#FF2E4368">
+                    </StackPanel>
+                </ScrollViewer>
+
                 <DockPanel x:Name="Control_Dock" LastChildFill="False" Margin="10,10,582,10" Background="#FF434957">
                     <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF4F6597" Width="208.568" DockPanel.Dock="Top" />
                     <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
                     <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
+                    <Button x:Name="Edit_Button" Content="Edit app pakage" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="Edit_Button_Click" Height="28" />
                     <Button x:Name="Delete_Button" Content="Delete app" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="DeleteClicked" Height="28" />
                 </DockPanel>
                 <StackPanel x:Name="Description_dock" Margin="0,10,18,242" Background="#0A99BBFF" HorizontalAlignment="Right" Width="559" Orientation="Horizontal">
-                    <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Width="405" Background="#FF4F6597"/>
+                    <ScrollViewer Width="405" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Width="405" Background="#FF4F6597"/>
+                    </ScrollViewer>
+                    
                     <Image x:Name="EXE_Icon" HorizontalAlignment="Right" VerticalAlignment="Bottom" RenderOptions.BitmapScalingMode ="NearestNeighbor" Width="154" Height="154"/>
                 </StackPanel>
             </Grid>

@@ -37,6 +37,11 @@ namespace GUI
             AddButtons();
             Corelib.ClearDownloadsFolder();
             Corelib.Write("downloads cleared");
+            if (Corelib.Current == null && Corelib.Pakages.Count > 0)
+            {
+                Corelib.Current = Corelib.Pakages[0];
+                UpdateUI();
+            }
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -55,7 +60,7 @@ namespace GUI
                     Height = 33.275,
                     Width = 558.557,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 19, 40, 87)),
+                    Background = new SolidColorBrush(Color.FromArgb(100, 19, 40, 87)),
                     Name = p.JName,
                     Content = p.Name
                 };
@@ -79,14 +84,18 @@ namespace GUI
                         Corelib.Current = p;
                     }
                 }
-                Description_textbox.Text = Corelib.Current.Description;
-                Current_Name_Textbox.Text = Corelib.Current.Name;
-                UpdateImage();
+                UpdateUI();
             }
             else
             {
                 Corelib.Write("ERROR: click event not from button");
             }
+        }
+        public void UpdateUI()
+        {
+            Description_textbox.Text = Corelib.Current.Description;
+            Current_Name_Textbox.Text = Corelib.Current.Name;
+            UpdateImage();
         }
 
         public void UpdateImage()
@@ -121,6 +130,9 @@ namespace GUI
             }
         }
 
+        private Button DownloadingBtn;
+
+
         private async void DownloadButtonClick(object sender, RoutedEventArgs s)
         {
             if (!Corelib.Current.IsInstalled)
@@ -140,6 +152,14 @@ namespace GUI
                 {
                     //decrypt password
                 }
+                foreach (Button B in ButtonPanel.Children)
+                {
+                    if (B.Name == Corelib.Downloading.JName)
+                    {
+                        DownloadingBtn = B;
+                    }
+
+                }
 
                 await Download();
             }
@@ -152,17 +172,29 @@ namespace GUI
             WClient.DownloadProgressChanged += wc_DownloadProgressChanged;
             WClient.DownloadFileCompleted += wc_DownloadFinished;
             TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Normal;
-
-            await Task.Run(() => WClient.DownloadFileAsync
-                (
-                new System.Uri(Corelib.Downloading.DownloadURL),
-                Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
-                ));
-            Notify.Show(new NotificationContent
+            try
             {
-                Title = "Download Started",
-                Type = NotificationType.Information
-            });
+                await Task.Run(() => WClient.DownloadFileAsync
+                    (
+                    new System.Uri(Corelib.Downloading.DownloadURL),
+                    Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
+                    ));
+                Notify.Show(new NotificationContent
+                {
+                    Title = "Download Started",
+                    Type = NotificationType.Information
+                });
+            }
+            catch (WebException ex)
+            {
+                Corelib.Write(ex.ToString());
+                Notify.Show(new NotificationContent
+                {
+                    Title = "Download failed",
+                    Type = NotificationType.Error
+                });
+            }
+
         }
 
         private DateTime _startedAt;
@@ -182,13 +214,17 @@ namespace GUI
                     long KBPerSec = bytesPerSecond / 1000;
                     Dispatcher.Invoke(() =>
                     {
-                        Download_button.Content = "Downloading " + KBPerSec.ToString() + " KB/sec";
+                        Download_button.Content = "Downloading " + "(" + KBPerSec.ToString() + " KB/sec)";
+                        
                     });
                 }
             }
             this.Dispatcher.Invoke(() =>
             {
-                TaskBarItemInfoMainWindow.ProgressValue = (double)e.ProgressPercentage / 100;
+                double ProgressPerc = (double)e.ProgressPercentage / 100;
+                TaskBarItemInfoMainWindow.ProgressValue = ProgressPerc;
+                int ProgressPercINT = (int)(ProgressPerc * 100);
+                DownloadingBtn.Content = Corelib.Downloading.Name + " - " + ProgressPercINT.ToString() + "%";
             });
         }
 
@@ -198,6 +234,7 @@ namespace GUI
 
             this.Dispatcher.Invoke(() =>
             {
+                DownloadingBtn.Content = Corelib.Downloading.Name;
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
                 Download_button.Content = "Download app";
             });
@@ -297,5 +334,18 @@ namespace GUI
             Corelib.ExportList();
         }
 
+        private void Edit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            CreatePakage p = new CreatePakage();
+            p.Loaded += p.P_Loaded;
+            p.Closed += P_Closed;
+            p.Show();
+        }
+
+        private void HelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Help h = new Help();
+            h.Show();
+        }
     }
 }
