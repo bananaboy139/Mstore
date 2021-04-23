@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Mstore" Height="450" Width="800" SizeToContent="WidthAndHeight">
+        Title="Mstore" Height="600" Width="1050" SizeToContent="Manual" ResizeMode="CanResizeWithGrip">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskBarItemInfoMainWindow" />
     </Window.TaskbarItemInfo>
-    <Viewbox x:Name="scale_viewbox" Stretch="Fill">
+    <Viewbox x:Name="scale_viewbox" Stretch="Uniform">
         <Grid x:Name="MainWindowGrid" Background="#FF282C34" Height="434" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition Height="28"/>

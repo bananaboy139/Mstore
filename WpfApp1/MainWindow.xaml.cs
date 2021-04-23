@@ -85,7 +85,6 @@ namespace GUI
                     }
                 }
                 UpdateUI();
-                UpdateImage();
             }
             else
             {
@@ -96,6 +95,7 @@ namespace GUI
         {
             Description_textbox.Text = Corelib.Current.Description;
             Current_Name_Textbox.Text = Corelib.Current.Name;
+            UpdateImage();
         }
 
         public void UpdateImage()
