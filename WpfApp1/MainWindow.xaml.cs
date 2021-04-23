@@ -60,7 +60,7 @@ namespace GUI
                     Height = 33.275,
                     Width = 558.557,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 19, 40, 87)),
+                    Background = new SolidColorBrush(Color.FromArgb(100, 19, 40, 87)),
                     Name = p.JName,
                     Content = p.Name
                 };
@@ -130,6 +130,9 @@ namespace GUI
             }
         }
 
+        private Button DownloadingBtn;
+
+
         private async void DownloadButtonClick(object sender, RoutedEventArgs s)
         {
             if (!Corelib.Current.IsInstalled)
@@ -144,6 +147,14 @@ namespace GUI
                         Credentials c = new Credentials();
                         c.ShowDialog();
                     }
+                }
+                foreach (Button B in ButtonPanel.Children)
+                {
+                    if (B.Name == Corelib.Downloading.JName)
+                    {
+                        DownloadingBtn = B;
+                    }
+
                 }
 
                 await Download();
@@ -199,13 +210,17 @@ namespace GUI
                     long KBPerSec = bytesPerSecond / 1000;
                     Dispatcher.Invoke(() =>
                     {
-                        Download_button.Content = "Downloading " + KBPerSec.ToString() + " KB/sec";
+                        Download_button.Content = "Downloading " + "(" + KBPerSec.ToString() + " KB/sec)";
+                        
                     });
                 }
             }
             this.Dispatcher.Invoke(() =>
             {
-                TaskBarItemInfoMainWindow.ProgressValue = (double)e.ProgressPercentage / 100;
+                double ProgressPerc = (double)e.ProgressPercentage / 100;
+                TaskBarItemInfoMainWindow.ProgressValue = ProgressPerc;
+                int ProgressPercINT = (int)(ProgressPerc * 100);
+                DownloadingBtn.Content = Corelib.Downloading.Name + " - " + ProgressPercINT.ToString() + "%";
             });
         }
 
@@ -215,6 +230,7 @@ namespace GUI
 
             this.Dispatcher.Invoke(() =>
             {
+                DownloadingBtn.Content = Corelib.Downloading.Name;
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
                 Download_button.Content = "Download app";
             });

@@ -28,7 +28,7 @@
                 </StackPanel>
             </Grid>
             <Grid x:Name="Main" Grid.Row="2">
-                <ScrollViewer Margin="223,178,10,10">
+                <ScrollViewer Margin="223,178,10,10" VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Visibility="Visible" Background="#FF2E4368">
                     </StackPanel>
                 </ScrollViewer>
@@ -41,7 +41,10 @@
                     <Button x:Name="Delete_Button" Content="Delete app" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="DeleteClicked" Height="28" />
                 </DockPanel>
                 <StackPanel x:Name="Description_dock" Margin="0,10,18,242" Background="#0A99BBFF" HorizontalAlignment="Right" Width="559" Orientation="Horizontal">
-                    <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Width="405" Background="#FF4F6597"/>
+                    <ScrollViewer Width="405" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Width="405" Background="#FF4F6597"/>
+                    </ScrollViewer>
+                    
                     <Image x:Name="EXE_Icon" HorizontalAlignment="Right" VerticalAlignment="Bottom" RenderOptions.BitmapScalingMode ="NearestNeighbor" Width="154" Height="154"/>
                 </StackPanel>
             </Grid>
