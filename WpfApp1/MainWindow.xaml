@@ -28,8 +28,11 @@
                 </StackPanel>
             </Grid>
             <Grid x:Name="Main" Grid.Row="2">
-                <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Width="556" ScrollViewer.VerticalScrollBarVisibility="Visible" MinWidth="100" MinHeight="100" Height="219" Visibility="Visible" Margin="223,185,21,10" Background="#FF2E4368">
-                </StackPanel>
+                <ScrollViewer Margin="223,178,10,10">
+                    <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Visibility="Visible" Background="#FF2E4368">
+                    </StackPanel>
+                </ScrollViewer>
+
                 <DockPanel x:Name="Control_Dock" LastChildFill="False" Margin="10,10,582,10" Background="#FF434957">
                     <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF4F6597" Width="208.568" DockPanel.Dock="Top" />
                     <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
