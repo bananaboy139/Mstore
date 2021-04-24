@@ -69,14 +69,7 @@ namespace GUI
             Corelib.Write("Extract Complete of Pakages REPO");
             foreach (string s in Directory.GetFiles(destinationFolder, "*.json"))
             {
-                try
-                {
-                    File.Move(s, Corelib.PakagesFolder + Path.GetFileName(s));
-                }
-                catch (IOException ex)
-                {
-                    Corelib.Write(ex.ToString());
-                }
+                Corelib.ImportF(s);
             }
             Corelib.ClearDownloadsFolder();
             Corelib.Write("pakages are added, finished");
