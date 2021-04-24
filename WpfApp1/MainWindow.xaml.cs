@@ -126,8 +126,17 @@ namespace GUI
             }
             else
             {
-                //FIXME: EXE_Icon.Source = GET RESOURCE APP ICON
-                EXE_Icon.Source = null;
+
+                System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(
+                                    System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
+                IntPtr i = Ico.ToBitmap().GetHbitmap();
+                var ICON = Imaging.CreateBitmapSourceFromHBitmap(
+                    i,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
+                    );
+                EXE_Icon.Source = ICON;
             }
         }
 
