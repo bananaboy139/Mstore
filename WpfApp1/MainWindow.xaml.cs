@@ -101,35 +101,15 @@ namespace GUI
 
         public void UpdateImage()
         {
+            System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(
+                    System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
+            IntPtr i = Ico.ToBitmap().GetHbitmap();
             if (Corelib.Current.IsInstalled)
             {
-                System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
-                IntPtr i = Ico.ToBitmap().GetHbitmap();
-
-                using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(1000, 1000))
-                {
-                    try
-                    {
-                        var ICON = Imaging.CreateBitmapSourceFromHBitmap(
-                            i,
-                            IntPtr.Zero,
-                            Int32Rect.Empty,
-                            System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
-                            );
-                        EXE_Icon.Source = ICON;
-                    }
-                    finally
-                    {
-                        DeleteObject(i);
-                    }
-                }
+                Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
             }
-            else
+            try
             {
-
-                System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(
-                                    System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
-                IntPtr i = Ico.ToBitmap().GetHbitmap();
                 var ICON = Imaging.CreateBitmapSourceFromHBitmap(
                     i,
                     IntPtr.Zero,
@@ -137,6 +117,10 @@ namespace GUI
                     System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
                     );
                 EXE_Icon.Source = ICON;
+            }
+            finally
+            {
+                DeleteObject(i);
             }
         }
 
