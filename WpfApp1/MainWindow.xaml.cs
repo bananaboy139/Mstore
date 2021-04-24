@@ -103,11 +103,13 @@ namespace GUI
         {
             System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(
                     System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
-            IntPtr i = Ico.ToBitmap().GetHbitmap();
+            
             if (Corelib.Current.IsInstalled)
             {
                 Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
             }
+
+            IntPtr i = Ico.ToBitmap().GetHbitmap();
             try
             {
                 var ICON = Imaging.CreateBitmapSourceFromHBitmap(
