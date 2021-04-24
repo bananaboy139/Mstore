@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Mstore" Height="600" Width="1050" SizeToContent="Manual" ResizeMode="CanMinimize">
+        Title="Mstore" Height="600" Width="1050" SizeToContent="Manual" ResizeMode="CanMinimize" AllowDrop="True">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskBarItemInfoMainWindow" />
     </Window.TaskbarItemInfo>
@@ -29,7 +29,7 @@
             </Grid>
             <Grid x:Name="Main" Grid.Row="2">
                 <ScrollViewer Margin="223,178,10,10" VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Visibility="Visible" Background="#FF2E4368">
+                    <StackPanel x:Name="ButtonPanel" DockPanel.Dock="Top" Visibility="Visible" Background="#FF2E4368" Drop="ButtonPanel_Drop">
                     </StackPanel>
                 </ScrollViewer>
 

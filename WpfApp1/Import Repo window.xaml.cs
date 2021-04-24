@@ -67,7 +67,6 @@ namespace GUI
 
             ZipFile.ExtractToDirectory(destinationFile, destinationFolder);
             Corelib.Write("Extract Complete of Pakages REPO");
-            File.Delete(destinationFile);
             foreach (string s in Directory.GetFiles(destinationFolder, "*.json"))
             {
                 try
