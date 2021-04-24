@@ -3,6 +3,7 @@ using Notifications.Wpf;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
@@ -125,8 +126,17 @@ namespace GUI
             }
             else
             {
-                //FIXME: EXE_Icon.Source = GET RESOURCE APP ICON
-                EXE_Icon.Source = null;
+
+                System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(
+                                    System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
+                IntPtr i = Ico.ToBitmap().GetHbitmap();
+                var ICON = Imaging.CreateBitmapSourceFromHBitmap(
+                    i,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
+                    );
+                EXE_Icon.Source = ICON;
             }
         }
 
@@ -346,6 +356,43 @@ namespace GUI
         {
             Help h = new Help();
             h.Show();
+        }
+
+        private void ButtonPanel_Drop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach (string f in files)
+            {
+                switch (Path.GetExtension(f))
+                {
+                    case ".json":
+                        Corelib.ImportF(f);
+                        break;
+
+                    case ".zip":
+                        string folder = Corelib.DownloadsFolder + Path.GetFileName(f);
+                        ZipFile.ExtractToDirectory(f, folder);
+                        foreach (string s in Directory.GetFiles(folder, "*.json"))
+                        {
+                            try
+                            {
+                                Corelib.ImportF(s);
+                            }
+                            catch (IOException ex)
+                            {
+                                Corelib.Write(ex.ToString());
+                            }
+                        }
+                        Corelib.ClearDownloadsFolder();
+                        break;
+                }
+            }
+            Corelib.ExportList();
+            Notify.Show(new NotificationContent
+            {
+                Title = "Import Finished",
+                Type = NotificationType.Success
+            });
         }
     }
 }

@@ -8,6 +8,7 @@
     <StartupObject>GUI.App</StartupObject>
     <AssemblyName>Mstore</AssemblyName>
     <RootNamespace>GUI</RootNamespace>
+    <ApplicationIcon>Mstore.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
