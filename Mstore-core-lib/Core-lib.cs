@@ -9,13 +9,13 @@ namespace Mstore_Core_lib
 {
     public static class Corelib
     {
-        public static string StartFolder = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
-        public static string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public static string MstorePath = Path.Combine(appdata, "Mstore/");
-        public static string LogFile = Path.Combine(MstorePath, "Log.txt");
-        public static string AppsFolder = Path.Combine(MstorePath, "Apps/");
-        public static string PakagesFolder = Path.Combine(MstorePath, "Pakages/");
-        public static string DownloadsFolder = Path.Combine(MstorePath, "Downloads/");
+        public readonly static string StartFolder = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
+        public readonly static string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public readonly static string MstorePath = Path.Combine(appdata, "Mstore/");
+        public readonly static string LogFile = Path.Combine(MstorePath, "Log.txt");
+        public readonly static string AppsFolder = Path.Combine(MstorePath, "Apps/");
+        public readonly static string PakagesFolder = Path.Combine(MstorePath, "Pakages/");
+        public readonly static string DownloadsFolder = Path.Combine(MstorePath, "Downloads/");
 
         public static List<Pakage> Pakages = new List<Pakage>();
 
@@ -57,6 +57,14 @@ namespace Mstore_Core_lib
             }
 
             ClearDownloadsFolder();
+        }
+
+        public static void ImportF(string f)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            using StreamReader file = File.OpenText(f);
+            Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+            file.Close();
         }
 
         public static void Import()

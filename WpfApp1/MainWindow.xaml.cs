@@ -353,7 +353,7 @@ namespace GUI
                 switch (Path.GetExtension(f))
                 {
                     case ".json":
-                        File.Move(f, Corelib.PakagesFolder + Path.GetFileName(f));
+                        Corelib.ImportF(f);
                         break;
 
                     case ".zip":
@@ -363,7 +363,7 @@ namespace GUI
                         {
                             try
                             {
-                                File.Move(s, Corelib.PakagesFolder + Path.GetFileName(s));
+                                Corelib.ImportF(s);
                             }
                             catch (IOException ex)
                             {
@@ -374,6 +374,7 @@ namespace GUI
                         break;
                 }
             }
+            Corelib.ExportList();
             Notify.Show(new NotificationContent
             {
                 Title = "Import Finished",
