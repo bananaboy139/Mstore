@@ -9,7 +9,7 @@ namespace Mstore_Core_lib
 {
     public static class Corelib
     {
-        public readonly static string StartFolder = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
+        public readonly static string StartFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Programs/Mstore/");
         public readonly static string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public readonly static string MstorePath = Path.Combine(appdata, "Mstore/");
         public readonly static string LogFile = Path.Combine(MstorePath, "Log.txt");
