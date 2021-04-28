@@ -8,7 +8,7 @@
     <StartupObject>GUI.App</StartupObject>
     <AssemblyName>Mstore</AssemblyName>
     <RootNamespace>GUI</RootNamespace>
-    <ApplicationIcon>Mstore.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +18,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mstore-core-lib\Mstore-core-lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

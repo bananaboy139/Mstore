@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Mstore" Height="600" Width="1050" SizeToContent="Manual" ResizeMode="CanMinimize" AllowDrop="True">
+        Title="Mstore" Height="600" Width="1050" SizeToContent="Manual" ResizeMode="CanMinimize" AllowDrop="True" Icon="icon.ico">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="TaskBarItemInfoMainWindow" />
     </Window.TaskbarItemInfo>

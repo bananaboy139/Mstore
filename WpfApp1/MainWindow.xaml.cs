@@ -101,29 +101,22 @@ namespace GUI
 
         public void UpdateImage()
         {
-            System.Drawing.Icon Ico = System.Drawing.Icon.ExtractAssociatedIcon(
-                    System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
-            
+            //Stream AppICON = Application.GetResourceStream(new Uri("/Mstore.ico")).Stream;
+            ImageSource ICON = this.Icon;
+            //System.Drawing.Icon Ico = new System.Drawing.Icon(AppICON);
             if (Corelib.Current.IsInstalled)
             {
-                Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
-            }
-
-            IntPtr i = Ico.ToBitmap().GetHbitmap();
-            try
-            {
-                var ICON = Imaging.CreateBitmapSourceFromHBitmap(
+                var Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
+                IntPtr i = Ico.ToBitmap().GetHbitmap();
+                ICON = Imaging.CreateBitmapSourceFromHBitmap(
                     i,
                     IntPtr.Zero,
                     Int32Rect.Empty,
                     System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
                     );
-                EXE_Icon.Source = ICON;
-            }
-            finally
-            {
                 DeleteObject(i);
             }
+            EXE_Icon.Source = ICON;
         }
 
         private Button DownloadingBtn;
@@ -349,6 +342,7 @@ namespace GUI
                 {
                     case ".json":
                         Corelib.ImportF(f);
+                        AddButtons();
                         break;
 
                     case ".zip":
@@ -359,6 +353,7 @@ namespace GUI
                             try
                             {
                                 Corelib.ImportF(s);
+                                AddButtons();
                             }
                             catch (IOException ex)
                             {
