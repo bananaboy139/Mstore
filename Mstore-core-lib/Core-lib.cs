@@ -224,7 +224,7 @@ namespace Mstore_Core_lib
         public static string ConfigFile = Path.Combine(Corelib.MstorePath, "Mstore.config");
 
         [JsonProperty]
-        public static bool StorePass = false;
+        public static bool StorePass = true;
 
         public static bool StoreEncrypted = false;
     }
