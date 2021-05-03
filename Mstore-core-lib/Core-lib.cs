@@ -187,14 +187,14 @@ namespace Mstore_Core_lib
 
         private void CreateShortcut()
         {
-            using (StreamWriter writer = new StreamWriter(Corelib.StartFolder + Name + ".url"))
-            {
-                string app = Corelib.AppsFolder + JName + "/" + exe;
-                writer.WriteLine("[InternetShortcut]");
-                writer.WriteLine("URL=file:///" + app);
-                writer.WriteLine("IconIndex=0");
-                writer.WriteLine("IconFile=" + app);
-            }
+            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+            string shortcutAddress = ""; //path to start menu
+            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
+            shortcut.WorkingDirectory = new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName;
+            shortcut.Arguments = args;
+            shortcut.TargetPath = Corelib.AppsFolder + JName + "/" + exe;
+            shortcut.IconLocation = Corelib.AppsFolder + JName + "/" + exe;
+            shortcut.Save();
         }
 
         public void Run()
