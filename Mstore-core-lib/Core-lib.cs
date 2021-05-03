@@ -188,7 +188,7 @@ namespace Mstore_Core_lib
         private void CreateShortcut()
         {
             IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
-            string shortcutAddress = ""; //path to start menu
+            string shortcutAddress = Corelib.StartFolder + Name + ".lnk";
             IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
             shortcut.WorkingDirectory = new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName;
             shortcut.Arguments = args;

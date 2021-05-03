@@ -293,7 +293,7 @@ namespace GUI
             if (Corelib.Current.IsInstalled)
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
-                string Shortcut = Corelib.StartFolder + Corelib.Current.Name + ".url";
+                string Shortcut = Corelib.StartFolder + Corelib.Current.Name + ".lnk";
                 File.Delete(Shortcut);
                 Directory.Delete(Path.Combine(Corelib.AppsFolder, Corelib.Current.JName), true);
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
