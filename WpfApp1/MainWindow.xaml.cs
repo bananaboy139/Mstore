@@ -371,5 +371,30 @@ namespace GUI
                 Type = NotificationType.Success
             });
         }
+
+        private void Remake_Shortcut_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Corelib.Current.IsInstalled)
+            {
+                if (File.Exists(Corelib.StartFolder + Corelib.Current.Name + ".lnk")) 
+                {
+                    File.Delete(Corelib.StartFolder + Corelib.Current.Name + ".lnk");
+                }
+                try 
+                {
+                    Corelib.Current.CreateShortcut();
+                }
+                catch (Exception ex)
+                {
+                    Notify.Show(new NotificationContent
+                    {
+                        Title = ex.ToString(),
+                        Message = ex.Message,
+                        Type = NotificationType.Error
+                    });
+                }
+                
+            }
+        }
     }
 }

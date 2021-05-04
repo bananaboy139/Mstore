@@ -37,6 +37,7 @@
                     <TextBlock x:Name="Current_Name_Textbox" Height="60.34" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FF4F6597" Width="208.568" DockPanel.Dock="Top" />
                     <Button x:Name="Run_app_button" Content="Run app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="RunButtonClick" />
                     <Button x:Name="Download_button" Content="Download app" Background="#FF5F9BAD" Width="208" DockPanel.Dock="Top" Height="28" Click="DownloadButtonClick" />
+                    <Button x:Name="make_Shortcut_Btn" Content="Create Shortcut" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="Remake_Shortcut_Btn_Click"  Height="28" />
                     <Button x:Name="Edit_Button" Content="Edit app pakage" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="Edit_Button_Click" Height="28" />
                     <Button x:Name="Delete_Button" Content="Delete app" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="DeleteClicked" Height="28" />
                 </DockPanel>
@@ -44,7 +45,7 @@
                     <ScrollViewer Width="405" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="Description_textbox" TextWrapping="Wrap" Width="405" Background="#FF4F6597"/>
                     </ScrollViewer>
-                    
+
                     <Image x:Name="EXE_Icon" HorizontalAlignment="Right" VerticalAlignment="Bottom" RenderOptions.BitmapScalingMode ="NearestNeighbor" Width="154" Height="154"/>
                 </StackPanel>
             </Grid>

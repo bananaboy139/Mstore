@@ -181,11 +181,9 @@ namespace Mstore_Core_lib
             Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Corelib.MstorePath + JName);
             IsInstalled = true;
             File.Delete(Corelib.MstorePath + JName + ".zip");
-            CreateShortcut();
-            Corelib.Write("created shortcut" + JName);
         }
 
-        private void CreateShortcut()
+        public void CreateShortcut()
         {
             IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
             string shortcutAddress = Corelib.StartFolder + Name + ".lnk";
