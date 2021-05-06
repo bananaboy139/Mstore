@@ -46,11 +46,6 @@ namespace Mstore_Core_lib
                 Directory.CreateDirectory(StartFolder);
             }
 
-            if (!File.Exists(LogFile))
-            {
-                File.Create(LogFile);
-            }
-
             if (!Directory.Exists(DownloadsFolder))
             {
                 Directory.CreateDirectory(DownloadsFolder);

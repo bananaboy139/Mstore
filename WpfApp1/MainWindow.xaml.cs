@@ -106,15 +106,22 @@ namespace GUI
             //System.Drawing.Icon Ico = new System.Drawing.Icon(AppICON);
             if (Corelib.Current.IsInstalled)
             {
-                var Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
-                IntPtr i = Ico.ToBitmap().GetHbitmap();
-                ICON = Imaging.CreateBitmapSourceFromHBitmap(
-                    i,
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
-                    );
-                DeleteObject(i);
+                try
+                {
+                    var Ico = System.Drawing.Icon.ExtractAssociatedIcon(Corelib.AppsFolder + Corelib.Current.JName + "/" + Corelib.Current.exe);
+                    IntPtr i = Ico.ToBitmap().GetHbitmap();
+                    ICON = Imaging.CreateBitmapSourceFromHBitmap(
+                        i,
+                        IntPtr.Zero,
+                        Int32Rect.Empty,
+                        System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions()
+                        );
+                    DeleteObject(i);
+                }
+                catch (Exception e)
+                {
+                    Corelib.Write(e.ToString());
+                }
             }
             EXE_Icon.Source = ICON;
         }
