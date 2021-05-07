@@ -204,20 +204,49 @@ namespace GUI
                 {
                     long bytesPerSecond = e.BytesReceived / (long)timeSpan.TotalSeconds;
                     long KBPerSec = bytesPerSecond / 1000;
+                    var elapsedTime = timeSpan.TotalSeconds;
+                    var allTimeFordownloading = (elapsedTime * e.TotalBytesToReceive / e.BytesReceived);
+                    var remainingTime = allTimeFordownloading - elapsedTime;
+                    TimeSpan time = TimeSpan.FromSeconds(remainingTime);
+
                     Dispatcher.Invoke(() =>
                     {
                         Download_button.Content = "Downloading " + "(" + KBPerSec.ToString() + " KB/sec)";
-                        
+                        string remaining;
+                        if (e.BytesReceived < 1024)
+                        {
+                            remaining = string.Format("{0}/{1} KBs", 
+                                Math.Round(e.BytesReceived / 1024f), 
+                                Math.Round(e.TotalBytesToReceive / 1024f));
+                        }
+                        else
+                        {
+                            remaining = string.Format("{0}/{1} MBs", 
+                                (Math.Round((e.BytesReceived / 1024f) / 1024f)), 
+                                Math.Round((e.TotalBytesToReceive / 1024f) / 1024f));
+                        }
+                        string ETA = string.Format("(ETA: {0}Mins, {1}Secs)", time.Minutes, time.Seconds);
+
+                        double ProgressPerc = (double)e.ProgressPercentage / 100;
+                        int ProgressPercINT = (int)(ProgressPerc * 100);
+                        string dow = string.Format("{0} - {1}% {2} ({3})", Corelib.Downloading.Name, ProgressPercINT.ToString(), ETA, remaining);
+                        DownloadingBtn.Content = dow;
+
+                        TaskBarItemInfoMainWindow.ProgressValue = ProgressPerc;
+                    });
+                }
+                else
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        double ProgressPerc = (double)e.ProgressPercentage / 100;
+                        TaskBarItemInfoMainWindow.ProgressValue = ProgressPerc;
+                        int ProgressPercINT = (int)(ProgressPerc * 100);
+                        DownloadingBtn.Content = Corelib.Downloading.Name + " - " + ProgressPercINT.ToString() + "%";
                     });
                 }
             }
-            this.Dispatcher.Invoke(() =>
-            {
-                double ProgressPerc = (double)e.ProgressPercentage / 100;
-                TaskBarItemInfoMainWindow.ProgressValue = ProgressPerc;
-                int ProgressPercINT = (int)(ProgressPerc * 100);
-                DownloadingBtn.Content = Corelib.Downloading.Name + " - " + ProgressPercINT.ToString() + "%";
-            });
+
         }
 
         private void wc_DownloadFinished(object sender, EventArgs e)
