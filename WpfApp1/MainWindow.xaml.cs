@@ -235,16 +235,6 @@ namespace GUI
                         TaskBarItemInfoMainWindow.ProgressValue = ProgressPerc;
                     });
                 }
-                else
-                {
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        double ProgressPerc = (double)e.ProgressPercentage / 100;
-                        TaskBarItemInfoMainWindow.ProgressValue = ProgressPerc;
-                        int ProgressPercINT = (int)(ProgressPerc * 100);
-                        DownloadingBtn.Content = Corelib.Downloading.Name + " - " + ProgressPercINT.ToString() + "%";
-                    });
-                }
             }
 
         }
