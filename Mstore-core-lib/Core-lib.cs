@@ -7,218 +7,196 @@ using System.IO.Compression;
 
 namespace Mstore_Core_lib
 {
-    public static class Corelib
-    {
-        public readonly static string StartFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Programs/Mstore/");
-        public readonly static string UserDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        public readonly static string MstorePath = Path.Combine(UserDir, "Mstore/");
-        public readonly static string LogFile = Path.Combine(MstorePath, "Log.txt");
-        public readonly static string AppsFolder = Path.Combine(MstorePath, "Apps/");
-        public readonly static string PakagesFolder = Path.Combine(MstorePath, "Pakages/");
-        public readonly static string DownloadsFolder = Path.Combine(MstorePath, "Downloads/");
+	public static class Corelib
+	{
+		public readonly static string StartFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Programs/Mstore/");
+		public readonly static string UserDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+		public readonly static string MstorePath = Path.Combine(UserDir, "Mstore/");
+		public readonly static string LogFile = Path.Combine(MstorePath, "Log.txt");
+		public readonly static string AppsFolder = Path.Combine(MstorePath, "Apps/");
+		public readonly static string PakagesFolder = Path.Combine(MstorePath, "Pakages/");
+		public readonly static string DownloadsFolder = Path.Combine(MstorePath, "Downloads/");
 
-        public static List<Pakage> Pakages = new List<Pakage>();
+		public static List<Pakage> Pakages = new List<Pakage>();
 
-        public static Pakage Current;
+		public static Pakage Current;
 
-        public static Pakage Downloading;
+		public static Pakage Downloading;
 
-        //Functions
-        public static void Setup()
-        {
-            if (!Directory.Exists(MstorePath))
-            {
-                Directory.CreateDirectory(MstorePath);
-            }
+		public static void Setup()
+		{
+			string[] Dirs = { MstorePath, AppsFolder, PakagesFolder, StartFolder, DownloadsFolder };
 
-            if (!Directory.Exists(AppsFolder))
-            {
-                Directory.CreateDirectory(AppsFolder);
-            }
+			foreach (string dir in Dirs)
+			{
+				if (!Directory.Exists(dir))
+				{
+					Directory.CreateDirectory(dir);
+				}
+			}
+			//fixme: this caused a problem, so I am removing it here
+			string badfile = Path.Combine(PakagesFolder, ".json");
+			if (!File.Exists(badfile))
+			{
+				File.Delete(badfile);
+			}
+		}
 
-            if (!Directory.Exists(PakagesFolder))
-            {
-                Directory.CreateDirectory(PakagesFolder);
-            }
+		public static void ImportF(string f)
+		{
+			JsonSerializer serializer = new JsonSerializer();
+			using StreamReader file = File.OpenText(f);
+			Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+			file.Close();
+		}
 
-            if (!Directory.Exists(StartFolder))
-            {
-                Directory.CreateDirectory(StartFolder);
-            }
+		public static void Import()
+		{
+			Pakages.Clear();
+			//read pakage files
+			JsonSerializer serializer = new JsonSerializer();
+			foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
+			{
+				using StreamReader file = File.OpenText(f);
+				Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
+				file.Close();
+			}
+			//import Config
+			try
+			{
+				using StreamReader Cfile = File.OpenText(Config.ConfigFile);
+				Config C = (Config)serializer.Deserialize(Cfile, typeof(Config));
+				Cfile.Close();
+			}
+			catch (FileNotFoundException ex)
+			{
+				Write(ex.ToString());
+				ExportList();
+			}
 
-            if (!Directory.Exists(DownloadsFolder))
-            {
-                Directory.CreateDirectory(DownloadsFolder);
-            }
+			//check if installed
+			foreach (Pakage p in Pakages)
+			{
+				p.IsInstalled = Directory.Exists(AppsFolder + p.JName + "/");
+			}
+		}
 
-            ClearDownloadsFolder();
-        }
+		public static void ExportList()
+		{
+			try
+			{
+				foreach (Pakage pakage in Pakages)
+				{
+					string pakageinfo = JsonConvert.SerializeObject(pakage);
+					string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
 
-        public static void ImportF(string f)
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            using StreamReader file = File.OpenText(f);
-            Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
-            file.Close();
-        }
+					File.WriteAllText(FileName, pakageinfo);
+				}
 
-        public static void Import()
-        {
-            Pakages.Clear();
-            //read pakage files
-            JsonSerializer serializer = new JsonSerializer();
-            foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
-            {
-                using StreamReader file = File.OpenText(f);
-                Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
-                file.Close();
-            }
-            //import Config
-            try
-            {
-                using StreamReader Cfile = File.OpenText(Config.ConfigFile);
-                Config C = (Config)serializer.Deserialize(Cfile, typeof(Config));
-                Cfile.Close();
-            }
-            catch (FileNotFoundException ex)
-            {
-                Write(ex.ToString());
-                ExportList();
-            }
+				//export config
+				Config c = new Config();
+				string Configuration = JsonConvert.SerializeObject(c);
+				File.WriteAllText(Config.ConfigFile, Configuration);
+			}
+			catch (Exception e)
+			{
+				Write(e.ToString());
+				throw new Exception(e.ToString());
+			}
+		}
 
-            //check if installed
-            foreach (Pakage p in Pakages)
-            {
-                if (!Directory.Exists(AppsFolder + p.JName + "/"))
-                {
-                    p.IsInstalled = false;
-                }
-                else
-                {
-                    p.IsInstalled = true;
-                }
-            }
-        }
+		public static void Write(string t)
+		{
+			DateTime dateToDisplay = new DateTime();
+			string text = dateToDisplay.ToString() + ":   " + t + "\n";
+			File.AppendAllText(LogFile, text);
+		}
 
-        public static void ExportList()
-        {
-            try
-            {
-                foreach (Pakage pakage in Pakages)
-                {
-                    string pakageinfo = JsonConvert.SerializeObject(pakage);
-                    string FileName = MstorePath + "Pakages/" + pakage.JName + ".json";
+		public static void ClearDownloadsFolder()
+		{
+			foreach (string f in Directory.GetFiles(DownloadsFolder))
+			{
+				Write(f);
+				File.Delete(f);
+			}
+			foreach (string d in Directory.GetDirectories(DownloadsFolder))
+			{
+				Write(d);
+				Directory.Delete(d, true);
+			}
+		}
+	}
 
-                    File.WriteAllText(FileName, pakageinfo);
-                }
+	public class Pakage
+	{
+		public string Name;
+		public string DownloadURL;
+		public string Description;
+		public string JName;
+		public string exe;
+		public string args;
+		public string User;
 
-                //export config
-                Config c = new Config();
-                string Configuration = JsonConvert.SerializeObject(c);
+		[JsonIgnore]
+		public bool IsInstalled = false;
 
-                File.WriteAllText(Config.ConfigFile, Configuration);
-            }
-            catch (Exception e)
-            {
-                Write(e.ToString());
-                throw new Exception(e.ToString());
-            }
-        }
+		public bool ShouldSerializePassword()
+		{
+			return Config.StorePass;
+		}
 
-        public static void Write(string t)
-        {
-            DateTime dateToDisplay = new DateTime();
-            string text = dateToDisplay.ToString() + ":   " + t + "\n";
-            File.AppendAllText(LogFile, text);
-        }
+		public string Password;
 
-        public static void ClearDownloadsFolder()
-        {
-            foreach (string f in Directory.GetFiles(DownloadsFolder))
-            {
-                Write(f);
-                File.Delete(f);
-            }
-            foreach (string d in Directory.GetDirectories(DownloadsFolder))
-            {
-                Write(d);
-                Directory.Delete(d, true);
-            }
-        }
-    }
+		public void Install(string dow)
+		{
+			Corelib.Write("Install Starting: " + JName);
+			ZipFile.ExtractToDirectory(dow, Corelib.AppsFolder + JName + "/");
+			Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Corelib.MstorePath + JName);
+			IsInstalled = true;
+			File.Delete(Corelib.MstorePath + JName + ".zip");
+		}
 
-    public class Pakage
-    {
-        public string Name;
-        public string DownloadURL;
-        public string Description;
-        public string JName;
-        public string exe;
-        public string args;
-        public string User;
+		public void CreateShortcut()
+		{
+			IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+			string shortcutAddress = Corelib.StartFolder + Name + ".lnk";
+			IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
+			shortcut.WorkingDirectory = new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName;
+			shortcut.Arguments = args;
+			shortcut.TargetPath = Corelib.AppsFolder + JName + "/" + exe;
+			shortcut.IconLocation = Corelib.AppsFolder + JName + "/" + exe;
+			shortcut.Save();
+		}
 
-        [JsonIgnore]
-        public bool IsInstalled = false;
+		public void Run()
+		{
+			if (IsInstalled)
+			{
+				var currentdir = Directory.GetCurrentDirectory();
+				try
+				{
+					Directory.SetCurrentDirectory(new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName);
+					Process Launcher = new Process();
+					Launcher.StartInfo.FileName = Corelib.AppsFolder + JName + "/" + exe;
+					Launcher.StartInfo.Arguments = args;
+					Launcher.Start();
+					Directory.SetCurrentDirectory(currentdir);
+				}
+				catch (Exception ex)
+				{
+					Corelib.Write(Name + " can not start" + ex);
+				}
+			}
+		}
+	}
 
-        //fixme: add option to store, for idiots
-        //storing passwords in plain text is the single stupidest thing ever, don't ever store passwords in plain text
-        public bool ShouldSerializePassword()
-        {
-            return Config.StorePass;
-        }
+	public class Config
+	{
+		public static string ConfigFile = Path.Combine(Corelib.MstorePath, "Mstore.config");
 
-        public string Password;
+		[JsonProperty]
+		public static bool StorePass = true;
 
-        public void Install(string dow)
-        {
-            Corelib.Write("Install Starting: " + JName);
-            ZipFile.ExtractToDirectory(dow, Corelib.AppsFolder + JName + "/");
-            Corelib.Write("Extract Complete\n " + Name + "\nLocation:  " + Corelib.MstorePath + JName);
-            IsInstalled = true;
-            File.Delete(Corelib.MstorePath + JName + ".zip");
-        }
-
-        public void CreateShortcut()
-        {
-            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
-            string shortcutAddress = Corelib.StartFolder + Name + ".lnk";
-            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
-            shortcut.WorkingDirectory = new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName;
-            shortcut.Arguments = args;
-            shortcut.TargetPath = Corelib.AppsFolder + JName + "/" + exe;
-            shortcut.IconLocation = Corelib.AppsFolder + JName + "/" + exe;
-            shortcut.Save();
-        }
-
-        public void Run()
-        {
-            if (IsInstalled)
-            {
-                var currentdir = Directory.GetCurrentDirectory();
-                try
-                {
-                    Directory.SetCurrentDirectory(new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName);
-                    Process Launcher = new Process();
-                    Launcher.StartInfo.FileName = Corelib.AppsFolder + JName + "/" + exe;
-                    Launcher.StartInfo.Arguments = args;
-                    Launcher.Start();
-                    Directory.SetCurrentDirectory(currentdir);
-                }
-                catch (Exception ex)
-                {
-                    Corelib.Write(Name + " can not start" + ex);
-                }
-            }
-        }
-    }
-
-    public class Config
-    {
-        public static string ConfigFile = Path.Combine(Corelib.MstorePath, "Mstore.config");
-
-        [JsonProperty]
-        public static bool StorePass = true;
-
-        public static bool StoreEncrypted = false;
-    }
+		public static bool StoreEncrypted = false;
+	}
 }

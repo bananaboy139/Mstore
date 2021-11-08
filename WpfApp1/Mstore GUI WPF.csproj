@@ -2,13 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
-	<TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <TargetFramework>net6.0-windows8.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>GUI.App</StartupObject>
     <AssemblyName>Mstore</AssemblyName>
     <RootNamespace>GUI</RootNamespace>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
