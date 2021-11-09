@@ -1,5 +1,4 @@
 ﻿using Mstore_Core_lib;
-using Notifications.Wpf;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -11,6 +10,8 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shell;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
 
 namespace GUI
 {
@@ -19,8 +20,6 @@ namespace GUI
         //no clue how tf this works
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
-
-        private NotificationManager Notify = new NotificationManager();
 
         public MainWindow()
         {
