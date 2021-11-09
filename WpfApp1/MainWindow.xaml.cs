@@ -16,6 +16,7 @@ namespace GUI
 {
     public partial class MainWindow : Window
     {
+        //no clue how tf this works
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
 
