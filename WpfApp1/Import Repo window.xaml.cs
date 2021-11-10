@@ -12,8 +12,8 @@ namespace GUI
 {
     public partial class Import_Repo_window : Window
     {
-        private string destinationFolder = Corelib.DownloadsFolder + "pakages/";
-        private string destinationFile = Corelib.DownloadsFolder + "pakages" + ".zip";
+        private readonly string destinationFolder = Corelib.DownloadsFolder + "pakages/";
+        private readonly string destinationFile = Corelib.DownloadsFolder + "pakages" + ".zip";
         private NotificationManager Notify = new NotificationManager();
 
         public Import_Repo_window()
@@ -27,9 +27,9 @@ namespace GUI
             string Pass = Password_textbox.Text;
             string URL = Link_Textbox.Text;
 
-            WebClient WClient = new WebClient();
+            WebClient WClient = new();
             WClient.Credentials = new NetworkCredential(User, Pass);
-            WClient.DownloadFileCompleted += wc_DownloadFinished;
+            WClient.DownloadFileCompleted += Wc_DownloadFinished;
             WClient.DownloadProgressChanged += WClient_DownloadProgressChanged;
             try
             {
@@ -56,7 +56,7 @@ namespace GUI
             });
         }
 
-        private void wc_DownloadFinished(object sender, EventArgs e)
+        private void Wc_DownloadFinished(object sender, EventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {

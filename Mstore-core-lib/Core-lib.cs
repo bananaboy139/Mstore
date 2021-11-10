@@ -15,9 +15,9 @@ namespace Mstore_Core_lib
 		public readonly static string LogFile = Path.Combine(MstorePath, "Log.txt");
 		public readonly static string AppsFolder = Path.Combine(MstorePath, "Apps/");
 		public readonly static string PakagesFolder = Path.Combine(MstorePath, "Pakages/");
-		public readonly static string DownloadsFolder = Path.Combine(MstorePath, "Downloads/");
+        public static readonly string DownloadsFolder = Path.Combine(MstorePath, "Downloads/");
 
-		public static List<Pakage> Pakages = new List<Pakage>();
+        public static List<Pakage> Pakages = new();
 
 		public static Pakage Current;
 
@@ -51,7 +51,7 @@ namespace Mstore_Core_lib
 
 		public static void ImportF(string f)
 		{
-			JsonSerializer serializer = new JsonSerializer();
+			JsonSerializer serializer = new();
 			using StreamReader file = File.OpenText(f);
 			Pakages.Add((Pakage)serializer.Deserialize(file, typeof(Pakage)));
 			file.Close();
@@ -61,7 +61,7 @@ namespace Mstore_Core_lib
 		{
 			Pakages.Clear();
 			//read pakage files
-			JsonSerializer serializer = new JsonSerializer();
+			JsonSerializer serializer = new();
 			foreach (string f in Directory.GetFiles(PakagesFolder, "*.json", SearchOption.TopDirectoryOnly))
 			{
 				using StreamReader file = File.OpenText(f);
@@ -101,7 +101,7 @@ namespace Mstore_Core_lib
 				}
 
 				//export config
-				Config c = new Config();
+				Config c = new();
 				string Configuration = JsonConvert.SerializeObject(c);
 				File.WriteAllText(Config.ConfigFile, Configuration);
 			}
@@ -114,7 +114,7 @@ namespace Mstore_Core_lib
 
 		public static void Write(string t)
 		{
-			DateTime dateToDisplay = new DateTime();
+			DateTime dateToDisplay = new();
 			string text = dateToDisplay.ToString() + ":   " + t + "\n";
 			File.AppendAllText(LogFile, text);
 		}
@@ -147,7 +147,7 @@ namespace Mstore_Core_lib
 		[JsonIgnore]
 		public bool IsInstalled = false;
 
-		public bool ShouldSerializePassword()
+		public static bool ShouldSerializePassword()
 		{
 			return Config.StorePass;
 		}
@@ -165,7 +165,7 @@ namespace Mstore_Core_lib
 
 		public void CreateShortcut()
 		{
-			IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+			IWshRuntimeLibrary.WshShell shell = new();
 			string shortcutAddress = Corelib.StartFolder + Name + ".lnk";
 			IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
 			shortcut.WorkingDirectory = new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName;
@@ -183,7 +183,7 @@ namespace Mstore_Core_lib
 				try
 				{
 					Directory.SetCurrentDirectory(new FileInfo(Corelib.AppsFolder + JName + "/" + exe).Directory.FullName);
-					Process Launcher = new Process();
+					Process Launcher = new();
 					Launcher.StartInfo.FileName = Corelib.AppsFolder + JName + "/" + exe;
 					Launcher.StartInfo.Arguments = args;
 					Launcher.Start();
@@ -202,7 +202,7 @@ namespace Mstore_Core_lib
 		public static string ConfigFile = Path.Combine(Corelib.MstorePath, "Mstore.config");
 
 		[JsonProperty]
-		public static bool StorePass = true;
+        public static bool StorePass = true;
 
 		public static bool StoreEncrypted = false;
 	}
