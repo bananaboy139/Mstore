@@ -35,10 +35,17 @@ namespace Mstore_Core_lib
 				}
 			}
 			//fixme: this caused a problem, so I am removing it here
-			string badfile = Path.Combine(PakagesFolder, ".json");
-			if (!File.Exists(badfile))
-			{
-				File.Delete(badfile);
+			string[] badfile = 
+			{ 
+				Path.Combine(PakagesFolder,".json"),
+				Path.Combine(PakagesFolder, " .json")
+			};
+			foreach(string file in badfile)
+            {
+				if (File.Exists(file))
+				{
+					File.Delete(file);
+				}
 			}
 		}
 
