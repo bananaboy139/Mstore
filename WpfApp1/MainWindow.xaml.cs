@@ -408,7 +408,8 @@ namespace GUI
     {
         public static void ShowNotification(string Message)
         {
-            string xml = $@"<toast>
+            string xml = 
+                 $@"<toast>
                       <visual>
                         <binding template='ToastGeneric'>
                           <text>Expense added</text>
