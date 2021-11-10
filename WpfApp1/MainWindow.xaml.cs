@@ -171,20 +171,12 @@ namespace GUI
                     new System.Uri(Corelib.Downloading.DownloadURL),
                     Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
                     ));
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download Started",
-                    Type = NotificationType.Information
-                });
+                Notifier.ShowNotification("Download Started");
             }
             catch (WebException ex)
             {
                 Corelib.Write(ex.ToString());
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download failed",
-                    Type = NotificationType.Error
-                });
+                Notifier.ShowNotification("Download failed");
             }
 
         }
@@ -255,11 +247,7 @@ namespace GUI
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download Finished",
-                    Type = NotificationType.Success
-                });
+                Notifier.ShowNotification("Download Finished");
                 Download_button.IsEnabled = true;
                 UpdateImage();
             });
@@ -391,11 +379,7 @@ namespace GUI
                 }
             }
             Corelib.ExportList();
-            Notify.Show(new NotificationContent
-            {
-                Title = "Import Finished",
-                Type = NotificationType.Success
-            });
+            Notifier.ShowNotification("Import Finished");
         }
 
         private void Remake_Shortcut_Btn_Click(object sender, RoutedEventArgs e)
@@ -412,15 +396,32 @@ namespace GUI
                 }
                 catch (Exception ex)
                 {
-                    Notify.Show(new NotificationContent
-                    {
-                        Title = ex.ToString(),
-                        Message = ex.Message,
-                        Type = NotificationType.Error
-                    });
+                    Corelib.Write(ex.Message);
+                    Notifier.ShowNotification(ex.Message);
                 }
                 
             }
+        }
+    }
+
+    public static class Notifier
+    {
+        public static void ShowNotification(string Message)
+        {
+            string xml = $@"<toast>
+                      <visual>
+                        <binding template='ToastGeneric'>
+                          <text>Expense added</text>
+                          <text>Description: {Message} </text>
+                        </binding>
+                      </visual>
+                    </toast>";
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+
+            ToastNotification toast = new ToastNotification(doc);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
     }
 }
