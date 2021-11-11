@@ -1,5 +1,4 @@
 ﻿using Mstore_Core_lib;
-using Notifications.Wpf;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -18,8 +17,6 @@ namespace GUI
     {
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
-
-        private NotificationManager Notify = new NotificationManager();
 
         public MainWindow()
         {
@@ -171,20 +168,14 @@ namespace GUI
                     new System.Uri(Corelib.Downloading.DownloadURL),
                     Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
                     ));
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download Started",
-                    Type = NotificationType.Information
-                });
+                //TODO: "Download Started"
+                DownloadStatusTextBox.Text = "Download Started";
             }
             catch (WebException ex)
             {
                 Corelib.Write(ex.ToString());
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download failed",
-                    Type = NotificationType.Error
-                });
+                //TODO: "Download failed"
+                DownloadStatusTextBox.Text = "Download failed";
             }
 
         }
@@ -255,11 +246,9 @@ namespace GUI
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download Finished",
-                    Type = NotificationType.Success
-                });
+                //TODO: "Download Finished"
+                DownloadStatusTextBox.Text = "Download Finished";
+
                 Download_button.IsEnabled = true;
                 UpdateImage();
             });
@@ -391,11 +380,8 @@ namespace GUI
                 }
             }
             Corelib.ExportList();
-            Notify.Show(new NotificationContent
-            {
-                Title = "Import Finished",
-                Type = NotificationType.Success
-            });
+            //TODO: "Import Finished"
+            DownloadStatusTextBox.Text = "Import Finished";
         }
 
         private void Remake_Shortcut_Btn_Click(object sender, RoutedEventArgs e)
@@ -412,12 +398,7 @@ namespace GUI
                 }
                 catch (Exception ex)
                 {
-                    Notify.Show(new NotificationContent
-                    {
-                        Title = ex.ToString(),
-                        Message = ex.Message,
-                        Type = NotificationType.Error
-                    });
+                    Corelib.Write(ex.Message);
                 }
                 
             }

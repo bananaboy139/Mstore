@@ -34,7 +34,7 @@ namespace Mstore_Core_lib
 					Directory.CreateDirectory(dir);
 				}
 			}
-			//fixme: this caused a problem, so I am removing it here
+			//This caused a problem, so I am removing it here
 			string[] badfile = 
 			{ 
 				Path.Combine(PakagesFolder,".json"),

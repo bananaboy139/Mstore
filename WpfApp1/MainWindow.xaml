@@ -40,6 +40,7 @@
                     <Button x:Name="make_Shortcut_Btn" Content="Create Shortcut" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="Remake_Shortcut_Btn_Click"  Height="28" />
                     <Button x:Name="Edit_Button" Content="Edit app pakage" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="Edit_Button_Click" Height="28" />
                     <Button x:Name="Delete_Button" Content="Delete app" Background="#FF5F9BAD" DockPanel.Dock="Top" Click="DeleteClicked" Height="28" />
+                    <TextBlock x:Name="DownloadStatusTextBox" Height="28" TextWrapping="Wrap" Text="" Background="#FF22428A" Width="209" DockPanel.Dock="Top" />
                 </DockPanel>
                 <StackPanel x:Name="Description_dock" Margin="0,10,18,242" Background="#0A99BBFF" HorizontalAlignment="Right" Width="559" Orientation="Horizontal">
                     <ScrollViewer Width="405" ScrollViewer.VerticalScrollBarVisibility="Auto">
