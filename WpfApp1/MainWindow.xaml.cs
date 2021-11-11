@@ -168,12 +168,14 @@ namespace GUI
                     new System.Uri(Corelib.Downloading.DownloadURL),
                     Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
                     ));
-                //FIXME: "Download Started" notification
+                //TODO: "Download Started"
+                DownloadStatusTextBox.Text = "Download Started";
             }
             catch (WebException ex)
             {
                 Corelib.Write(ex.ToString());
-                //FIXME: "Download failed"
+                //TODO: "Download failed"
+                DownloadStatusTextBox.Text = "Download failed";
             }
 
         }
@@ -244,7 +246,9 @@ namespace GUI
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
-                //FIXME: "Download Finished"
+                //TODO: "Download Finished"
+                DownloadStatusTextBox.Text = "Download Finished";
+
                 Download_button.IsEnabled = true;
                 UpdateImage();
             });
@@ -376,7 +380,8 @@ namespace GUI
                 }
             }
             Corelib.ExportList();
-            //FIXME: "Import Finished"
+            //TODO: "Import Finished"
+            DownloadStatusTextBox.Text = "Import Finished";
         }
 
         private void Remake_Shortcut_Btn_Click(object sender, RoutedEventArgs e)

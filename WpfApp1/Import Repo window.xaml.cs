@@ -37,7 +37,8 @@ namespace GUI
             catch (WebException ex)
             {
                 Corelib.Write(ex.ToString());
-                //FIXME: "Download failed"
+                //TODO: "Download failed"
+                Download_text.Text = "Download Failed";
             }
 
         }
