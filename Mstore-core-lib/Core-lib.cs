@@ -34,19 +34,6 @@ namespace Mstore_Core_lib
 					Directory.CreateDirectory(dir);
 				}
 			}
-			//This caused a problem, so I am removing it here
-			string[] badfile = 
-			{ 
-				Path.Combine(PakagesFolder,".json"),
-				Path.Combine(PakagesFolder, " .json")
-			};
-			foreach(string file in badfile)
-            {
-				if (File.Exists(file))
-				{
-					File.Delete(file);
-				}
-			}
 		}
 
 		public static void ImportF(string f)
@@ -59,6 +46,19 @@ namespace Mstore_Core_lib
 
 		public static void Import()
 		{
+			//This caused a problem, so I am removing it here
+			string[] badfile =
+			{
+				Path.Combine(PakagesFolder,".json"),
+				Path.Combine(PakagesFolder, " .json")
+			};
+			foreach (string file in badfile)
+			{
+				if (File.Exists(file))
+				{
+					File.Delete(file);
+				}
+			}
 			Pakages.Clear();
 			//read pakage files
 			JsonSerializer serializer = new();
