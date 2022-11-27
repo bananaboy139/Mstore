@@ -19,7 +19,7 @@ namespace GUI
         {
             if (!Editing)
             {
-                Pakage p = new Pakage()
+                Pakage p = new()
                 {
                     Name = NameBox.Text,
                     DownloadURL = URLBox.Text,

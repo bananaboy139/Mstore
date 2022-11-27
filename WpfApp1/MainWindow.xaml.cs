@@ -1,5 +1,4 @@
 ﻿using Mstore_Core_lib;
-using Notifications.Wpf;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -18,8 +17,6 @@ namespace GUI
     {
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
-
-        private NotificationManager Notify = new NotificationManager();
 
         public MainWindow()
         {
@@ -56,7 +53,7 @@ namespace GUI
             foreach (Pakage p in Corelib.Pakages)
             {
                 //< Button Content = "Button" Height = "33.275" Width = "558.557" HorizontalAlignment = "Center" DockPanel.Dock = "Top" Background = "#FF132857" />
-                Button B = new Button()
+                Button B = new()
                 {
                     Height = 33.275,
                     Width = 558.557,
@@ -94,9 +91,12 @@ namespace GUI
         }
         public void UpdateUI()
         {
-            Description_textbox.Text = Corelib.Current.Description;
-            Current_Name_Textbox.Text = Corelib.Current.Name;
-            UpdateImage();
+            if (Corelib.Current != null)
+            {
+                Description_textbox.Text = Corelib.Current.Description;
+                Current_Name_Textbox.Text = Corelib.Current.Name;
+                UpdateImage();
+            }
         }
 
         public void UpdateImage()
@@ -128,10 +128,9 @@ namespace GUI
 
         private Button DownloadingBtn;
 
-
         private async void DownloadButtonClick(object sender, RoutedEventArgs s)
         {
-            if (!Corelib.Current.IsInstalled)
+            if (Corelib.Current != null && !Corelib.Current.IsInstalled)
             {
                 Download_button.IsEnabled = false;
                 Corelib.Downloading = Corelib.Current;
@@ -140,7 +139,7 @@ namespace GUI
                 {
                     if (Corelib.Current.User != null)
                     {
-                        Credentials c = new Credentials();
+                        Credentials c = new();
                         c.ShowDialog();
                     }
                 }
@@ -159,10 +158,10 @@ namespace GUI
 
         private async Task Download()
         {
-            WebClient WClient = new WebClient();
+            WebClient WClient = new();
             WClient.Credentials = new NetworkCredential(Corelib.Downloading.User, Corelib.Downloading.Password);
-            WClient.DownloadProgressChanged += wc_DownloadProgressChanged;
-            WClient.DownloadFileCompleted += wc_DownloadFinished;
+            WClient.DownloadProgressChanged += Wc_DownloadProgressChanged;
+            WClient.DownloadFileCompleted += Wc_DownloadFinished;
             TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Normal;
             try
             {
@@ -171,29 +170,23 @@ namespace GUI
                     new System.Uri(Corelib.Downloading.DownloadURL),
                     Corelib.DownloadsFolder + Corelib.Downloading.JName + ".zip"
                     ));
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download Started",
-                    Type = NotificationType.Information
-                });
+                //TODO: "Download Started"
+                DownloadStatusTextBox.Text = "Download Started";
             }
             catch (WebException ex)
             {
                 Corelib.Write(ex.ToString());
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download failed",
-                    Type = NotificationType.Error
-                });
+                //TODO: "Download failed"
+                DownloadStatusTextBox.Text = "Download failed";
             }
 
         }
 
         private DateTime _startedAt;
 
-        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            if (_startedAt == default(DateTime))
+            if (_startedAt == default)
             {
                 _startedAt = DateTime.Now;
             }
@@ -239,7 +232,7 @@ namespace GUI
 
         }
 
-        private void wc_DownloadFinished(object sender, EventArgs e)
+        private void Wc_DownloadFinished(object sender, EventArgs e)
         {
             Corelib.Write(Corelib.Downloading.ToString() + "finished downloading");
 
@@ -255,11 +248,9 @@ namespace GUI
             this.Dispatcher.Invoke(() =>
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
-                Notify.Show(new NotificationContent
-                {
-                    Title = "Download Finished",
-                    Type = NotificationType.Success
-                });
+                //TODO: "Download Finished"
+                DownloadStatusTextBox.Text = "Download Finished";
+
                 Download_button.IsEnabled = true;
                 UpdateImage();
             });
@@ -267,7 +258,10 @@ namespace GUI
 
         private void RunButtonClick(object sender, RoutedEventArgs s)
         {
-            Corelib.Current.Run();
+            if (Corelib.Current != null)
+            {
+                Corelib.Current.Run();
+            }
         }
 
         private void OpenRepoButtonClick(object sender, RoutedEventArgs s)
@@ -297,7 +291,7 @@ namespace GUI
 
         private void ImportRepository(object sender, RoutedEventArgs s)
         {
-            Import_Repo_window w = new Import_Repo_window();
+            Import_Repo_window w = new();
             w.Closing += Repo_window_Closing;
             w.Show();
         }
@@ -310,17 +304,20 @@ namespace GUI
 
         private void SettingsClick(object sender, RoutedEventArgs s)
         {
-            Settings w = new Settings();
+            Settings w = new();
             w.Show();
         }
 
         private void DeleteClicked(object sender, RoutedEventArgs s)
         {
-            if (Corelib.Current.IsInstalled)
+            if (Corelib.Current != null && Corelib.Current.IsInstalled)
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
                 string Shortcut = Corelib.StartFolder + Corelib.Current.Name + ".lnk";
-                File.Delete(Shortcut);
+                if (File.Exists(Shortcut))
+                {
+                    File.Delete(Shortcut);
+                }
                 Directory.Delete(Path.Combine(Corelib.AppsFolder, Corelib.Current.JName), true);
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
                 Corelib.Current.IsInstalled = false;
@@ -330,7 +327,7 @@ namespace GUI
 
         private void CreatePButton_Click(object sender, RoutedEventArgs e)
         {
-            CreatePakage p = new CreatePakage();
+            CreatePakage p = new();
             p.Closed += P_Closed;
             p.Show();
         }
@@ -347,7 +344,7 @@ namespace GUI
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
-            CreatePakage p = new CreatePakage();
+            CreatePakage p = new();
             p.Loaded += p.P_Loaded;
             p.Closed += P_Closed;
             p.Show();
@@ -355,7 +352,7 @@ namespace GUI
 
         private void HelpBtn_Click(object sender, RoutedEventArgs e)
         {
-            Help h = new Help();
+            Help h = new();
             h.Show();
         }
 
@@ -391,11 +388,8 @@ namespace GUI
                 }
             }
             Corelib.ExportList();
-            Notify.Show(new NotificationContent
-            {
-                Title = "Import Finished",
-                Type = NotificationType.Success
-            });
+            //TODO: "Import Finished"
+            DownloadStatusTextBox.Text = "Import Finished";
         }
 
         private void Remake_Shortcut_Btn_Click(object sender, RoutedEventArgs e)
@@ -412,12 +406,7 @@ namespace GUI
                 }
                 catch (Exception ex)
                 {
-                    Notify.Show(new NotificationContent
-                    {
-                        Title = ex.ToString(),
-                        Message = ex.Message,
-                        Type = NotificationType.Error
-                    });
+                    Corelib.Write(ex.Message);
                 }
                 
             }
