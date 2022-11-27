@@ -11,7 +11,7 @@ namespace Mstore_Core_lib
 	{
 		public readonly static string StartFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Programs/Mstore/");
 		public readonly static string UserDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-		public readonly static string MstorePath = Path.Combine(UserDir, "Mstore/");
+		public readonly static string MstorePath = Path.Combine(UserDir, ".Mstore/");
 		public readonly static string LogFile = Path.Combine(MstorePath, "Log.txt");
 		public readonly static string AppsFolder = Path.Combine(MstorePath, "Apps/");
 		public readonly static string PakagesFolder = Path.Combine(MstorePath, "Pakages/");
@@ -23,6 +23,7 @@ namespace Mstore_Core_lib
 
 		public static Pakage Downloading;
 
+		/// creates all the folders needed by Mstore
 		public static void Setup()
 		{
 			string[] Dirs = { MstorePath, AppsFolder, PakagesFolder, StartFolder, DownloadsFolder };
@@ -46,7 +47,7 @@ namespace Mstore_Core_lib
 
 		public static void Import()
 		{
-			//This caused a problem, so I am removing it here
+			//Removes all nameless files that might be imported
 			string[] badfile =
 			{
 				Path.Combine(PakagesFolder,".json"),
@@ -111,7 +112,7 @@ namespace Mstore_Core_lib
 				throw new Exception(e.ToString());
 			}
 		}
-
+		//writes to log
 		public static void Write(string t)
 		{
 			DateTime dateToDisplay = new();
@@ -123,12 +124,12 @@ namespace Mstore_Core_lib
 		{
 			foreach (string f in Directory.GetFiles(DownloadsFolder))
 			{
-				Write(f);
+				Write("Deleting downloads file: " + f);
 				File.Delete(f);
 			}
 			foreach (string d in Directory.GetDirectories(DownloadsFolder))
 			{
-				Write(d);
+				Write("Deleting downloads Folder: " + d);
 				Directory.Delete(d, true);
 			}
 		}

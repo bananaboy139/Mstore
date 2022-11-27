@@ -91,9 +91,12 @@ namespace GUI
         }
         public void UpdateUI()
         {
-            Description_textbox.Text = Corelib.Current.Description;
-            Current_Name_Textbox.Text = Corelib.Current.Name;
-            UpdateImage();
+            if (Corelib.Current != null)
+            {
+                Description_textbox.Text = Corelib.Current.Description;
+                Current_Name_Textbox.Text = Corelib.Current.Name;
+                UpdateImage();
+            }
         }
 
         public void UpdateImage()
@@ -125,10 +128,9 @@ namespace GUI
 
         private Button DownloadingBtn;
 
-
         private async void DownloadButtonClick(object sender, RoutedEventArgs s)
         {
-            if (!Corelib.Current.IsInstalled)
+            if (Corelib.Current != null && !Corelib.Current.IsInstalled)
             {
                 Download_button.IsEnabled = false;
                 Corelib.Downloading = Corelib.Current;
@@ -256,7 +258,10 @@ namespace GUI
 
         private void RunButtonClick(object sender, RoutedEventArgs s)
         {
-            Corelib.Current.Run();
+            if (Corelib.Current != null)
+            {
+                Corelib.Current.Run();
+            }
         }
 
         private void OpenRepoButtonClick(object sender, RoutedEventArgs s)
@@ -305,11 +310,14 @@ namespace GUI
 
         private void DeleteClicked(object sender, RoutedEventArgs s)
         {
-            if (Corelib.Current.IsInstalled)
+            if (Corelib.Current != null && Corelib.Current.IsInstalled)
             {
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.Paused;
                 string Shortcut = Corelib.StartFolder + Corelib.Current.Name + ".lnk";
-                File.Delete(Shortcut);
+                if (File.Exists(Shortcut))
+                {
+                    File.Delete(Shortcut);
+                }
                 Directory.Delete(Path.Combine(Corelib.AppsFolder, Corelib.Current.JName), true);
                 TaskBarItemInfoMainWindow.ProgressState = TaskbarItemProgressState.None;
                 Corelib.Current.IsInstalled = false;
